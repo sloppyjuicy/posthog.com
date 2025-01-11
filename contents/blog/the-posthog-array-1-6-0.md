@@ -5,9 +5,13 @@ rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-categories: ["Release notes", "Product updates"]
-featuredImage: ../images/blog/array/default.png
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/array/default.png
 featuredImageType: standard
+category: PostHog news
+tags:
+  - Product updates
+  - Release notes
 ---
 
 One of the most fun weeks we've had so far with our UX - resizable and touch-enabled dashboards with a new display mode, Microsoft Teams support, and paths for events. Plus, a ton of performance improvements.
@@ -18,7 +22,7 @@ Want to try this out and self hosting? [Update your PostHog](/docs/runbook/upgra
 
 ### [Awesome-er dashboards](https://github.com/PostHog/posthog/pull/753) with [resizing](https://github.com/PostHog/posthog/pull/746), including [for mobile](https://github.com/PostHog/posthog/pull/775)
 
-![Touch dashboards](../images/dashboards-moving.gif)
+![Touch dashboards](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/dashboards-moving.gif)
 
 This update is pretty fun.
 
@@ -26,7 +30,7 @@ It is now possible to rearrange dashboards, even if you're using PostHog on a mo
 
 Now you're able to adjust their colours (including black!) and even to enter 'presentation mode' to view your dashboard full screen - perfect if you want a dashboard up in the office:
 
-![Dashboard presentation mode](../images/presentation-mode.png)
+![Dashboard presentation mode](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/presentation-mode.png)
 
 Finally, your pinned dashboards will appear in the sidebar, so they're easier to get to.
 
@@ -40,7 +44,7 @@ This means you can set up an alert for any action that takes place in your app. 
 
 ### [Paths with events](https://github.com/PostHog/posthog/pull/692)
 
-![Paths with events](../images/paths-with-events.gif)
+![Paths with events](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/paths-with-events.gif)
 
 PostHog has a paths page that lets you see how traffic is flowing through your website or application.
 
@@ -76,6 +80,12 @@ Last week was a call for discussion, now there's some really good commentary on 
 
 * [Far future timeline](https://en.wikipedia.org/wiki/Timeline_of_the_far_future). This gave me a mild existential crisis until I got to what happens after universe heat death.
 * [Developer search engine](https://quickref.dev/). The lack of commercial focus here is pretty neat although I still wish someone would build a manually curated blog search engine as an open source project.
+
+## Share your feedback
+We'd love to hear anything you have to say about PostHog, good or bad. As a thank you, we'll share some awesome [PostHog merch](https://merch.posthog.com).
+
+Want to get involved? [Email us to schedule a 30 minute call](mailto:hey@posthog.com) with one of our teams to help us make PostHog even better!
+
 
 ## PostHog news
 

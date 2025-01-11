@@ -1,16 +1,22 @@
 import { MDXProvider } from '@mdx-js/react'
 import { FeatureSnapshot } from 'components/FeatureSnapshot'
+import { ProductScreenshot } from 'components/ProductScreenshot'
+import { ProductVideo } from 'components/ProductVideo'
+import Link from 'components/Link'
+import { PrivateLink } from 'components/PrivateLink'
 import { Hero } from 'components/Hero'
 import { Check, Close } from 'components/Icons/Icons'
 import Layout from 'components/Layout'
-import Link from 'components/Link'
 import { Section } from 'components/Section'
 import { SEO } from 'components/seo'
+import TutorialsSlider from 'components/TutorialsSlider'
 import { graphql } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
 import React from 'react'
 import { MdxCodeBlock } from '../components/CodeBlock'
 import { shortcodes } from '../mdxGlobalComponents'
+import { OverflowXSection } from '../components/OverflowXSection'
+import { Tweet } from 'components/Tweet'
 
 const articleWidth = {
     lg: 'max-w-screen-2xl',
@@ -24,25 +30,33 @@ const A = (props) => <Link {...props} className="text-red hover:text-red font-se
 export default function Plain({ data }) {
     const { pageData } = data
     const { body, excerpt } = pageData
-    const { title, featuredImage, description, showTitle, width = 'sm', noindex, images } = pageData?.frontmatter
+    const { title, featuredImage, showTitle, width = 'sm', noindex, images, isInFrame, seo } = pageData?.frontmatter
     const components = {
         pre: MdxCodeBlock,
         Hero,
         Section,
+        ProductScreenshot,
+        ProductVideo,
         FeatureSnapshot,
+        PrivateLink,
+        OverflowXSection,
         Check,
         Close,
         a: A,
+        TutorialsSlider,
         ...shortcodes,
     }
+
+    const Wrapper = isInFrame ? 'div' : Layout
+
     return (
-        <Layout>
+        <Wrapper className={isInFrame ? 'flex justify-center items-center h-screen' : undefined}>
             <SEO
-                title={title + ' - PostHog'}
-                description={description || excerpt}
+                title={seo?.metaTitle || title + ' - PostHog'}
+                description={seo?.metaDescription || excerpt}
                 article
                 image={featuredImage?.publicURL}
-                noindex={noindex}
+                noindex={isInFrame || noindex}
             />
             <article className={`mx-auto my-12 md:my-24 px-4 article-content ${articleWidth[width || 'sm']}`}>
                 {showTitle && <h1 className="text-center">{title}</h1>}
@@ -50,8 +64,7 @@ export default function Plain({ data }) {
                     <MDXRenderer images={images}>{body}</MDXRenderer>
                 </MDXProvider>
             </article>
-            <Section />
-        </Layout>
+        </Wrapper>
     )
 }
 
@@ -66,7 +79,6 @@ export const query = graphql`
             frontmatter {
                 title
                 showTitle
-                description
                 featuredImageType
                 featuredImage {
                     publicURL
@@ -78,6 +90,10 @@ export const query = graphql`
                 }
                 width
                 noindex
+                isInFrame
+                seo {
+                    ...SEOFragment
+                }
             }
         }
     }

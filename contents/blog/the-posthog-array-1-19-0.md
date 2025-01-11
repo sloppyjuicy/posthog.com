@@ -5,9 +5,13 @@ rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-categories: ["Release notes", "Product updates"]
-featuredImage: ../images/blog/array/default.png
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/array/default.png
 featuredImageType: standard
+category: PostHog news
+tags:
+  - Product updates
+  - Release notes
 ---
 
 This new release is a great mix between old and new, with significant improvements to both our newer features, as well as our core analytics stack. 
@@ -20,7 +24,7 @@ Once again, we were heavily driven by feedback, having done a bunch of calls wit
 
 ### [Scheduled Apps and Editor](https://github.com/PostHog/posthog/pull/2743)
 
-![App Editor Screenshot](../images/blog/array/plugin-editor.png)
+![App Editor Screenshot](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/blog/array/plugin-editor.png)
 
 We now support scheduled apps that run periodically on a specified time cycle (e.g. minute, hour, day), as well as have a built-in code editor for apps right into the PostHog UI.
 
@@ -51,7 +55,7 @@ You can learn more about scheduled apps on the [PR that created them](https://gi
 
 ### [Lifecycle Analysis](https://github.com/PostHog/posthog/pull/2460)
 
-![Lifecycle Screenshot](../images/blog/array/lifecycle.png)
+![Lifecycle Screenshot](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/blog/array/lifecycle.png)
 
 Our 'Trends' tab just got an awesome new feature: lifecycle graphs!
 
@@ -61,7 +65,7 @@ To use it, select 'Shown As' -> 'Lifecycle' when in the 'Trends' tab.
 
 ### [New Session Recording Compression Scheme](https://github.com/PostHog/posthog/pull/2578)
 
-![Gzip Session Recording Screenshot](../images/blog/array/session-recording-gzip.png)
+![Gzip Session Recording Screenshot](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/blog/array/session-recording-gzip.png)
 
 See the image above? That's our event processing time before and after the new compression scheme!
 
@@ -74,7 +78,7 @@ Also, while on the topic of session recording, have you been keeping up with the
 
 ### [New Actions UX](https://github.com/PostHog/posthog/pull/2615)
 
-![New Actions UX Screenshot](../images/blog/array/actions-ux.png)
+![New Actions UX Screenshot](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/blog/array/actions-ux.png)
 
 This might not be news to all of you, since we have been experimenting with our actions UX using [feature flags](/docs/user-guides/feature-flags). However, we're now rolling out a new UX for creating actions to all PostHog users, so try it out let us know what you think!
 
@@ -83,13 +87,11 @@ This might not be news to all of you, since we have been experimenting with our 
 
 In addition to the average, sum, maximum, and minimum operations available to numerical properties in trends, we now also support median, and 90th, 95th, and 99th percentiles.
 
-### [User Interviews](https://calendly.com/posthog-feedback)
+## Share your feedback
+We'd love to hear anything you have to say about PostHog, good or bad. As a thank you, we'll share some awesome [PostHog merch](https://merch.posthog.com).
 
-We’re working hard to improve PostHog and would love to talk to you about your experience with the product. 
+Want to get involved? [Email us to schedule a 30 minute call](mailto:hey@posthog.com) with one of our teams to help us make PostHog even better!
 
-If you're interested in helping us out, you can schedule a quick 30-min call with us [on Calendly](https://calendly.com/posthog-feedback). 
-
-Oh, and we're giving away some awesome [PostHog merch](https://merch.posthog.com) as a thank you!
 
 ## Favorite Issue
 
@@ -100,6 +102,11 @@ Our session recording feature is getting better by the day! The latest improveme
 ## PostHog News
 
 Eltje has joined us to lead our efforts on the People & Talent front, bringing some much-needed experience as we grow our team. Like James, she was a professional cyclist before venturing into talent, and she is (unfortunately) a lover of pineapple on pizza.
+
+## Share your feedback
+We'd love to hear anything you have to say about PostHog, good or bad. As a thank you, we'll share some awesome [PostHog merch](https://merch.posthog.com).
+
+Want to get involved? [Email us to schedule a 30 minute call](mailto:hey@posthog.com) with one of our teams to help us make PostHog even better!
 
 ## Community Shoutouts
 

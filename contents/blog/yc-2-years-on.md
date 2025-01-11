@@ -1,14 +1,18 @@
 ---
 date: 2022-05-18
-title: Reflecting on YC, 2 years on
+title: 'Reflecting on YC, 2 years on'
 rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-categories: ["CEO diaries", "Inside PostHog", "Startups"]
-author: ["james-hawkins"]
-featuredImage: ../images/blog/posthog-ceo-diary-blog.png
+author:
+  - james-hawkins
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/posthog-ceo-diary-blog.png
 featuredImageType: full
+category: CEO diaries
+tags:
+  - Y Combinator
 ---
 
 [Y Combinator](https://www.ycombinator.com/) (YC) is seen as the world's best, and most prolific, three-month accelerator program. Upwards of 7,000 founders have taken part. Yet, no one really talks about what happens afterwards.
@@ -48,7 +52,7 @@ During the YC batch, every company is offered office hours - a 30 min slot whene
 
 The number of partners that can deliver relevant advice to scaling is lower (whereas the majority are world experts in finding product market fit) - scaling PostHog is quite different to scaling [supersonic air flight](https://boomsupersonic.com/). However, there *are* many visiting partners that will meet with you - they bring deeper operating experience.
 
-We've reduced how often we feel the need to do office hours a lot. During the batch, it was without exception every 2 weeks. Now, it's every couple of months. I think this is because post product market fit, it has felt easier to know what to build - we have many users to talk to and a clear [ideal customer profile](../handbook/strategy/overview#target-customers-for-2022). This means we usually know what we need to do, and simply doing the work as fast as we can.
+We've reduced how often we feel the need to do office hours a lot. During the batch, it was without exception every 2 weeks. Now, it's every couple of months. I think this is because post product market fit, it has felt easier to know what to build - we have many users to talk to and a clear [ideal customer profile](/newsletter/ideal-customer-profile-framework). This means we usually know what we need to do, and simply doing the work as fast as we can.
 
 However, when we do need help - it's pretty leveraged. For example, we recently confirmed that the majority of our growth comes from word of mouth. We wanted to talk to someone relevant about this - YC meant we could talk to Nicolas Dessaigne (Algolia cofounder) about how he'd approach the problem. This had a major impact on how we think about marketing. As a result, PostHog's marketing team objective is literally "accelerate word of mouth growth" today.
 
@@ -87,3 +91,5 @@ Most importantly, and as cheesy a conclusion as this is, it has changed how we s
 Being part of YC means we see people we know very well go on to build very successful companies, sharing what they're up to along the way. 
 
 Before YC, we felt like outsiders. After YC, we have the confidence to build a impactful product, and that's hugely valuable.
+
+<NewsletterForm />

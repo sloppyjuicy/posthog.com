@@ -27,7 +27,7 @@ export function FeatureAvailability({ availability }: FeatureAvailabilityProps):
     const diffOpenSource = typeof availability !== 'boolean' && 'openSource' in availability
 
     return (
-        <div className="border-t border-b border-dashed border-gray-accent-light dark:border-gray-accent-dark py-2 space-y-2 mt-2 mb-5 ">
+        <div className="border-t border-b border-solid border-gray-accent-light dark:border-gray-accent-dark py-2 space-y-2 mt-2 mb-5 ">
             <h6 className="text-primary/50 dark:text-primary-dark/50 !my-0 font-semibold text-base">
                 Where is this feature available?
             </h6>
@@ -43,7 +43,7 @@ export function FeatureAvailability({ availability }: FeatureAvailabilityProps):
                     <div>
                         <h5 className="flex items-center space-x-1.5 text-base !my-0">
                             <span>Open-source</span>
-                            <Tooltip title="Free and Open-source">
+                            <Tooltip content="Free and Open-source">
                                 <span>
                                     <InfoIcon className="w-4 h-4" />
                                 </span>
@@ -55,7 +55,7 @@ export function FeatureAvailability({ availability }: FeatureAvailabilityProps):
                 <div>
                     <h5 className="flex items-center space-x-1.5 text-base !my-0">
                         {diffOpenSource ? <span>Free</span> : <span>Free / Open-source</span>}
-                        <Tooltip title="PostHog Cloud (no credit card added) or FOSS">
+                        <Tooltip content="PostHog Cloud (no credit card added) or FOSS">
                             <span>
                                 <InfoIcon className="w-4 h-4" />
                             </span>
@@ -65,8 +65,8 @@ export function FeatureAvailability({ availability }: FeatureAvailabilityProps):
 
                 <div>
                     <h5 className="flex items-center space-x-1.5 text-base !my-0">
-                        <span>Self-serve</span>
-                        <Tooltip title="PostHog Cloud or Self-hosted (with credit card entered)">
+                        <span>Paid</span>
+                        <Tooltip content="Paid plans on PostHog Cloud (even if you're within the free tier for the month!)">
                             <span>
                                 <InfoIcon className="w-4 h-4" />
                             </span>
@@ -77,7 +77,7 @@ export function FeatureAvailability({ availability }: FeatureAvailabilityProps):
                 <div>
                     <h5 className="flex items-center space-x-1.5 text-base !my-0">
                         <span>Enterprise</span>
-                        <Tooltip title="PostHog Cloud or Self-hosted (with enterprise license)">
+                        <Tooltip content="Available on PostHog Cloud">
                             <span>
                                 <InfoIcon className="w-4 h-4" />
                             </span>

@@ -5,9 +5,13 @@ rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-categories: ["Release notes", "Product updates"]
-featuredImage: ../images/blog/array/default.png
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/array/default.png
 featuredImageType: standard
+category: PostHog news
+tags:
+  - Product updates
+  - Release notes
 ---
 
 Big new integration - PostHog now has a library for iOS!
@@ -18,7 +22,7 @@ Like what you see and self-hosting? [Update](/docs/runbook/upgrading-posthog) yo
 
 ### [PostHog iOS Library](/docs/integrate/client/ios)
 
-![](../images/04/ioslibrary1.gif)
+![](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/04/ioslibrary1.gif)
 
 You can now capture events in your iOS app and send them to PostHog. It automatically captures screen changes, and you can capture events as per usual
 
@@ -28,7 +32,7 @@ See our [iOS docs](/docs/integrate/client/ios) for how to install it on your app
 
 ### [Session Information](https://github.com/PostHog/posthog/pull/586)
 
-![](../images/04/Sessions.gif)
+![](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/04/Sessions.gif)
 
 You can now see exactly how much time people are spending on your app using sessions. There’s two modes: “Average session length”, which shows you how long sessions are and how many, and “distribution” which makes it super easy to spot whether sessions are uniformly distributed or whether there are outliers.
 
@@ -36,7 +40,7 @@ So far engagement metrics have focused on repeated actions or the volume of page
 
 ### [Filtering funnels by properties](https://github.com/PostHog/posthog/pull/628)
 
-![](../images/04/funnel-properties.gif)
+![](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/04/funnel-properties.gif)
 
 In addition to the [changes](https://github.com/PostHog/posthog/pull/506) last [week](https://github.com/PostHog/posthog/pull/561) on funnels so that they work like /trends you can also apply properties to your funnels to narrow down conversion metrics by anything you like.
 
@@ -61,6 +65,12 @@ We are very keen to see enhancements that are not part of our parity project, pl
 ### [Removing drf-yasg in favor of new docs website](https://github.com/PostHog/posthog/pull/596)
 
 Thank you to [SanketDG](https://github.com/sanketdg) for another pr that has helped ensure we fixed an [issue](https://github.com/PostHog/posthog/issues/574) raised by another user [maximmarakov](https://github.com/maximmarakov), it’s great to see the community fix ad hoc issues especially ones that might not directly be related to new features but ensuring our docs and instructions are up to date for other users.
+
+## Share your feedback
+We'd love to hear anything you have to say about PostHog, good or bad. As a thank you, we'll share some awesome [PostHog merch](https://merch.posthog.com).
+
+Want to get involved? [Email us to schedule a 30 minute call](mailto:hey@posthog.com) with one of our teams to help us make PostHog even better!
+
 
 ## Repo round up
 

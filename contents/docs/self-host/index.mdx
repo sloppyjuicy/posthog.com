@@ -5,34 +5,119 @@ sidebar: Docs
 showTitle: true
 ---
 
-import Disclaimer from './deploy/snippets/disclaimer'
+import Disclaimer from './\_snippets/disclaimer.mdx'
+import Sunset from '../self-host/\_snippets/sunset-disclaimer.mdx'
 
-The fastest and most reliable way to get started with PostHog is to use [PostHog Cloud](/docs/getting-started/cloud).
+> **This page covers our free, open-source Docker Compose deployment**, which is available under an MIT license [without guarantee](/docs/self-host/open-source/disclaimer). We continue to develop this version, but some premium features are only available on PostHog Cloud. We do not provide support for this "Hobby" version. 
+>
+> We [no longer offer support for paid self-hosted deployments](/blog/sunsetting-helm-support-posthog) and it is **no longer possible to buy licenses for self-hosted versions** - we instead recommend [migrating to PostHog Cloud](/docs/migrate/migrate-to-cloud). We offer both US and EU cloud regions for users who require data residency in either region.
 
-However, if you're a large company with the need to self-host or an engineer looking to use the open-source version in funky non-production way then you're in the right place!
+Our MIT-licensed Docker Compose deployment is best suited to internal tools, or evaluating features without vendor approval. It's also great for hobby projects which don't need advanced tools. For all other use cases, we recommend you use [PostHog Cloud](https://app.posthog.com/signup), which comes with a generous free tier.
 
-## PostHog Open-Source
+## Requirements
 
-<Disclaimer />
+-   You have deployed a Linux Ubuntu Virtual Machine.
+    -   You will need something equivalent to a Hetzner VM with 4 vCPU, 16GB RAM, and more than 30GB storage.
+-   You have set up an `A` record to connect a custom domain to your instance.
+    -   PostHog will automatically create an SSL certificate for your domain using LetsEncrypt
 
-The core of PostHog is open-source and always will be. You can self-host PostHog the open-source version in weird and wonderful ways such as running it in your basement to [monitor a home IoT system](https://gist.github.com/mariusandra/d8add5fc7f32bedeae45d9ce8eb75b35).
+New deployments of PostHog's paid open source product using Kubernetes are no longer supported.
 
-It is not possible to upgrade from PostHog Open-Source to Enterprise. [It is possible](/docs/migrate/migrate-between-cloud-and-self-hosted) to migrate your data from PostHog Open-Source to PostHog Cloud. 
+## Configuration
 
-For more information on deployment go to [open-source deployment](/docs/self-host/open-source/deployment).
+There are various ways to configure and personalize your PostHog instance to better suit your needs. In this section you will find all the information you need about settings and options you can configure to get what you need out of PostHog.
 
-## PostHog Enterprise
+-   [Environment variables](/docs/self-host/configure/environment-variables)
+-   [Upgrading PostHog](/docs/runbook/upgrading-posthog)
+-   [Securing PostHog](/docs/self-host/configure/securing-posthog)
+-   [Running behind proxy](/docs/self-host/configure/running-behind-proxy)
+-   [Email configuration](/docs/self-host/configure/email)
 
-Built for large companies with significant data isolation requirements. Requires a minimum contract of $5,000/month.
+## Setting up the stack
 
-Deployment options:
-- Deploy PostHog using Kubernetes on your own cloud
-    - This requires knowledge of Kubernetes and your engineering team's time for deployment and ongoing maintenance. We are happy to provide reasonable [support](/docs/self-host/enterprise/support).
-    - [Enterprise deployment](/docs/self-host/enterprise/overview) contains the information you need to get set up - we recommend you get a license key first.
-    - To get the license key [book a call](/book-a-demo) with our customer success team.
-- Work with a PostHog partner
-    - Several of our [partners](/partners) might be an option for more involved support. We can direct you on the call to who is best suited.
-- PostHog Cloud Enterprise
-    - For most customers, the Enterprise version of [PostHog Cloud](/pricing) will satisfy their compliance and privacy needs.
+To get started, all we need to do is run the following command, which will spin up a fresh PostHog deployment for us automatically!
 
-[Book a call](/book-a-demo) with our customer success team to get started with PostHog Enterprise.
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/posthog/posthog/HEAD/bin/deploy-hobby)"
+```
+
+You'll now be asked to provide the release tag you would like to use, as well as the domain you have connected to your instance.
+
+> **This release tag is the [DockerHub tag](https://hub.docker.com/r/posthog/posthog/tags)** and doesn't refer to the [sunsetted Helm chart releases](https://posthog.com/blog/sunsetting-helm-support-posthog)
+
+Once everything has been setup, you should see the following message:
+
+```
+We will need to wait ~5-10 minutes for things to settle down, migrations to finish, and TLS certs to be issued
+
+⏳ Waiting for PostHog web to boot (this will take a few minutes)
+```
+
+PostHog will wait here on a couple of tasks that need to be completed, which should only take a couple minutes.
+
+Once this is complete, you should be able to see your PostHog dashboard on the domain you provided!
+
+> If you notice this step taking longer than 10 minutes, it's best to cancel it with `Ctrl+C` and take a look at the [troubleshooting](#troubleshooting) section.
+
+### Customizing your deployment (optional)
+
+By default, the `docker-compose.yml` file that gets run comes with a series of default config values that should work for most deployments.
+If you need to customize anything, you can take a look at the [full list of environment variables](/docs/self-host/configure/environment-variables).
+After making any changes, simply restart the stack with `docker-compose`.
+
+Additionally, if you would like to run a different version of PostHog, you can change the tag for the web, worker, and plugins services.
+Check out [here](https://hub.docker.com/r/posthog/posthog) for a list of all available tags.
+
+## Troubleshooting
+
+If you have already run the one-step deployment command above and something went wrong, this section covers a number of steps you can take to debug issues.
+
+### Checking that all containers are running
+
+We can use `docker ps` to check that all of our services are running.
+
+```bash
+$ docker ps
+
+CONTAINER ID   IMAGE                               COMMAND     CREATED    STATUS    PORTS   NAMES
+21a2f62d6e50   posthog/posthog:release-1.39.1      ...         1m ago     Up 1m     ...     ...
+77face12d3e2   posthog/posthog:release-1.39.1      ...         1m ago     Up 1m     ...     ...
+3b4bc7394049   posthog/posthog:release-1.39.1      ...         1m ago     Up 1m     ...     ...
+03f393c7aa84   caddy:2.6.1                         ...         1m ago     Up 1m     ...     ...
+f1060c3d8d73   clickhouse/clickhouse-server:22.3   ...         1m ago     Up 1m     ...     ...
+7d2353a6bddf   bitnami/kafka:2.8.1-debian-10-r99   ...         1m ago     Up 1m     ...     ...
+72051397040e   zookeeper:3.7.0                     ...         1m ago     Up 1m     ...     ...
+ff42ccf14481   redis:6.2.7-alpine                  ...         1m ago     Up 1m     ...     ...
+402a0eef69ae   postgres:12-alpine                  ...         1m ago     Up 1m     ...     ...
+da0d115dd02e   minio/minio                         ...         1m ago     Up 1m     ...     ...
+```
+
+You should see all the same containers as above. If any containers aren't showing up or show that they've restarted recently, it's worth checking their logs to see what the issue is.
+
+### Checking the logs of each container
+
+We can use the following command to check the logs for each of our containers.
+
+```bash
+docker logs <container_name>
+```
+
+The best place to start looking is in the `web` container, which runs all the database migrations and will produce an error if any have failed.
+
+> Running into issues with deployment? Ask a [question here](/questions) or check out [our community page](/posts) to get help.
+
+## Upgrading
+
+To upgrade, you can run the `upgrade-hobby` script from the PostHog repo.
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/posthog/posthog/HEAD/bin/upgrade-hobby)"
+```
+
+> **Warning:** Before upgrading, make sure you have created back-ups of all your data!
+
+Our recommendation is to keep your PostHog deployment up-to-date. While we avoid breaking changes wherever possible we may sometimes deprecate or add features that require you to update to the latest version. You can track our latest updates in [the changelog](/changelog).
+
+## Migrating
+
+If your server is struggling, you can either increase your instance size or move to [PostHog Cloud](/docs/migrate/migrate-to-cloud#option-1-for-events-migration-self-hosted-migration-tool-alpha) for a hands-off experience

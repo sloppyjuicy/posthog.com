@@ -1,22 +1,28 @@
 ---
 date: 2021-08-06
-title: Building an open source data science publishing platform - An interview with Datapane CEO, Leo Anthias
+title: >-
+  Building an open source data science publishing platform - An interview with
+  Datapane CEO, Leo Anthias
 rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-author: ["mo-shehu"]
-featuredImage: ../images/blog/leo-anthias.png
+author:
+  - mo-shehu
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/leo-anthias.png
 featuredImageType: full
-categories: ["Open source", "Startups"]
+category: Startups
+tags:
+  - Open source
 ---
 _(Welcome to another episode of PostHog's Community Conversations where we chat to our contributors and users.)_
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/dL-GaQlA6bo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/dL-GaQlA6bo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 Unlike most tech founders, Leo Anthias didn’t study computer science at university. Instead, he took Persian History and Modern American Drama after a chance encounter with a professor who made medieval history fascinating. Despite his non-tech academic background, however, Leo has been coding for years, from early roles as CTO of Kivo, a YC-backed document collaboration start-up, to his current job as CEO and co-founder of Datapane.
 
-A former YC alumnus, his fondest memory from that time is the absolute focus and discipline that was needed to perfect one’s product strategy, ideal customer profile, and marketing and distribution. His strongest productivity tip to date is to focus on optimizing one thing at a time, and this pairs well with his ability to perform well under pressure - especially when running against externally imposed client deadlines.
+A former YC alumnus, his fondest memory from that time is the absolute focus and discipline that was needed to perfect one’s product strategy, [ideal customer profile](/newsletter/ideal-customer-profile-framework), and marketing and distribution. His strongest productivity tip to date is to focus on optimizing one thing at a time, and this pairs well with his ability to perform well under pressure - especially when running against externally imposed client deadlines.
 
 > _"It's really nice to just focus on one thing. For the last two or three days, I've really only focused on our onboarding flows for guides and tutorials for new users. And being able to just focus on that one thing has meant that probably I've gotten a lot more done than if I tried to do that while at the same time running a hiring process, while at the same time having a fundraising process, whatever. Even though all of those things are of equal importance, it's really key to just pick one of them at a time."_ **- Leo Anthias**
 
@@ -58,4 +64,5 @@ Andy Grove’s treatise on Intel’s strategy and growth, “[Only The Paranoid 
 
 If he were starting his career all over again, he says he’d focus on just one metric and optimize for that in all his endeavors. In his words, this would have helped him moved much faster in his career and business pursuits. We agree.
 
-_Enjoyed this? Subscribe to our [newsletter](/newsletter) to hear more from us twice a month!_
+_Enjoyed this? Subscribe to our [newsletter](https://newsletter.posthog.com/subscribe) to hear more from us twice a month!_
+

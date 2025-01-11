@@ -1,5 +1,5 @@
 ---
-title: Jobs
+title: Posting a new job listing
 ---
 
 ## Creating a new job
@@ -16,8 +16,8 @@ You will now be on the settings page for the newly created job.
 ### Custom fields
 We use custom fields to connect various data to each job posting. Below is the description and purpose of each.
 
-#### Team
-Team is the only required custom field. The value selected determines pineapple preference, objectives, mission, team lead, and which team members appear in the sidebar.
+#### Teams
+Teams is the only required custom field. The value(s) selected determines pineapple preference, objectives, mission, team lead, and which team members appear in the sidebar. If multiple teams are selected, all selected teams will appear as accordions in the sidebar, and the mission and objectives will be hidden.
 
 #### Timezone(s)
 Determines the preferred timezone for the position. If a value exists, it appears under the title.
@@ -29,7 +29,10 @@ Determines which repo to pull GitHub issues from if using the Issues custom fiel
 A comma-separated list of GitHub issue numbers relevant to the position. Queried at build-time and shown in the automatically created `Typical tasks` section.
 
 #### Salary
-Determines which role to use in the salary calculator. If no value is present, the job title is used. The calculator is not rendered if there is no matching role in the compensation calculator.
+Determines which role to use in the salary calculator. If no value is present, the job title is used. The calculator is not rendered if there is no matching role in the compensation calculator. If the role has been newly added to the compensation calculator, you'll need to add the role as an option to the [custom field](https://app.ashbyhq.com/admin/organizational-settings/custom-fields/job/6d49283a-1662-40aa-a6ee-002767eed7e2) in Ashby global admin settings. 
+
+#### Mission & objectives
+Determines whether the Mission & objectives section is shown on job listings
 
 ## Creating a new job posting
 
@@ -54,7 +57,7 @@ This section appears on all job postings. The data in this section can be update
 This section appears if any GitHub issues are added to the Issues custom field in Ashby. The custom field accepts a comma-separated list of GitHub issue numbers.
 
 #### Objectives
-This section appears if the team has a `mission.mdx` file in their team folder. [Example](https://github.com/PostHog/posthog.com/blob/master/contents/handbook/small-teams/app-east/mission.mdx) 
+This section appears if the team has a `mission.mdx` file in their team folder. [Example](https://github.com/PostHog/posthog.com/blob/master/contents/teams/product-analytics/mission.mdx) 
 
 #### Interview process
 This section appears on all job postings. The data in this section can be updated [here](https://github.com/PostHog/posthog.com/blob/master/src/components/Job/InterviewProcess.tsx). To add a custom interview process for a specific job, add a new key to the `roleInterviewProcess` variable and assign an array of [IInterviewProcess](https://github.com/PostHog/posthog.com/blob/1fb3d8351f8fcf6e18cd28e4ba22ff3d84fbb8fc/src/components/Job/InterviewProcess.tsx#L3) objects.
@@ -76,6 +79,37 @@ const roleInterviewProcess: Record<string, IInterviewProcess[]> = {
     ],
 }
 ```
+
+#### Custom description for the `/careers` page
+
+By default, we look for section headers (`<h2>`) in the job description to show in the summary that appears at the top of the [careers](/careers) page. We're sniffing for these subheaders (in this order):
+
+- "Who we're looking for"
+- "What you'll be doing"
+- "Requirements"
+
+If none of these are found, the job description will be blank.
+
+If your job description has more creative titles, you can add a short custom description that _only_ appears on this section of the website. (This will take priority over the subheaders listed above.) Add this in the role's settings in Ashby under the _Website description_ field. It requires html, but here's a template you can use:
+
+```
+<p><strong>Things you definitely won't be doing:</strong></p>
+<ul class="list-none p-0">
+<li>❌ backlog grooming (it always sounded gross anyway)</li>
+<li>❌ deciding what we build</li>
+<li>❌ shielding developers from users</li>
+<li>❌ project management/writing gazillions of tickets, RFCs, or PRDs</li>
+</ul>
+
+<p><strong>From you:</strong></p>
+<ul class="list-none p-0">
+<li>✅ SQL (any technical experience beyond this is a plus) - you must be able to be a self-serve PM, not relying on engineers to do analysis</li>
+<li>✅ very proactive/organized</li>
+<li>✅ collaborative</li>
+<li>✅ several years of experience as a PM talking to users/interviewing</li>
+</ul>
+```
+
 
 #### Apply
 This section appears on all job postings. The input fields here directly reflect the Application Form assigned to the job. The Application Form can be found on the job's settings page.

@@ -5,9 +5,13 @@ rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-categories: ["Release notes", "Product updates"]
-featuredImage: ../images/blog/array/default.png
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/array/default.png
 featuredImageType: standard
+category: PostHog news
+tags:
+  - Product updates
+  - Release notes
 ---
 
 
@@ -23,7 +27,7 @@ If you're self-hosting and want to upgrade for a better experience with nicer fe
 
 ### [PostHog is now available on Segment!](/blog/posthog-segment-integration)
 
-![](../images/posthog-segment.png)
+![](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/posthog-segment.png)
 
 We're happy to announce that PostHog is now available as a destination on Segment.
 
@@ -48,7 +52,7 @@ The integration used to be very basic - but now you can edit the message format 
 
 ### [Toolbars for all!](https://github.com/PostHog/posthog/pull/1326)
 
-![](../images/casts/inspect.gif)
+![](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/casts/inspect.gif)
 
 PostHog provides an irrefutably awesome toolbar. This lets you interact with your site or app and understand who is doing what. We've been in Beta for a few weeks, and spent a lot of time interviewing early users - thank you to everyone that took part!
 
@@ -114,6 +118,12 @@ We're testing out more scalable databases as we've had several teams start using
 On the team side, we welcomed Yakko as a Technical Writer and Developer - you'll see his work in our Docs, which are getting a serious overhaul. Paolo has also joined as our first Growth Engineer. We'll release a blog post explaining what he's up to!
 
 Lottie, our legendary designer, is moving to Senegal from Guildford in the UK. She'll start packing soon as she leaves this weekend.
+
+## Share your feedback
+We'd love to hear anything you have to say about PostHog, good or bad. As a thank you, we'll share some awesome [PostHog merch](https://merch.posthog.com).
+
+Want to get involved? [Email us to schedule a 30 minute call](mailto:hey@posthog.com) with one of our teams to help us make PostHog even better!
+
 
 ### Open roles
 

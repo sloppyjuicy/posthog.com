@@ -26,7 +26,7 @@ const Benefit = ({ image, title, details, className = '' }: BenefitProps) => {
     const classList = mergeClassList('p-8', className)
 
     return (
-        <div className={classList}>
+        <div className={`bg-accent dark:bg-accent-dark rounded-lg ${classList}`}>
             <div className="flex w-16 h-16">
                 <img src={image} alt={title} className="max-w-full block mb-0" />
             </div>
@@ -44,64 +44,63 @@ export const benefits = [
         title: 'Generous, transparent compensation & equity',
         details:
             "We hire the best talent and pay accordingly. We want everyone to feel invested in the company's success, so we offer equity with very employee-friendly terms.",
-        image: compensationImg,
+        image: 'https://res.cloudinary.com/dmukukwp6/image/upload/compensation_fdc7ef7957.svg',
     },
     {
         title: 'Unlimited vacation (with a minimum!)',
         details:
-            'Time away from work is important, so we’ve got unlimited time off (25 days per year minimum required!), sick leave and generous parental leave.',
-        image: ptoImg,
+            'Time away from work is important, so we’ve got unlimited time off (25 days per year minimum required!), plus sick leave and generous parental leave.',
+        image: 'https://res.cloudinary.com/dmukukwp6/image/upload/pto_f32814b5f6.svg',
     },
     {
         title: 'Two meeting-free days per week',
         details: 'Distracted by a calendar full of meetings? Not anymore.',
-        image: meetingFreeDaysImg,
+        image: 'https://res.cloudinary.com/dmukukwp6/image/upload/meeting_free_days_f0b2df2c8e.svg',
     },
     {
         title: 'Home office',
-        details: 'We provide all equipment needed have an ergonomic setup at home to be as productive as possible',
-        image: homeOfficeImg,
+        details: 'We provide all equipment needed have an ergonomic setup at home to be as productive as possible.',
+        image: 'https://res.cloudinary.com/dmukukwp6/image/upload/home_office_24afbd2c6a.svg',
     },
     {
-        title: 'Coworking Credit',
-        details: '$200/month budget towards co-working or café working',
-        image: coworkingCreditImg,
+        title: 'Coworking credit',
+        details: 'Generous budget towards co-working or café working.',
+        image: 'https://res.cloudinary.com/dmukukwp6/image/upload/coworking_credit_dbcb3dae46.svg',
     },
     {
-        title: 'Medical, Dental and Vision Insurance',
-        details: 'US & UK only',
-        image: insuranceImg,
+        title: 'Private health, dental, and vision insurance.',
+        details: 'US, Canada, & UK only',
+        image: 'https://res.cloudinary.com/dmukukwp6/image/upload/insurance_bf6481e929.svg',
     },
     {
         title: 'Training budget',
-        details: 'Free books and Audible subscription',
-        image: trainingBudgetImg,
+        details: 'Generous annual budget, plus free books and Audible subscription.',
+        image: 'https://res.cloudinary.com/dmukukwp6/image/upload/training_budget_8204ae2beb.svg',
     },
     {
         title: 'Access to our Hedge House',
         details: 'Work with co-workers (or by yourself) in Cambridge, UK and stay for free whenever you want.',
-        image: hackerHouseImg,
+        image: 'https://res.cloudinary.com/dmukukwp6/image/upload/hacker_house_e8a9eda3cb.svg',
     },
     {
         title: 'Carbon offsetting',
-        details: 'for work travel with Project Wren',
-        image: carbonOffsettingImg,
+        details: 'We protect the environment when we travel for work with Project Wren.',
+        image: 'https://res.cloudinary.com/dmukukwp6/image/upload/carbon_offsetting_9c9443e012.svg',
     },
     {
-        title: '401k/pension contributions',
-        details: 'We care about you, so investing in your future is important to us.',
-        image: retirementImg,
+        title: 'Pension & 401k contributions',
+        details: `Because one day you'll need it.`,
+        image: 'https://res.cloudinary.com/dmukukwp6/image/upload/retirement_b889169869.svg',
     },
     {
-        title: 'Spill mental health chat',
-        details: 'Sometimes it’s good to chat to someone if you aren’t feeling yourself.',
-        image: spillMentalHealthImg,
+        title: 'We hire and pay locally',
+        details: 'Get hired through a local subsidiary in most countries via Deel EOR.',
+        image: 'https://res.cloudinary.com/dmukukwp6/image/upload/spill_mental_health_9dc092b6c2.svg',
     },
     {
         title: 'Company offsites',
-        details:
-            'Each year we organise fully paid company offsites - last year we went to a villa in Portugal! Sometimes it’s good to speak face to face.',
-        image: companyOffsitesImg,
+        details: `We organize an annual all-hands offsite - this year it was Mykonos! Sometimes it’s good to speak face to face.`,
+        image: 'https://res.cloudinary.com/dmukukwp6/image/upload/company_offsites_ad0afba76b.svg',
     },
 ]
 
@@ -118,7 +117,7 @@ export const Benefits = () => {
                     />
                 </div>
 
-                <div className="benefits-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 grid-rows-auto border-gray-accent-light border border-dashed border-b-0 border-r-0 sm:border-r-1">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 grid-rows-auto gap-2">
                     {benefits.map((benefit) => (
                         <Benefit key={benefit.title} {...benefit} />
                     ))}

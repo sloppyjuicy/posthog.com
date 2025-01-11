@@ -5,11 +5,15 @@ rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-keywords:
-featuredImage: ../images/blog/posthog-blog-image.png
+keywords: null
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/posthog-blog-image.png
 featuredImageType: full
-author: ['avi-press']
-categories: ['Open source', 'Startups']
+author:
+  - avi-press
+category: General
+tags:
+  - Open source
 ---
 
 The famous line from Marc Andreesen that _“software is eating the world”_ has become part and parcel of modern technology’s canon and it continues to act as a rallying cry for the industry as a whole.
@@ -26,7 +30,7 @@ Research from Red Hat shows that [90%](https://www.redhat.com/rhdc/managed-files
 
 -   **Operating Systems** - For the majority of computing workloads in the enterprise space, Linux is the operating system of choice. From web servers, containers, remote development environments, and beyond, Linux has become one of the most important open-source projects to the modern enterprise.
 
--   **Databases** - Many large companies use open-source database solutions such as PostgreSQL, MySQL or [Clickhouse](/docs/migrate/migrate-to-another-self-hosted-instance) rather than choosing a proprietary solution. This gives them greater compatibility and flexibility as they integrate it into the rest of their technology stack.
+-   **Databases** - Many large companies use open-source database solutions such as PostgreSQL, MySQL or [Clickhouse](/handbook/engineering/clickhouse) rather than choosing a proprietary solution. This gives them greater compatibility and flexibility as they integrate it into the rest of their technology stack.
 
 -   **Analytics** - Open-source analytics solutions have also become very popular, giving enterprises full control over their data handling, hosting, and the like. Solutions like [PostHog](https://posthog.com/), which also includes an [open source session recording feature](/blog/best-open-source-session-replay-tools), have been revolutionary in giving companies the peace of mind to know that their data is never leaving the confines of the company itself.
 
@@ -44,7 +48,7 @@ Convincing enterprise clients to consider open-source solutions is often not an 
 
 This is not to say that open-source software doesn’t come with its own challenges for large businesses. When you are relying on the good nature of maintainers, [incentives between stakeholders can be misaligned](https://about.scarf.sh/post/package-registries-and-open-source) and things can go wrong.
 
-A [recent example](https://www.bleepingcomputer.com/news/security/dev-corrupts-npm-libs-colors-and-faker-breaking-thousands-of-apps/) of this can be seen where multiple popular npm packages were sabotaged by the developer who had [previously expressed frustration](http://web.archive.org/web/20210704022108/https://github.com/Marak/faker.js/issues/1046) with providing free support to large companies relying on his code. This story highlights that adopting any piece of technology involves an amount of risk, and businesses of all sizes must meticulously manage their risks to be successful.
+A [recent example](https://www.bleepingcomputer.com/news/security/dev-corrupts-npm-libs-colors-and-faker-breaking-thousands-of-apps/) of this can be seen where multiple popular npm packages were sabotaged by the developer who had [previously expressed frustration](http://web.archive.org/web/20210704022108/https://github.com/Marak/faker.js/issues/1046) with providing free support to large companies relying on his code. This story highlights that [adopting any piece of technology](/newsletter/choosing-technologies) involves an amount of risk, and businesses of all sizes must meticulously manage their risks to be successful.
 
 In order to ensure the long-term success of open-source by large businesses, we need tighter collaboration between open-source developers and the commercial end-users who rely on their software.
 
@@ -52,6 +56,4 @@ At [Scarf](https://about.scarf.sh/), we’ve been hard at work trying to help op
 
 If we can facilitate better communication and collaboration between the open-source community and the wide range of enterprise end-users, we can make the most of the immense potential that is there for the taking.
 
-> PostHog is an open source analytics platform you can host yourself. We help you build better products faster, without user data ever leaving your infrastructure.
-
-<ArrayCTA />
+<NewsletterForm />

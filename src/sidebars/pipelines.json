@@ -1,0 +1,62 @@
+[
+    {
+        "name": "CDP",
+        "url": "/cdp"
+    },
+    {
+        "name": "Variance",
+        "url": "/cdp/variance-connector"
+    },
+    {
+        "name": "Engage",
+        "url": "/cdp/engage-connector"
+    },
+    {
+        "name": "Customer.io",
+        "url": "/cdp/customer-io"
+    },
+    {
+        "name": "Downsampler",
+        "url": "/cdp/downsampling"
+    },
+    {
+        "name": "GeoIP Enricher",
+        "url": "/cdp/geoip-enrichment"
+    },
+    {
+        "name": "Hubspot",
+        "url": "/cdp/hubspot-connector"
+    },
+    {
+        "name": "Intercom",
+        "url": "/cdp/intercom"
+    },
+    {
+        "name": "Property Filter",
+        "url": "/cdp/property-filter"
+    },
+    {
+        "name": "Salesforce",
+        "url": "/cdp/salesforce-connector"
+    },
+    {
+        "name": "Schema Enforcer",
+        "url": "/cdp/schema-enforcer"
+    },
+    {
+        "name": "Sendgrid",
+        "url": "/cdp/sendgrid-connector"
+    },
+    {
+        "name": "Taxonomy Standardizer",
+        "url": "/cdp/taxonomy-standardizer"
+    },
+    {
+        "name": "Timestamp Parser",
+        "url": "/cdp/timestamp-parser"
+    },
+    {
+        "name": "User Agent Populator",
+        "url": "/cdp/user-agent-populator"
+    }
+]

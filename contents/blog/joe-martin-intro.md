@@ -5,13 +5,15 @@ rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-author: ["mo-shehu"]
-featuredImage: ../images/blog/joe-martin-intro.png
+author:
+  - mo-shehu
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/joe-martin-intro.png
 featuredImageType: full
-categories: ["Inside PostHog"]
+category: Inside PostHog
 ---
 
-Before joining PostHog, [Joe Martin](https://posthog.com/handbook/company/team#joe-martin-product-marketer) had never owned a Mac.
+Before joining PostHog, [Joe Martin](/community/profiles/59) had never owned a Mac.
 
 The former tech and games journalist previously did everything on PC, but joining PostHog’s [Apple-dominated](https://posthog.com/handbook/people/spending-money#laptop) culture came with a few… necessary adjustments.
 
@@ -45,4 +47,5 @@ Joe has found his match in PostHog: the company is well-known for [pivoting](htt
 
 Connect with Joe on [LinkedIn](https://www.linkedin.com/in/joemartinwords/) and [online](https://joemartin.work), and check out his current read on [Amazon](https://www.amazon.com/House-Leaves-Mark-Z-Danielewski/dp/0375703764).
 
-_Enjoyed this? Subscribe to our [newsletter](/newsletter) to hear more from us twice a month!_
+_Enjoyed this? Subscribe to our [newsletter](https://newsletter.posthog.com/subscribe) to hear more from us twice a month!_
+

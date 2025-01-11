@@ -2,16 +2,15 @@
     {
         "handle": "james-hawkins",
         "name": "James Hawkins",
-        "role": "Co-founder/CEO of PostHog",
-        "image": "../../static/images/authors/james-hawkins-posthog.png",
+        "role": "Co-founder/CEO",
         "link_type": "twitter",
-        "link_url": "https://twitter.com/james406"
+        "link_url": "https://twitter.com/james406",
+        "profile_id": 27732
     },
     {
         "handle": "mo-shehu",
         "name": "Mo Shehu",
-        "role": "Content Lead",
-        "image": "../../static/images/authors/mo-shehu-posthog.png",
+        "role": "Content Marketer",
         "link_type": "linkedin",
         "link_url": "https://linkedin.com/in/shehuphd"
     },
@@ -19,63 +18,70 @@
         "handle": "yakko-majuri",
         "name": "Yakko Majuri",
         "role": "Software Engineer",
-        "image": "../../static/images/authors/yakko-majuri-posthog.png",
         "link_type": "github",
-        "link_url": "https://github.com/yakkomajuri"
+        "link_url": "https://github.com/yakkomajuri",
+        "profile_id": 28694
+    },
+    {
+        "handle": "james-temperton",
+        "name": "James Temperton",
+        "role": "Content Marketer",
+        "link_type": "linkedin",
+        "link_url": "https://www.linkedin.com/in/jtemperton",
+        "profile_id": 29278
     },
     {
         "handle": "joe-martin",
         "name": "Joe Martin",
         "role": "Product Marketer",
-        "image": "../../static/images/authors/joe-martin-posthog.png",
         "link_type": "linkedin",
-        "link_url": "https://www.linkedin.com/in/joemartinwords"
+        "link_url": "https://www.linkedin.com/in/joemartinwords",
+        "profile_id": 29070
     },
     {
         "handle": "michael-matloka",
         "name": "Michael Matloka",
         "role": "Software Engineer",
-        "image": "../../static/images/authors/michael-matloka-posthog.png",
         "link_type": "linkedin",
-        "link_url": "https://www.linkedin.com/in/matlokam"
+        "link_url": "https://www.linkedin.com/in/matlokam",
+        "profile_id": 28847
     },
     {
         "handle": "paolodamico",
         "name": "Paolo D'Amico",
         "role": "Product",
-        "image": "../../static/images/authors/paolo-damico-posthog.png",
         "link_type": "github",
-        "link_url": "https://github.com/paolodamico"
+        "link_url": "https://github.com/paolodamico",
+        "profile_id": 27658
     },
     {
         "handle": "marcus-hyett",
         "name": "Marcus Hyett",
         "role": "VP Product",
-        "image": "../../static/images/authors/marcus-hyett-posthog.png",
         "link_type": "linkedin",
-        "link_url": "https://www.linkedin.com/in/marcus-hyett/"
+        "link_url": "https://www.linkedin.com/in/marcus-hyett/",
+        "profile_id": 27733
     },
     {
         "handle": "marius-andra",
         "name": "Marius Andra",
         "role": "Software Engineer",
-        "image": "../../static/images/authors/marius-andra-posthog.png",
         "link_type": "linkedin",
-        "link_url": "https://www.linkedin.com/in/mariusandra/"
+        "link_url": "https://www.linkedin.com/in/mariusandra/",
+        "profile_id": 30202
     },
     {
         "handle": "cory-watilo",
         "name": "Cory Watilo",
         "role": "Lead Designer",
-        "image": "../../static/images/authors/cory-watilo-posthog.png",
         "link_type": "linkedin",
-        "link_url": "https://www.linkedin.com/in/corywatilo/"
+        "link_url": "https://www.linkedin.com/in/corywatilo/",
+        "profile_id": 30200
     },
     {
         "handle": "leggetter",
         "name": "Phil Leggetter",
         "role": "Head of Developer Relations",
-        "image": "../../static/images/authors/phil-legetter-posthog.png",
         "link_type": "twitter",
         "link_url": "https://twitter.com/leggetter"
     },
@@ -83,15 +89,14 @@
         "handle": "lottie-coxon",
         "name": "Lottie Coxon",
         "role": "Graphic Designer",
-        "image": "../../static/images/authors/lottie-coxon-posthog.png",
         "link_type": "linkedin",
-        "link_url": "https://www.linkedin.com/in/charlotte-coxon/"
+        "link_url": "https://www.linkedin.com/in/charlotte-coxon/",
+        "profile_id": 27881
     },
     {
         "handle": "hanna-crombie",
         "name": "Hanna Crombie",
         "role": "Contributor",
-        "image": "../../static/images/authors/contributor-posthog.png",
         "link_type": "linkedin",
         "link_url": "https://www.linkedin.com/in/hannacrombie/"
     },
@@ -99,48 +104,47 @@
         "handle": "karl-aksel-puulmann",
         "name": "Karl-Aksel Puulmann",
         "role": "Software Engineer",
-        "image": "../../static/images/authors/karl-aksel-puulmann-posthog.png",
         "link_type": "linkedin",
-        "link_url": "https://www.linkedin.com/in/karlakselpuulmann/"
+        "link_url": "https://www.linkedin.com/in/karlakselpuulmann/",
+        "profile_id": 27710
     },
     {
         "handle": "james-greenhill",
         "name": "James Greenhill",
         "role": "Software Engineer",
-        "image": "../../static/images/authors/james-greenhill-posthog.png",
         "link_type": "twitter",
-        "link_url": "https://twitter.com/fuziontech"
+        "link_url": "https://twitter.com/fuziontech",
+        "profile_id": 30174
     },
     {
         "handle": "andy-vandervell",
         "name": "Andy Vandervell",
-        "role": "Content Marketer",
-        "image": "../../static/images/authors/andy-vandervell-posthog.png",
+        "role": "Marketing Lead",
         "link_type": "linkedin",
-        "link_url": "https://www.linkedin.com/in/andyvandervell/"
+        "link_url": "https://www.linkedin.com/in/andyvandervell/",
+        "profile_id": 30208
     },
     {
         "handle": "charles-cook",
         "name": "Charles Cook",
-        "role": "VP of Operations",
-        "image": "../../static/images/authors/charles-cook-posthog.png",
+        "role": "Generic Exec Person",
         "link_type": "linkedin",
-        "link_url": "https://www.linkedin.com/in/charlescook1/"
+        "link_url": "https://www.linkedin.com/in/charlescook1/",
+        "profile_id": 28625
     },
     {
         "handle": "eli-kinsey",
         "name": "Eli Kinsey",
         "role": "Front End Engineer",
-        "image": "../../static/images/authors/eli-kinsey-posthog.png",
         "link_type": "linkedin",
         "link_url": "https://www.linkedin.com/in/eli-kinsey/",
-        "slack_username": "eli"
+        "slack_username": "eli",
+        "profile_id": 28804
     },
     {
         "handle": "avi-press",
         "name": "Avi Press",
         "role": "Founder & CEO at Scarf",
-        "image": "../../static/images/authors/contributor-posthog.png",
         "link_type": "linkedin",
         "link_url": "https://www.linkedin.com/in/avi-press-4437a356/"
     },
@@ -148,55 +152,54 @@
         "handle": "neil-kakkar",
         "name": "Neil Kakkar",
         "role": "Software Engineer",
-        "image": "../../static/images/authors/neil-posthog.png",
         "link_type": "twitter",
-        "link_url": "https://twitter.com/neilkakkar"
+        "link_url": "https://twitter.com/neilkakkar",
+        "profile_id": 28695
     },
     {
         "handle": "rick-marron",
         "name": "Rick Marron",
         "role": "Software Engineer",
-        "image": "../../static/images/authors/rick-posthog.png",
         "link_type": "twitter",
-        "link_url": "https://twitter.com/Rick_Marron"
+        "link_url": "https://twitter.com/Rick_Marron",
+        "profile_id": 27684
     },
     {
         "handle": "alex-kim",
         "name": "Alex Kim",
         "role": "Software Engineer",
-        "image": "../../static/images/authors/alex-kim-posthog.png",
         "link_type": "linkedin",
-        "link_url": "https://www.linkedin.com/in/alex-g-kim/"
+        "link_url": "https://www.linkedin.com/in/alex-g-kim/",
+        "profile_id": 27755
     },
     {
         "handle": "harry-waye",
         "name": "Harry Waye",
         "role": "Software Engineer",
-        "image": "../../static/images/authors/harry-waye-posthog.png",
         "link_type": "linkedin",
-        "link_url": "https://www.linkedin.com/in/harrywaye"
+        "link_url": "https://www.linkedin.com/in/harrywaye",
+        "profile_id": 28623
     },
     {
         "handle": "guido-iaquinti",
         "name": "Guido Iaquinti",
         "role": "Software Engineer",
-        "image": "../../static/images/authors/guido-iaquinti-posthog.png",
         "link_type": "twitter",
-        "link_url": "https://twitter.com/guidoiaquinti"
+        "link_url": "https://twitter.com/guidoiaquinti",
+        "profile_id": 27691
     },
     {
         "handle": "simon-fisher",
         "name": "Simon Fisher",
-        "role": "Customer Success Lead",
-        "image": "../../static/images/authors/simon-fisher.png",
+        "role": "Sales & CS Lead",
         "link_type": "linkedin",
-        "link_url": "https://www.linkedin.com/in/simfish85/"
+        "link_url": "https://www.linkedin.com/in/simfish85/",
+        "profile_id": 28895
     },
     {
         "handle": "colin-wren",
         "name": "Colin Wren",
         "role": "Founder, Reciprocal.dev",
-        "image": "../../static/images/authors/contributor-posthog.png",
         "link_type": "linkedin",
         "link_url": "https://www.linkedin.com/in/colinwren/"
     },
@@ -204,23 +207,22 @@
         "handle": "lukas-smith",
         "name": "Lukas Kahwe Smith",
         "role": "Contributor",
-        "image": "../../static/images/authors/contributor-posthog.png",
         "link_type": "linkedin",
-        "link_url": "https://www.linkedin.com/in/lsmith/"
+        "link_url": "https://www.linkedin.com/in/lsmith/",
+        "profile_id": 27752
     },
     {
         "handle": "tim-glaser",
         "name": "Tim Glaser",
-        "role": "Co-founder/CTO of PostHog",
-        "image": "../../static/images/authors/tim-glaser.png",
+        "role": "Co-founder/CTO",
         "link_type": "linkedin",
-        "link_url": "https://www.linkedin.com/in/timgl/"
+        "link_url": "https://www.linkedin.com/in/timgl/",
+        "profile_id": 27730
     },
     {
         "handle": "noah-brier",
         "name": "Noah Brier",
         "role": "Contributor",
-        "image": "../../static/images/authors/contributor-posthog.png",
         "link_type": "linkedin",
         "link_url": "https://www.linkedin.com/in/noahbrier/"
     },
@@ -228,7 +230,6 @@
         "handle": "kyle-galbraith",
         "name": "Kyle Galbraith",
         "role": "Co-founder/CEO of Depot",
-        "image": "../../static/images/authors/contributor-posthog.png",
         "link_type": "twitter",
         "link_url": "https://twitter.com/kylegalbraith"
     },
@@ -236,15 +237,21 @@
         "handle": "igor-kotua",
         "name": "Igor Kotua",
         "role": "Contributor",
-        "image": "../../static/images/authors/contributor-posthog.png",
         "link_type": "linkedin",
         "link_url": "https://www.linkedin.com/in/igorkotua/"
+    },
+    {
+        "handle": "manoel-aranda-neto",
+        "name": "Manoel Aranda Neto",
+        "role": "Mobile Engineer",
+        "link_type": "twitter",
+        "link_url": "https://twitter.com/marandaneto",
+        "profile_id": 30206
     },
     {
         "handle": "mathew-pregasen",
         "name": "Mathew Pregasen",
         "role": "Contributor",
-        "image": "../../static/images/authors/contributor-posthog.png",
         "link_type": "linkedin",
         "link_url": "https://www.linkedin.com/in/mathew-pregasen-9a993948/"
     },
@@ -252,7 +259,6 @@
         "handle": "jacob-gillespie",
         "name": "Jacob Gillespie",
         "role": "Co-founder/CTO of Depot",
-        "image": "../../static/images/authors/contributor-posthog.png",
         "link_type": "twitter",
         "link_url": "https://twitter.com/jacobwgillespie"
     },
@@ -260,15 +266,14 @@
         "handle": "grace-mckenzie",
         "name": "Grace McKenzie",
         "role": "Operations Manager",
-        "image": "../../static/images/authors/grace.jpg",
         "link_type": "LinkedIn",
-        "link_url": "https://www.linkedin.com/in/withgracetoo/"
+        "link_url": "https://www.linkedin.com/in/withgracetoo/",
+        "profile_id": 28624
     },
     {
         "handle": "patterns",
         "name": "Chris Stanley",
         "role": "Contributor",
-        "image": "../../static/images/authors/contributor-posthog.png",
         "link_type": "LinkedIn",
         "link_url": "https://www.linkedin.com/in/chris-stanley-29b20519/"
     },
@@ -276,16 +281,97 @@
         "handle": "ian-vanagas",
         "name": "Ian Vanagas",
         "role": "Technical Content Marketer",
-        "image": "../../static/images/authors/ian-vanagas-posthog.png",
         "link_type": "twitter",
-        "link_url": "https://twitter.com/IanVanagas"
+        "link_url": "https://twitter.com/IanVanagas",
+        "profile_id": 29296
+    },
+    {
+        "handle": "laudspeaker",
+        "name": "Abe Basu",
+        "role": "CEO of Laudspeaker",
+        "link_type": "twitter",
+        "link_url": "https://twitter.com/laudspeaker"
     },
     {
         "handle": "luke-harries",
         "name": "Luke Harries",
         "role": "Head of Product",
-        "image": "../../static/images/authors/luke.png",
         "link_type": "twitter",
-        "link_url": "https://twitter.com/lukeharries_"
+        "link_url": "https://twitter.com/lukeharries_",
+        "profile_id": 27856
+    },
+    {
+        "handle": "raquel-m-smith",
+        "name": "Raquel M Smith",
+        "role": "Growth Lead",
+        "link_type": "twitter",
+        "link_url": "https://twitter.com/raquel_m_smith",
+        "profile_id": 28693
+    },
+    {
+        "handle": "annika-schmid",
+        "name": "Annika Schmid",
+        "role": "Product Manager",
+        "link_type": "twitter",
+        "link_url": "https://twitter.com/annikaze_",
+        "profile_id": 28619
+    },
+    {
+        "handle": "lior-neu-ner",
+        "name": "Lior Neu-ner",
+        "role": "Technical Content Marketer",
+        "link_type": "twitter",
+        "link_url": "https://twitter.com/liornn",
+        "profile_id": 28754
+    },
+    {
+        "handle": "anna-debenham",
+        "name": "Anna Debenham",
+        "role": "Contributor",
+        "link_type": "LinkedIn",
+        "link_url": "https://www.linkedin.com/in/anna-debenham/"
+    },
+    {
+        "handle": "tomas-farias",
+        "name": "Tomás Farías Santana",
+        "role": "Software Engineer"
+    },
+    {
+        "handle": "leon-daly",
+        "name": "Leon Daly",
+        "role": "Technical Account Executive",
+        "link_type": "LinkedIn",
+        "link_url": "https://www.linkedin.com/in/leon-daly-b5529a180/",
+        "profile_id": 30833
+    },
+    {
+        "handle": "danilo-campos",
+        "name": "Danilo Campos",
+        "role": "Technical Content Marketer",
+        "link_type": "LinkedIn",
+        "link_url": "https://www.linkedin.com/in/danilo-campos/",
+        "profile_id": 31731
+    },
+    {
+        "handle": "paul-dambra",
+        "name": "Paul D'Ambra",
+        "role": "Software Engineer",
+        "profile_id": 30173
+    },
+    {
+        "handle": "bijan-boustani",
+        "name": "Bijan Boustani",
+        "role": "Technical Content Marketer",
+        "link_type": "twitter",
+        "link_url": "https://twitter.com/bijanbwb",
+        "profile_id": 31729
+    },
+    {
+        "handle": "daniel-bachhuber",
+        "name": "Daniel Bachhuber",
+        "role": "Product Engineer",
+        "link_type": "linkedin",
+        "link_url": "https://www.linkedin.com/in/danielbachhuber/",
+        "profile_id": 31992
     }
 ]

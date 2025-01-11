@@ -5,10 +5,14 @@ rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-author: [joe-martin]
-featuredImage: ../images/blog/posthog-engineering-blog.png
+author:
+  - joe-martin
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/posthog-engineering-blog.png
 featuredImageType: full
-categories: ["Product analytics"]
+category: General
+tags:
+  - Explainers
 ---
 
 Is autocapture bad? Has it ever been good? Earlier this year Amplitude posed these questions in a blogpost by Product Evangelist Adam Greco. Yes, he said, ‘[Auto-track is still bad](https://amplitude.com/blog/autotrack-is-bad)’ – and he went on to explain the four main reasons why.
@@ -76,3 +80,5 @@ As [one of my colleagues puts it](https://github.com/PostHog/posthog.com/issues/
 Again, this is why PostHog offers both — because different teams need different solutions. Autocapture is best for some, manual is best for others and, for most, a mixture of both is preferable. Ultimately, it’s only by understanding and adapting to these needs that anyone, including PostHog, can build the best product. 
 
 It’s ironic that Amplitude doesn’t realize that. 
+
+<NewsletterForm />

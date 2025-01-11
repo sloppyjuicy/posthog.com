@@ -5,11 +5,15 @@ rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-author: ["mo-shehu"]
-featuredImage: ../images/blog/customer-support-at-posthog/customer-support-at-posthog.jpg
-categories: ["Inside PostHog", "Open source"]
+author:
+  - mo-shehu
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/customer-support-at-posthog/customer-support-at-posthog.jpg
+category: Inside PostHog
+tags:
+  - Open source
+  - Guides
 ---
-<iframe width="560" height="315" src="https://www.youtube.com/embed/6giGcTSdkAc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Thinner docs, better products
 
@@ -30,6 +34,8 @@ We don’t offer any special customer support training for our engineers beyond 
 Naturally, it would be harder for a company that started with frictional systems to move to a model like ours. Inertia is a powerful force, and stripping a support team of its crutches - fancy chatbot algorithms, ticket queuing systems, a large team - in favor of a smaller, leaner, and more focused team can be disruptive. If you run a devtool company, we recommend starting with the support hero model right from the start and building on from there.
 
 ## Tools and platforms: Papercups, Slack, email, and social
+
+> Since this article was published we've launched a new way to get in touch. We now prefer to [handle bug reports, customer support and feedback via the app](https://app.posthog.com/home#supportModal) - but we've left the post below intact for posterity. 
 
 [Papercups](https://papercups.io) is a lightweight customer support tool that we chose for several reasons:
 It’s open-source, which aligns with our business philosophy.

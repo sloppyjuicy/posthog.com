@@ -1,14 +1,19 @@
 ---
 date: 2022-03-23
-title: "PostHog Launch Week I: A Universe of New Features"
+title: 'PostHog Launch Week I: A Universe of New Features'
 rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-featuredImage: ../images/blog/launch-week-teaser.jpeg
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/launch-week-teaser.jpeg
 featuredImageType: full
-author: ["andy-vandervell"]
-categories: ["Product updates", "Launch week"]
+author:
+  - andy-vandervell
+category: PostHog news
+tags:
+  - Launch week
+  - Product updates
 ---
 
 PostHog made huge strides in 2021. To name just a few landmarks, we: 
@@ -86,5 +91,6 @@ Today, Neil Kakkar shares three things we've learned about running effective A/B
 
 "So good, I wrote a 1,000 word Twitter thread about it" - A Twitter user, probably
 
-_Enjoyed this? Subscribe to our [newsletter](/newsletter) to hear more from us twice a month!_
+_Enjoyed this? Subscribe to our [newsletter](https://newsletter.posthog.com/subscribe) to hear more from us twice a month!_
+
 

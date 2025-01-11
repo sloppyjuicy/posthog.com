@@ -5,10 +5,14 @@ rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-author: ["yakko-majuri"]
-featuredImage: ../images/blog/running-content.png
+author:
+  - yakko-majuri
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/running-content.png
 featuredImageType: full
-categories: ["Engineering", "Product updates"]
+category: Engineering
+tags:
+  - Product updates
 ---
 
 > **Update (May 2022):** Plugins are now known as [apps](/apps)!
@@ -28,7 +32,7 @@ I used a combination of PostHog, Metabase, Python scripts, and Google Sheets to 
 
 ## Why we like plugins
 
-![](../images/blog/state-of-plugins/plugin-views.png)
+![](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/blog/state-of-plugins/plugin-views.png)
 
 Above: Pageviews for the Plugin Library (weekly).
 
@@ -46,7 +50,7 @@ As a result, it has been removed from all the graphs and tables you’ll be seei
 
 ## Plugins on PostHog Cloud
 
-![](../images/blog/state-of-plugins/cloud-usage.png)
+![](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/blog/state-of-plugins/cloud-usage.png)
 
 Above: Plugin usage on PostHog Cloud.
 
@@ -60,7 +64,7 @@ The most popular plugin on Cloud (excluding GeoIP) is the Timestamp Parser, whic
 
 ## Plugins on self-hosted PostHog deployments
 
-![](../images/blog/state-of-plugins/self-usage.png)
+![](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/blog/state-of-plugins/self-usage.png)
 
 Above: Plugin usage on self-hosted deployments.
 
@@ -84,7 +88,7 @@ BigQuery is by far the most popular export destination, across both self-hosted 
 
 ## The future of plugins
 
-![](../images/blog/state-of-plugins/plugin-time.png)
+![](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/blog/state-of-plugins/plugin-time.png)
 
 Above: Time spent running plugins on PostHog Cloud (weekly).
 
@@ -96,4 +100,4 @@ Yet, it can be hard to prioritize fixing these issues. Almost by definition any 
 
 In the short term I’m currently focusing on fixing known bugs as part of my current sprint, but the _only_ real way to prioritize extensibility is to look at it from a long-term perspective and I hope we can invest ongoing engineering efforts into PostHog in the future.
 
-_Enjoyed this? Subscribe to our [newsletter](https://posthog.com/newsletter) to hear more from us twice a month!_
+_Want to know more about what we're up to? [Subscribe to our new newsletter](https://newsletter.posthog.com/subscribe), which we send once every two weeks!_

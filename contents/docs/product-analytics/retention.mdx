@@ -1,0 +1,95 @@
+---
+title: Retention
+sidebar: Docs
+showTitle: true
+availability:
+  free: full
+  selfServe: full
+  enterprise: full
+---
+
+<iframe 
+    src="https://www.youtube-nocookie.com/embed/2jQco8hEvTI?start=658"
+    className="rounded shadow-xl"
+/>
+
+Retention is a type of insight that shows you how many users return during subsequent periods. 
+
+They're useful for answering questions like:
+
+- Are new sign ups coming back to use your product after trying it?
+- Is a new feature or user experience improving retention? 
+- What type of user retains the best?
+
+Retention insights are also a vital tool for evaluating whether you've [achieved product-market fit](/founders/product-market-fit-game).
+
+## Creating a retention insight
+
+Retention insights support both [events](/docs/data/events) and [actions](/docs/data/actions).
+
+When you create a retention insight, you're defining two things:
+
+1. A cohort event – an event or action that determines if the user is a part of a cohort.
+2. A retention event – an event or action that determines whether a users has been retained.
+
+It often, but not always, makes sense to use the same event or action for both.
+
+<ProductScreenshot
+    imageLight = {"https://res.cloudinary.com/dmukukwp6/image/upload/config_light_11286adf1f.png"} 
+    imageDark = {"https://res.cloudinary.com/dmukukwp6/image/upload/config_dark_e71c12764d.png"}
+    alt="Retention config" 
+    classes="rounded"
+/>
+
+In the example above, we used an action called 'Product Interactions' for both. We grouped users by 'Unique users' and chosen users who did the 'Product Interactions' action for the first time during a six-week period.
+
+You can also:
+
+- Analyze retention for groups of users, such as all users in the same organization, company, or account. This is useful if your customers are companies with many users, but not all of them are active. This [requires group analytics](/docs/product-analytics/group-analytics).
+
+- Define the retention period by any number of hours, days, weeks, or months. To analyze retention across a whole year, for example, you should configure your insight to say "in the last 12 months".
+
+- Filter your retention insights using filter groups, such as event properties (country, device, etc.), person properties (job title, company name, etc.), feature flags (users who have a flag enabled), and existing [cohorts](/docs/data/cohorts) (pre-defined groups of users).
+
+- Choose between **first time retention** and **recurring retention**. Recurring retention counts a user as part of a cohort if they performed the cohort event during that time period, irrespective of it was their first time or not. First time retention only counts a user as part of the cohort if it was their first time performing the cohort event.
+
+## Understanding retention insights
+
+Retention insights are visualized in two ways:
+
+1. A **retention graph**, where each cohorts retention is rendered in a comparable line graph.
+2. A **cohort retention table**, where the same data is shown in a table.
+
+<ProductScreenshot
+    imageLight = {"https://res.cloudinary.com/dmukukwp6/image/upload/retention_light_805120c74c.png"} 
+    imageDark = {"https://res.cloudinary.com/dmukukwp6/image/upload/retention_dark_c319006162.png"}
+    alt="Retention config" 
+    classes="rounded"
+/>
+
+By default, both show the percentage of users who retained in each cohort relative to 'Week 0'
+
+- **Column A** denotes the cohort. This retention insight is grouped by week, so it shows the date range of the six most recent weeks, and the seventh currently incomplete week. 
+
+- **Column B** shows the size of each individual cohort. As noted earlier, retention insights default to unique users, but they can also be grouped by unique organizations, companies, etc.
+
+- **Column C** is 'Week 0' – i.e. the week in which the cohort event or action first took place. This is always 100% because all users in that cohort must perform the event to be included. This would be 'Hour 0', 'Day 0', or 'Month 0' if you choose a different time period.
+
+- **Column D** is Week 2 – i.e. the second week after the cohort was created. In this example, 27.4% of the 'May 20 to May 26' cohort retained, or 372 users.
+
+When analyzing retention insights, remember that:
+
+- Users cannot exist in more than one cohort – i.e. a user in the 'May 20 to May 26' won't also appear in the 'Jun 3 to Jun 9' cohort.
+
+- Users can appear in more than one retention period – i.e. they could be counted in both 'Week 1' and 'Week 3', or all six weeks. This means, for example, that it's possible for a later period to have higher retention than an earlier period. This could suggest that users tend to return in a regular pattern – i.e. every few weeks or days – to perform a specific task.
+
+- Retention insights only show you whether users performed an action or event, not how often. For that, create a [stickiness insight](/docs/product-analytics/stickiness).
+
+##  Retention vs. Stickiness
+
+[Stickiness](/docs/product-analytics/stickiness) and retention insights can look very similar, but they tell you different things:
+
+-   **Retention** measures the percentage of users who came back and performed an event within a given period **at least once**
+-   **Stickiness** measures **how many** times within a period a user performed an event
+
+Retention is good for seeing how well you're doing at keeping users engaged overall. Stickiness is useful for seeing deeply users are engaging with your product and helps you identify the most engaged users.

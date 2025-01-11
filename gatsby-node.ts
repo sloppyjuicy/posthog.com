@@ -2,7 +2,7 @@ import path from 'path'
 import { GatsbyNode } from 'gatsby'
 
 export { createPages } from './gatsby/createPages'
-export { onCreateNode } from './gatsby/onCreateNode'
+export { onCreateNode, onPreInit } from './gatsby/onCreateNode'
 export { createSchemaCustomization } from './gatsby/createSchemaCustomization'
 export { sourceNodes } from './gatsby/sourceNodes'
 export { onPostBuild } from './gatsby/onPostBuild'
@@ -21,14 +21,13 @@ export const onCreatePage: GatsbyNode['onCreatePage'] = async ({ page, actions }
         page.matchPath = '/next-steps/*'
         createPage(page)
     }
-    if (page.path.match(/^\/question$/)) {
-        page.matchPath = '/question/*'
-        createPage(page)
-    }
 }
 
 export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({ stage, actions }) => {
     actions.setWebpackConfig({
+        cache: process.env.NODE_ENV === 'development' || {
+            compression: 'gzip',
+        },
         resolve: {
             extensions: ['.js', '.ts', '.tsx'],
             alias: {
@@ -38,6 +37,7 @@ export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({ sta
                 images: path.resolve(__dirname, 'src', 'images'),
                 components: path.resolve(__dirname, 'src', 'components'),
                 logic: path.resolve(__dirname, 'src', 'logic'),
+                hooks: path.resolve(__dirname, 'src', 'hooks'),
             },
         },
     })

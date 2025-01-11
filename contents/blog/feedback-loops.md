@@ -5,10 +5,12 @@ rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-author: ["neil-kakkar"]
-featuredImage: ../images/blog/posthog-engineering-blog.png
+author:
+  - neil-kakkar
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/posthog-engineering-blog.png
 featuredImageType: full
-categories: ["Engineering", "Inside PostHog", "Open source"]
+category: Engineering
 ---
 
 I recently wrote a blog post for my personal site about the <a target='_blank' rel="noopener" href='https://neilkakkar.com/How-I-Own-Projects-as-a-Software-Engineer.html'>lessons I'd learned from leading my first two projects as a Software Engineer at PostHog </a>. In it, I lay out a five-step approach for how I own projects.  
@@ -75,5 +77,5 @@ I go through all these examples to serve as an intuition pump: feedback loops do
 
 > PostHog is an open source analytics platform you can host yourself. We help you build better products faster, without user data ever leaving your infrastructure.
 
-<ArrayCTA />
+<NewsletterForm />
 

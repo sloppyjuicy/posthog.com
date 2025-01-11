@@ -1,11 +1,12 @@
+import CloudinaryImage from 'components/CloudinaryImage'
 import React from 'react'
 import { StaticImage } from 'gatsby-plugin-image'
-import CallToAction from 'components/MainNav/Submenus/CallToAction'
 import { Link } from 'gatsby'
-import NotProductIcons from 'components/NotProductIcons'
+import { BusinessModel, Compensation, Strategy } from 'components/NotProductIcons'
+import { CallToAction } from 'components/CallToAction'
 
 interface PopularPageProps {
-    icon: string
+    icon: JSX.Element
     label: string
     url: string
 }
@@ -13,14 +14,14 @@ interface PopularPageProps {
 const PopularPage = ({ icon, label, url }: PopularPageProps) => {
     return (
         <li
-            className="border-r border-dashed border-gray-accent-dark last:border-r-0 pr-1 last:pr-0 list-none
+            className="pr-1 last:pr-0 list-none
           [&:nth-child(1)>a>div]:bg-red
           [&:nth-child(2)>a>div]:bg-blue
           [&:nth-child(3)>a>div]:bg-yellow"
         >
             <Link
                 to={url}
-                className="text-white flex flex-col items-center hover:bg-white/10 rounded p-4 group relative
+                className="text-white hover:text-white flex flex-col items-center hover:bg-white/10 rounded p-4 group relative
                     active:top-[0.5px]
                     active:scale-[.98]"
             >
@@ -29,7 +30,7 @@ const PopularPage = ({ icon, label, url }: PopularPageProps) => {
                 
                 "
                 >
-                    <div className="w-8 h-8 box-border">{icon}</div>
+                    <div className="w-8 h-8 box-border text-white">{icon}</div>
                 </div>
                 <h4 className="text-center text-base leading-tight font-semibold">{label}</h4>
             </Link>
@@ -53,8 +54,8 @@ export const AboutTransparency = () => {
         <section id="transparency" className="bg-black pt-12 mdlg:pt-16 relative px-4 mdlg:px-8 mb-12">
             <div className="flex flex-col-reverse mdlg:flex-row mdlg:items-end gap-8 max-w-5xl mx-auto text-white">
                 <aside className="basis-[60%] flex flex-col relative h-full">
-                    <div className="border-2 border-white/50 border-solid px-8 py-6 max-w-sm">
-                        <div className="flex items-center justify-between border-b border-dashed border-gray-accent-light pb-3 mb-3">
+                    <div className="border-2 border-bg-light border-solid px-8 py-6 max-w-sm">
+                        <div className="flex items-center justify-between pb-3 mb-3 border-b-2 border-bg-light">
                             <h4 className="text-xl mb-0">Transparency</h4>
                             <div className="flex space-x-1">
                                 <Star />
@@ -68,8 +69,8 @@ export const AboutTransparency = () => {
                         <p className="font-bold text-sm mb-0">- As voted by employees</p>
                     </div>
 
-                    <StaticImage
-                        src="./images/xray.png"
+                    <CloudinaryImage
+                        src="https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/src/components/About/AboutTransparency/images/xray.png"
                         width={651}
                         height={289}
                         objectFit="contain"
@@ -84,24 +85,20 @@ export const AboutTransparency = () => {
                         <Link to="/roadmap">product roadmap</Link>.
                     </h4>
                     <p className="opacity-70">Here are some popular pages from our company handbook:</p>
-                    <ul className="p-0 m-0 mb-2 gap-x-1 grid grid-cols-3">
+                    <ul className="p-0 m-0 mb-4 gap-x-1 grid grid-cols-3">
                         <PopularPage
-                            icon={NotProductIcons.compensation}
+                            icon={<Compensation />}
                             label="Compensation calculator"
                             url="/handbook/people/compensation"
                         />
+                        <PopularPage icon={<Strategy />} label="Company strategy" url="/handbook/strategy/overview" />
                         <PopularPage
-                            icon={NotProductIcons.strategy}
-                            label="Company strategy"
-                            url="/handbook/strategy/overview"
-                        />
-                        <PopularPage
-                            icon={NotProductIcons.businessModel}
+                            icon={<BusinessModel />}
                             label="Business model"
                             url="/handbook/strategy/business-model"
                         />
                     </ul>
-                    <CallToAction to="/handbook/getting-started/start-here" type="secondary" className="!w-full">
+                    <CallToAction to="/handbook/" type="outline" className="!w-full">
                         Browse the handbook
                     </CallToAction>
                 </div>

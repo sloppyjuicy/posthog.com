@@ -1,17 +1,19 @@
 ---
 date: 2022-10-17
-title: "HogMail #14"
+title: 'HogMail #14'
 rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-author: ["andy-vandervell"]
-featuredImage: ../images/blog/hogmail.png
+author:
+  - andy-vandervell
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/hogmail.png
 featuredImageType: full
-categories: ["HogMail"]
+category: General
 ---
 
-> Welcome to HogMail, our newsletter featuring the best of the PostHog blog, tutorials, product guides, and curated articles on building great products and companies. We send it every two weeks. [Signup here](/newsletter) so you don't miss it.
+> Welcome to HogMail, our newsletter featuring the best of the PostHog blog, tutorials, product guides, and curated articles on building great products and companies. We send it every two weeks. [Signup here](https://newsletter.posthog.com/subscribe) so you don't miss it.
 
 ## #posthog-blog
 
@@ -59,4 +61,4 @@ categories: ["HogMail"]
 - [Pimp My Beeb (a BBC Micro inside a PC case)](https://github.com/dekuNukem/RGBeeb/blob/master/README.md)
 - [How To Download All of Wikipedia onto a USB Flash Drive](https://planetofthepaul.com/wikipedia-download-usb-flash/)
 
-> We send HogMail every two weeks. [Signup here](/newsletter) so you don't miss it.
+<NewsletterForm />

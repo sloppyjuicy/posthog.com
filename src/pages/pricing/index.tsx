@@ -1,22 +1,19 @@
-import Control from 'components/Pricing/Control'
 import React, { useEffect, useState } from 'react'
-import Test from 'components/Pricing/Test'
-import usePostHog from '../../hooks/usePostHog'
+import usePostHog from 'hooks/usePostHog'
+import { useLocation } from '@reach/router'
+import { pricingMenu } from '../../navs'
+import Layout from 'components/Layout'
+import PricingExperiment from 'components/Pricing/PricingExperiment'
 
-const PricingNew = () => {
+const PricingPage = (): JSX.Element => {
     const posthog = usePostHog()
-    const [loading, setLoading] = useState(true)
+    const { search } = useLocation()
 
-    const [featureFlagEnabled, setFeatureFlagEnabled] = useState(false)
-
-    useEffect(() => {
-        if (posthog && posthog.getFeatureFlag && posthog.getFeatureFlag('highlight-open-source') === 'test') {
-            setFeatureFlagEnabled(true)
-        }
-        setLoading(false)
-    }, [])
-
-    return loading ? null : featureFlagEnabled ? <Test /> : <Control />
+    return (
+        <Layout parent={pricingMenu}>
+            <PricingExperiment />
+        </Layout>
+    )
 }
 
-export default PricingNew
+export default PricingPage

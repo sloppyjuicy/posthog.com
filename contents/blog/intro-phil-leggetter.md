@@ -1,17 +1,17 @@
 ---
 date: 2021-07-21
-title: Introducing Phil Leggetter, our new head of Developer Relations
+title: 'Introducing Phil Leggetter, our new head of Developer Relations'
 rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-author: ["mo-shehu"]
-featuredImage: ../images/blog/intro-phil.png
+author:
+  - mo-shehu
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/intro-phil.png
 featuredImageType: full
-categories: ["Inside PostHog"]
+category: Inside PostHog
 ---
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/VKSPhPbhyRs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 We’re proud to announce a new hire; Phil Leggetter will head up Developer Relations at PostHog.
 
@@ -25,4 +25,5 @@ The highly organized father of three works out of his color-coordinated shed in 
 
 You can find Phil online on [GitHub](https://github.com/leggetter), [Twitter](https://twitter.com/leggetter) and [LinkedIn](https://www.linkedin.com/in/leggetter/), and his [website](https://leggetter.co.uk).
 
-_Enjoyed this? Subscribe to our [newsletter](/newsletter) to hear more from us twice a month!_
+_Enjoyed this? Subscribe to our [newsletter](https://newsletter.posthog.com/subscribe) to hear more from us twice a month!_
+

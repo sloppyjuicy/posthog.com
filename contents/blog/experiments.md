@@ -5,10 +5,16 @@ rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-author: ["neil-kakkar"]
-featuredImage: ../images/blog/experiments.jpeg
+author:
+  - neil-kakkar
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/experiments.jpeg
 featuredImageType: full
-categories: ["Product updates", "Launch week", "Guides"]
+category: Product growth
+tags:
+  - Launch week
+  - Guides
+  - Product updates
 ---
 
 We just launched our Experimentation suite, and there's a ton we learned about running successful experiments.
@@ -17,11 +23,11 @@ It was a no brainer product decision: Since you're already analysing your data i
 
 Experiments allow you to choose a target metric, choose specific people to run this experiment on, and set how long the experiment runs for.
 
-![PostHog - Experiment Creation](../images/blog/experimentation/experiment-creation.png)
+![PostHog - Experiment Creation](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/blog/experimentation/experiment-creation.png)
 
 Thanks to Feature Flags, you can then easily validate whether each variant looks good, launch your experiment, and wait for data to come in. We then run a Bayesian analysis on the data to give a probability for each variant being the best, a graph of how things are looking for each variant, and whether the results are statistically significant or not.
 
-![PostHog - Experiment Results](../images/blog/experimentation/experiment-results.png)
+![PostHog - Experiment Results](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/blog/experimentation/experiment-results.png)
 
 It's a powerful tool for building great products, but that's enough about how experiments work for now. If you're interested in the technical details, check out the [Experimentation user guide](/docs/user-guides/experimentation).  
 
@@ -107,8 +113,6 @@ To solve the Taking-action-without-enough-information problem, we made it clear 
 
 [^1]: If you're looking for how we calculate this, see the [user guide](/docs/user-guides/experimentation)
 
-That's all for this post, we'd love to have you start your own experiments and tell us what you learn. Feel free to open an issue in [our Github repo](https://github.com/PostHog/posthog), give us a shout in our [PostHog community Slack channel](/slack), or join us directly for a [call](https://calendly.com/posthog-feedback) with our Product & Engineering team if you have feedback to share.
+That's all for this post, we'd love to have you start your own experiments and tell us what you learn. Feel free to open an issue in [our Github repo](https://github.com/PostHog/posthog), join us directly for a [call](https://calendly.com/posthog-feedback) with our Product & Engineering team, or [submit a ticket](https://app.posthog.com/home#supportModal) if you have feedback to share.
 
-> PostHog is an open source analytics platform you can host yourself. We help you build better products faster, without user data ever leaving your infrastructure.
-
-<ArrayCTA />
+<NewsletterForm />

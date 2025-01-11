@@ -10,10 +10,28 @@ require('prismjs/components/prism-swift')
 require('prismjs/components/prism-dart')
 require('prismjs/components/prism-elixir')
 require('prismjs/components/prism-rust')
+require('prismjs/components/prism-kotlin')
+require('prismjs/components/prism-groovy')
 
 type LanguageMap = {
     [key: string]: {
-        language: Language | 'html' | 'xml' | 'shell' | 'php' | 'ruby' | 'swift' | 'dart' | 'elixir' | 'java' | 'rust'
+        language:
+            | Language
+            | 'html'
+            | 'xml'
+            | 'shell'
+            | 'php'
+            | 'ruby'
+            | 'swift'
+            | 'dart'
+            | 'elixir'
+            | 'java'
+            | 'rust'
+            | 'kotlin'
+            | 'groovy'
+            | 'vue'
+            | 'svelte'
+            | 'astro'
         label: React.ReactNode
     }
 }
@@ -22,6 +40,10 @@ const languageMap: LanguageMap = {
     js: {
         language: 'javascript',
         label: 'JavaScript',
+    },
+    'js-web': {
+        language: 'javascript',
+        label: 'Web',
     },
     ts: {
         language: 'typescript',
@@ -137,6 +159,22 @@ const languageMap: LanguageMap = {
         language: 'java',
         label: 'Android',
     },
+    kotlin: {
+        language: 'kotlin',
+        label: 'Kotlin',
+    },
+    android_kotlin: {
+        language: 'kotlin',
+        label: 'Android',
+    },
+    gradle_kotlin: {
+        language: 'kotlin',
+        label: 'Gradle',
+    },
+    gradle_groovy: {
+        language: 'groovy',
+        label: 'Gradle',
+    },
     objectivec: {
         language: 'objectivec',
         label: 'Objective-C',
@@ -165,9 +203,37 @@ const languageMap: LanguageMap = {
         language: 'objectivec',
         label: 'iOS',
     },
+    ios_swift: {
+        language: 'swift',
+        label: 'iOS',
+    },
     'react-native': {
         language: 'jsx',
         label: 'React Native',
+    },
+    react: {
+        language: 'jsx',
+        label: 'React',
+    },
+    vue: {
+        language: 'html',
+        label: 'Vue',
+    },
+    svelte: {
+        language: 'html',
+        label: 'Svelte',
+    },
+    astro: {
+        language: 'javascript',
+        label: 'Astro',
+    },
+    flutter: {
+        language: 'dart',
+        label: 'Flutter',
+    },
+    hog: {
+        language: 'rust',
+        label: 'Hog',
     },
 }
 

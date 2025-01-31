@@ -9,30 +9,48 @@ const React = require('react')
 
 import { initKea, wrapElement } from './kea'
 import HandbookLayout from './src/templates/Handbook'
-import Product from './src/templates/Product'
-import SqueakTopic from './src/templates/SqueakTopic'
 import Job from './src/templates/Job'
-
+import { UserProvider } from './src/hooks/useUser'
+import Posts from './src/components/Edition/Posts'
+import { Provider as ToastProvider } from './src/context/toast'
+import { ChatProvider } from './src/hooks/useChat'
+import Chat from './src/components/Chat'
 export const wrapPageElement = ({ element, props }) => {
     const slug = props.location.pathname.substring(1)
     initKea(true, props.location)
-    return wrapElement({
-        element:
-            props.custom404 || !props.data ? (
-                element
-            ) : /^handbook|^docs\/(?!api)|^manual/.test(slug) &&
-              !['docs/api/post-only-endpoints', 'docs/api/user'].includes(slug) ? (
-                <HandbookLayout {...props} />
-            ) : /^product\//.test(slug) ? (
-                <Product {...props} />
-            ) : /^questions\//.test(slug) ? (
-                <SqueakTopic {...props} />
-            ) : /^careers\//.test(slug) ? (
-                <Job {...props} />
-            ) : (
-                element
-            ),
-    })
+    return (
+        <UserProvider>
+            <ChatProvider>
+                {wrapElement({
+                    element:
+                        !/^posts\/new|^posts\/(.*)\/edit/.test(slug) &&
+                        (props.pageContext.post || /^posts|^changelog\/(.*?)\//.test(slug)) ? (
+                            <Posts {...props}>{element}</Posts>
+                        ) : props.custom404 || !props.data || props.pageContext.ignoreWrapper ? (
+                            element
+                        ) : /^handbook|^docs\/(?!api)|^manual/.test(slug) &&
+                          ![
+                              'docs/api/post-only-endpoints',
+                              'docs/api/user',
+                              'docs/integrations',
+                              'docs/product-analytics',
+                              'docs/session-replay',
+                              'docs/feature-flags',
+                              'docs/experiments',
+                              'docs/data',
+                          ].includes(slug) ? (
+                            <HandbookLayout {...props} />
+                        ) : /^session-replay|^product-analytics|^feature-flags|^experiments|^product-os/.test(slug) ? (
+                            <Product {...props} />
+                        ) : /^careers\//.test(slug) ? (
+                            <Job {...props} />
+                        ) : (
+                            element
+                        ),
+                })}
+            </ChatProvider>
+        </UserProvider>
+    )
 }
 
 export const onRenderBody = function ({ setPreBodyComponents }) {
@@ -53,12 +71,13 @@ export const onRenderBody = function ({ setPreBodyComponents }) {
     var slug = window.location.pathname.substring(1)
     var darkQuery = window.matchMedia('(prefers-color-scheme: dark)')
     darkQuery.addListener(function (e) {
-        window.__setPreferredTheme(e.matches ? 'dark' : 'light')
+        if (!localStorage.getItem('theme')) {
+            window.__setPreferredTheme(e.matches ? 'dark' : 'light')
+        }
     })
     try {
         preferredTheme =
-            (/^handbook|^docs|^blog|^integrations|^tutorials|^questions|^using-posthog|^manual/.test(slug) &&
-                (localStorage.getItem('theme') || (darkQuery.matches ? 'dark' : 'light'))) ||
+            (localStorage.getItem('theme') || (darkQuery.matches ? 'dark' : 'light')) ||
             'light'
     } catch (err) {}
     window.__setPreferredTheme = function (newTheme) {

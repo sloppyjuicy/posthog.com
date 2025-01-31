@@ -12,6 +12,13 @@ import React, { useEffect, useRef, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import PostLayout from 'components/PostLayout'
 import CommunityQuestions from 'components/CommunityQuestions'
+import { MDXProvider } from '@mdx-js/react'
+import { MDXRenderer } from 'gatsby-plugin-mdx'
+import { shortcodes } from '../mdxGlobalComponents'
+import { MdxCodeBlock } from 'components/CodeBlock'
+import { InlineCode } from 'components/InlineCode'
+import { docsMenu } from '../navs'
+import { CallToAction } from 'components/CallToAction'
 
 const mapVerbsColor = {
     get: 'blue',
@@ -40,7 +47,7 @@ function Endpoints({ paths }) {
                             {Object.keys(value).map((verb) => (
                                 <tr
                                     key={verb}
-                                    className="border-gray-accent-light dark:border-gray-accent-dark border-dashed border-b first:border-t-0 last:border-b-0"
+                                    className="border-gray-accent-light dark:border-gray-accent-dark border-solid border-b first:border-t-0 last:border-b-0"
                                 >
                                     <td>
                                         <code className={`method text-${mapVerbsColor[verb]}`}>
@@ -115,10 +122,7 @@ function Params({ params, objects, object, depth = 0 }) {
         <>
             <ul className="list-none pl-0">
                 {params.map((param, index) => (
-                    <li
-                        key={index}
-                        className="py-1 border-t border-dashed border-gray-accent-light dark:border-gray-accent-dark first:border-0"
-                    >
+                    <li key={index} className="py-1  first:border-0">
                         <div className="grid" style={{ gridTemplateColumns: '40% 60%' }}>
                             <div className="flex flex-col">
                                 <span className="font-code font-semibold text-[13px] leading-7">{param.name}</span>
@@ -199,8 +203,8 @@ function Params({ params, objects, object, depth = 0 }) {
                                         </div>
                                     </>
                                 )}
-                                <div className="text-sm">
-                                    <ReactMarkdown>{param.schema.description}</ReactMarkdown>
+                                <div className="text-sm pt-2">
+                                    <ReactMarkdown>{param.schema.description || param.description}</ReactMarkdown>
                                 </div>
                             </div>
                         </div>
@@ -236,14 +240,33 @@ function Parameters({ item, objects }) {
         <>
             {pathParams?.length > 0 && (
                 <div>
-                    <h4>Path Parameters</h4>
+                    <h4>Path parameters</h4>
                     <Params params={pathParams} objects={objects} />
                 </div>
             )}
             {queryParams?.length > 0 && (
                 <div>
-                    <h4>Query Parameters</h4>
+                    <h4>Query parameters</h4>
                     <Params params={queryParams} objects={objects} />
+                </div>
+            )}
+        </>
+    )
+}
+
+function Security({ item }) {
+    const personaApiKeyScopes = item.security?.[0]?.['PersonalAPIKeyAuth']
+
+    return (
+        <>
+            {personaApiKeyScopes?.length && (
+                <div>
+                    <h4>Required API key scopes</h4>
+                    <div className="flex items-center gap-2">
+                        {personaApiKeyScopes.map((x) => (
+                            <code key={x}>{x}</code>
+                        ))}
+                    </div>
                 </div>
             )}
         </>
@@ -259,7 +282,7 @@ function RequestBody({ item, objects }) {
 
     return (
         <div>
-            <h4>Request Parameters</h4>
+            <h4>Request parameters</h4>
             <Params
                 params={Object.entries(object.properties)
                     .map(([name, schema]) => {
@@ -309,7 +332,7 @@ function ResponseBody({ item, objects }) {
     )
 }
 
-function RequestExample({ item, objects, exampleLanguage, setExampleLanguage }) {
+function RequestExample({ name, item, objects, exampleLanguage, setExampleLanguage }) {
     let params = []
 
     if (item.requestBody) {
@@ -334,6 +357,11 @@ function RequestExample({ item, objects, exampleLanguage, setExampleLanguage }) 
     }
 
     const path: string = item.pathName.replaceAll('{', ':').replaceAll('}', '')
+    const object: string = name.toLowerCase().slice(0, -1)
+    const additionalPathParams =
+        item.parameters
+            ?.filter((param) => param.in === 'path')
+            .filter((param) => !['project_id', 'id'].includes(param.name)) || []
 
     const languages = [
         {
@@ -345,7 +373,7 @@ curl ${item.httpVerb === 'delete' ? ' -X DELETE ' : item.httpVerb == 'patch' ? '
                 item.httpVerb === 'post' ? "\n    -H 'Content-Type: application/json'" : ''
             }\\
     -H "Authorization: Bearer $POSTHOG_PERSONAL_API_KEY" \\
-    https://app.posthog.com${path}${params.map((item) => `\\\n\t-d ${item[0]}=${JSON.stringify(item[1])}`)}
+    <ph_app_host>${path}${params.map((item) => `\\\n\t-d ${item[0]}=${JSON.stringify(item[1])}`)}
             `,
         },
         {
@@ -355,8 +383,14 @@ curl ${item.httpVerb === 'delete' ? ' -X DELETE ' : item.httpVerb == 'patch' ? '
 api_key = "[your personal api key]"
 project_id = "[your project id]"
 response = requests.${item.httpVerb}(
-    "https://app.posthog.com${path}".format(
-        project_id=project_id${path.includes('{id}') ? ',\n\t\tid=response["id"]' : ''}
+    "<ph_app_host>${item.pathName.replace('{id}', `{${object}_id}`)}".format(
+        project_id=project_id${item.pathName.includes('{id}') ? `,\n\t\t${object}_id="the ${object} id"` : ''}${
+                additionalPathParams.length > 0
+                    ? additionalPathParams.map(
+                          (param) => `,\n\t\t${param.name}="[the ${param.name.replaceAll('_', ' ')}]"`
+                      )
+                    : ''
+            }
     ),
     headers={"Authorization": "Bearer {}".format(api_key)},${
         params.length > 0
@@ -385,7 +419,7 @@ response = requests.${item.httpVerb}(
                     <code className="min-w-0 break-words">
                         {path.split('/').map((token) => {
                             if (token === '') {
-                                return <wbr />
+                                return <wbr key={token} />
                             } else {
                                 return (
                                     <>
@@ -405,7 +439,7 @@ response = requests.${item.httpVerb}(
 
 function ResponseExample({ objects, objectKey }) {
     if (!objectKey) {
-        return 'No response'
+        return null
     }
 
     const response = JSON.stringify(
@@ -455,10 +489,18 @@ const pathDescription = (item) => {
 
 export default function ApiEndpoint({ data, pageContext: { menu, breadcrumb, breadcrumbBase, tableOfContents } }) {
     const {
-        components: { components },
+        apiComponents: { components: apiComponents },
+        allMdx,
     } = data
     const name = humanReadableName(data.data.name)
+    const nextURL = data.data.nextURL
     const paths = {}
+    const components = {
+        inlineCode: InlineCode,
+        pre: MdxCodeBlock,
+        MultiLanguage: MdxCodeBlock,
+        ...shortcodes,
+    }
     // Filter PUT as it's basically the same as PATCH
     const items = JSON.parse(data.data.items).filter((item) => item.httpVerb !== 'put')
     items.map((item) => {
@@ -467,7 +509,7 @@ export default function ApiEndpoint({ data, pageContext: { menu, breadcrumb, bre
         }
         paths[item.path][item.httpVerb] = item.operationSpec
     })
-    const objects = JSON.parse(components)
+    const objects = JSON.parse(apiComponents)
 
     const [exampleLanguage, setExampleLanguageState] = useState()
 
@@ -483,18 +525,19 @@ export default function ApiEndpoint({ data, pageContext: { menu, breadcrumb, bre
     }, [])
 
     return (
-        <Layout>
+        <Layout parent={docsMenu} activeInternalMenu={docsMenu.children.find(({ name }) => name === 'Product OS')}>
             <SEO title={`${name} API Reference - PostHog`} />
             <PostLayout
                 title={name}
                 questions={<CommunityQuestions />}
                 menu={menu}
                 tableOfContents={tableOfContents}
-                contentWidth="100%"
+                fullWidthContent={true}
+                hideSidebar
                 breadcrumb={[breadcrumbBase, ...(breadcrumb || [])]}
             >
                 <h2 className="!mt-0">{name}</h2>
-                <blockquote className="p-6 rounded bg-gray-accent-light dark:bg-gray-accent-dark">
+                <blockquote className="p-6 mb-4 rounded bg-gray-accent-light dark:bg-gray-accent-dark">
                     <p>
                         For instructions on how to authenticate to use this endpoint, see{' '}
                         <a className="text-red hover:text-red font-semibold" href="/docs/api/overview">
@@ -509,6 +552,7 @@ export default function ApiEndpoint({ data, pageContext: { menu, breadcrumb, bre
 
                 {items.map((item) => {
                     item = item.operationSpec
+                    const mdxNode = allMdx.nodes?.find((node) => node.slug.split('/').pop() === item.operationId)
 
                     return (
                         <div className="mt-8" key={item.operationId}>
@@ -518,20 +562,29 @@ export default function ApiEndpoint({ data, pageContext: { menu, breadcrumb, bre
                             >
                                 <div className="space-y-6">
                                     <h2>{generateName(item)}</h2>
+                                    {mdxNode?.body && (
+                                        <div className="article-content">
+                                            <MDXProvider components={components}>
+                                                <MDXRenderer>{mdxNode.body}</MDXRenderer>
+                                            </MDXProvider>
+                                        </div>
+                                    )}
                                     <ReactMarkdown>
                                         {!item.description || item.description === items[0].operationSpec?.description
                                             ? pathDescription(item)
                                             : item.description}
                                     </ReactMarkdown>
+                                    <Security item={item} objects={objects} />
                                     <Parameters item={item} objects={objects} />
 
                                     <RequestBody item={item} objects={objects} />
 
                                     <ResponseBody item={item} objects={objects} />
                                 </div>
-                                <div className="lg:sticky top-0">
+                                <div className="lg:sticky top-[108px]">
                                     <h4>Request</h4>
                                     <RequestExample
+                                        name={name}
                                         item={item}
                                         objects={objects}
                                         exampleLanguage={exampleLanguage}
@@ -539,36 +592,57 @@ export default function ApiEndpoint({ data, pageContext: { menu, breadcrumb, bre
                                     />
 
                                     <h4>Response</h4>
-                                    <ResponseExample
-                                        item={item}
-                                        objects={objects}
-                                        objectKey={
-                                            item.responses[Object.keys(item.responses)[0]]?.content?.[
-                                                'application/json'
-                                            ]?.schema['$ref']
-                                                ?.split('/')
-                                                .at(-1) ||
-                                            item.responses[Object.keys(item.responses)[0]]?.content?.[
-                                                'application/json'
-                                            ]?.schema['items']['$ref']
-                                                ?.split('/')
-                                                .at(-1)
-                                        }
-                                        exampleLanguage={exampleLanguage}
-                                        setExampleLanguage={setExampleLanguage}
-                                    />
+                                    {Object.keys(item.responses).map((statusCode) => {
+                                        const response = item.responses[statusCode]
+                                        return (
+                                            <div key={statusCode}>
+                                                <h5 className="text-sm font-semibold">
+                                                    <span className="bg-gray-accent-light dark:bg-gray-accent-dark inline-block px-[4px] py-[2px] text-sm rounded-sm">
+                                                        Status {statusCode}
+                                                    </span>{' '}
+                                                    {response.description}
+                                                </h5>
+                                                <ResponseExample
+                                                    item={item}
+                                                    objects={objects}
+                                                    objectKey={
+                                                        response.content?.['application/json']?.schema['$ref']
+                                                            ?.split('/')
+                                                            .at(-1) ||
+                                                        response.content?.['application/json']?.schema.items['$ref']
+                                                            ?.split('/')
+                                                            .at(-1)
+                                                    }
+                                                    exampleLanguage={exampleLanguage}
+                                                    setExampleLanguage={setExampleLanguage}
+                                                />
+                                            </div>
+                                        )
+                                    })}
                                 </div>
                             </div>
                         </div>
                     )
                 })}
+
+                {nextURL && (
+                    <CallToAction className="mt-8" to={nextURL}>
+                        Next page →
+                    </CallToAction>
+                )}
             </PostLayout>
         </Layout>
     )
 }
 
 export const query = graphql`
-    query ApiEndpoint($id: String!) {
+    query ApiEndpoint($id: String!, $regex: String!) {
+        allMdx(filter: { fields: { slug: { regex: $regex } } }) {
+            nodes {
+                slug
+                body
+            }
+        }
         data: apiEndpoint(id: { eq: $id }) {
             id
             internal {
@@ -580,8 +654,9 @@ export const query = graphql`
             items
             name
             url
+            nextURL
         }
-        components: apiComponents {
+        apiComponents: apiComponents {
             components
         }
     }

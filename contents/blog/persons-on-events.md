@@ -1,13 +1,16 @@
 ---
 date: 2022-11-02
-title: "How we’re improving performance by combining persons and events"
+title: How we’re improving performance by combining persons and events
 rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-categories: ['Release notes', 'Product updates']
-featuredImage: ../images/blog/posthog-engineering-blog.png
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/posthog-engineering-blog.png
 featuredImageType: full
+category: Engineering
+tags:
+  - Product updates
 ---
 
 In [a previous product update](/blog/the-posthog-array-1-39-0) we announced a beta for a substantial change to the way we handle persons and events on PostHog. Today, after gathering your feedback and seeing the improvements to query performance, we’re rolling this change out as part of the 1.41.0 update. It is available now for self-hosted users and PostHog Cloud users can expect to see the benefits soon as we roll it out.
@@ -32,6 +35,6 @@ While improving performance has been a major motivation for this change, this is
 
 Since launching in 2020, PostHog has been adopted by over 15,000 companies and has tracked over 50 billion events. In order to ensure that current and future users have the best possible experience, we need our systems to work as efficiently as possible. Adding persons on to events is an important part of this, along with supporting work such as [using materialized columns in ClickHouse](/blog/clickhouse-materialized-columns) to speed up queries even further.
 
-This said, even though the change is now being fully deployed, we’re still eager to hear [your feedback](/slack) and understand how we can keep making PostHog better. If you’d like more information about any of the changes above then we’re happy to [answer your questions](/questions).
+This said, even though the change is now being fully deployed, we’re still eager to hear [your feedback](https://app.posthog.com/home#supportModal) and understand how we can keep making PostHog better. If you’d like more information about any of the changes above then we’re happy to [answer your questions](/questions).
 
 <ArrayCTA />

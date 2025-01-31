@@ -5,15 +5,19 @@ rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-author: ["joe-martin"]
-featuredImage: ../images/blog/posthog-engineering-blog.png
+author:
+  - joe-martin
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/posthog-engineering-blog.png
 featuredImageType: full
-categories: ["Guides", "Using PostHog"]
+category: Using PostHog
+tags:
+  - Guides
 ---
 
-It can be tricky to know which events you should start tracking first if you haven’t used product analytics before. That’s why we recommend using PostHog’s autocapture. It's also why we give everyone their first million events for free, every month – so you can track many of the events you need out of the box and without worrying about cost. 
+It can be tricky to know which events you should start tracking first if you haven’t used product analytics before. That’s why we recommend using PostHog’s [autocapture](/docs/data/autocapture). It's also why we give everyone their first million events for free, every month – so you can track many of the events you need out of the box and without worrying about cost. 
 
-But what if you don’t want to use [autocapture](/docs/integrate/client/js#autocapture), or you’re struggling to separate the signal from the noise when it comes to which events to focus on? 
+But what if you don’t want to use autocapture, or you’re struggling to separate the signal from the noise when it comes to which events to focus on? 
 
 This guide outlines five of the most essential events we recommend tracking with PostHog. You may need to adjust them slightly so they map to your product – a free product won’t need to track purchases, for example – but these events should be common to most organizations. 
 
@@ -53,3 +57,5 @@ Most modern software products will enable users to share some part of it with th
 Referral events aren’t limited to just invitations and shares, however. Depending on your product you could consider product reviews as a replacement, or sharing content from your blog. If you have an incentivised referral program you can track referrals and acceptance separately in order to see if you need a better incentive.
 
 > 💡 **PostHog Tip:** Does this feel like a lot of events to track? Here's [how to create new events the easy way!](/tutorials/how-to-capture-events-the-easy-way)
+
+<NewsletterForm />

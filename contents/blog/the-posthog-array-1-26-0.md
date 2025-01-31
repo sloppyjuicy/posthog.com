@@ -5,9 +5,15 @@ rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-categories: ["Release notes", "Product updates"]
-featuredImage: ../images/blog/array/1-26-0.png
-excerpt: PostHog 1.26.0 is here! Read about our Series B raise, our new features, and find out who are the 4 new team members we've onboarded.
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/array/1-26-0.png
+excerpt: >-
+  PostHog 1.26.0 is here! Read about our Series B raise, our new features, and
+  find out who are the 4 new team members we've onboarded.
+category: PostHog news
+tags:
+  - Product updates
+  - Release notes
 ---
 
 PostHog 1.26.0 is here! 
@@ -98,7 +104,7 @@ Export data to Redshift, Postgres, and Salesforce, and leverage the PagerDuty ap
 
 We've redesigned and significantly improved the performance of the query builder in PostHog 'Trends'! 
 
-Let us know what you think about it on [Slack](/slack).
+[Let us know what you think about it](https://app.posthog.com/home#supportModal).
 
 ### [User Interviews](https://calendly.com/posthog-feedback)
 
@@ -158,6 +164,10 @@ If you'd love to help us build PostHog, we're currently hiring for the following
 
 Check out our [Careers page](https://posthog.com/careers) for more info.
 
+## Share your feedback
+We'd love to hear anything you have to say about PostHog, good or bad. As a thank you, we'll share some awesome [PostHog merch](https://merch.posthog.com).
+
+Want to get involved? [Email us to schedule a 30 minute call](mailto:hey@posthog.com) with one of our teams to help us make PostHog even better!
 
 ## Bug Fixes and Performance Improvements
 
@@ -172,7 +182,7 @@ In addition to the highlights listed above, we also merged a bunch of PRs improv
 
 <hr/>
 
-Follow us on [Twitter](https://twitter.com/PostHog) or [LinkedIn](https://linkedin.com/company/posthog), and subscribe to our [newsletter](https://posthog.com/newsletter) for more posts on startups, growth, and analytics.
+_Enjoyed this? Subscribe to our [newsletter](https://newsletter.posthog.com/subscribe) to hear more from us twice a month!_
 
 <ArrayCTA />
 

@@ -1,39 +1,44 @@
-import { replacePath, flattenMenu } from './utils'
 import { GatsbyNode } from 'gatsby'
+import fetch from 'node-fetch'
 import path from 'path'
 import slugify from 'slugify'
-import fetch from 'node-fetch'
+import menu from '../src/navs/index'
+import type { GatsbyContentResponse, MetaobjectsCollection } from '../src/templates/merch/types'
+import { flattenMenu, replacePath } from './utils'
+const Slugger = require('github-slugger')
+const markdownLinkExtractor = require('markdown-link-extractor')
 
 export const createPages: GatsbyNode['createPages'] = async ({ actions: { createPage }, graphql }) => {
     const BlogPostTemplate = path.resolve(`src/templates/BlogPost.js`)
     const PlainTemplate = path.resolve(`src/templates/Plain.js`)
-    const BlogCategoryTemplate = path.resolve(`src/templates/BlogCategory.js`)
+    const BlogCategoryTemplate = path.resolve(`src/templates/BlogCategory.tsx`)
+    const BlogTagTemplate = path.resolve(`src/templates/BlogTag.tsx`)
+    const BlogTemplate = path.resolve(`src/templates/Blog.tsx`)
     const CustomerTemplate = path.resolve(`src/templates/Customer.js`)
-    const PluginTemplate = path.resolve(`src/templates/Plugin.js`)
     const AppTemplate = path.resolve(`src/templates/App.js`)
-    const ProductTemplate = path.resolve(`src/templates/Product.js`)
-    const HostHogTemplate = path.resolve(`src/templates/HostHog.js`)
-    const Question = path.resolve(`src/templates/Question.js`)
-    const SqueakTopic = path.resolve(`src/templates/SqueakTopic.tsx`)
+    const PipelineTemplate = path.resolve(`src/templates/Pipeline.js`)
+    const DashboardTemplate = path.resolve(`src/templates/Template.js`)
     const Job = path.resolve(`src/templates/Job.tsx`)
+    const ChangelogTemplate = path.resolve(`src/templates/Changelog.tsx`)
+    const PostListingTemplate = path.resolve(`src/templates/PostListing.tsx`)
+    const PaginationTemplate = path.resolve(`src/templates/Pagination.tsx`)
 
     // Tutorials
+    const TutorialsTemplate = path.resolve(`src/templates/tutorials/index.tsx`)
     const TutorialTemplate = path.resolve(`src/templates/tutorials/Tutorial.tsx`)
     const TutorialsCategoryTemplate = path.resolve(`src/templates/tutorials/TutorialsCategory.tsx`)
-    const TutorialsAuthorTemplate = path.resolve(`src/templates/tutorials/TutorialsAuthor.tsx`)
 
     // Docs
     const ApiEndpoint = path.resolve(`src/templates/ApiEndpoint.tsx`)
     const HandbookTemplate = path.resolve(`src/templates/Handbook.tsx`)
 
-    const result = await graphql(`
+    const result = (await graphql(`
         {
             allMdx(
                 filter: {
-                    fileAbsolutePath: { regex: "/^((?!contents/team/).)*$/" }
+                    fileAbsolutePath: { regex: "/^((?!contents/teams/).)*$/" }
                     frontmatter: { title: { ne: "" } }
                 }
-                limit: 1000
             ) {
                 nodes {
                     id
@@ -52,6 +57,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ actions: { create
                     fields {
                         slug
                     }
+                    rawBody
                 }
             }
             apidocs: allApiEndpoint {
@@ -71,6 +77,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ actions: { create
                     fields {
                         slug
                     }
+                    rawBody
                 }
             }
             manual: allMdx(filter: { fields: { slug: { regex: "/^/manual/" } }, frontmatter: { title: { ne: "" } } }) {
@@ -83,9 +90,11 @@ export const createPages: GatsbyNode['createPages'] = async ({ actions: { create
                     fields {
                         slug
                     }
+                    rawBody
                 }
             }
             tutorials: allMdx(filter: { fields: { slug: { regex: "/^/tutorials/" } } }) {
+                totalCount
                 nodes {
                     id
                     headings {
@@ -96,8 +105,9 @@ export const createPages: GatsbyNode['createPages'] = async ({ actions: { create
                         slug
                     }
                 }
-                categories: group(field: frontmatter___topics) {
-                    fieldValue
+                categories: group(field: frontmatter___tags) {
+                    totalCount
+                    category: fieldValue
                 }
                 contributors: group(field: frontmatter___authorData___name) {
                     fieldValue
@@ -114,7 +124,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ actions: { create
                     }
                 }
             }
-            product: allMdx(filter: { fields: { slug: { regex: "/^/product/" } } }) {
+            cdp: allMdx(filter: { fields: { slug: { regex: "/^/cdp/" } } }) {
                 nodes {
                     id
                     fields {
@@ -125,7 +135,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ actions: { create
                     }
                 }
             }
-            customers: allMdx(filter: { fields: { slug: { regex: "/^/customers/" } } }) {
+            templates: allMdx(filter: { fields: { slug: { regex: "/^/templates/" } } }) {
                 nodes {
                     id
                     fields {
@@ -133,7 +143,26 @@ export const createPages: GatsbyNode['createPages'] = async ({ actions: { create
                     }
                 }
             }
-            blogPosts: allMdx(filter: { isFuture: { eq: false }, fields: { slug: { regex: "/^/blog/" } } }) {
+            customers: allMdx(filter: { fields: { slug: { regex: "/^/customers/" } } }) {
+                nodes {
+                    id
+                    headings {
+                        depth
+                        value
+                    }
+                    fields {
+                        slug
+                    }
+                }
+            }
+            blogPosts: allMdx(
+                filter: {
+                    isFuture: { eq: false }
+                    frontmatter: { date: { ne: null } }
+                    fields: { slug: { regex: "/^/blog/" } }
+                }
+            ) {
+                totalCount
                 nodes {
                     id
                     headings {
@@ -144,105 +173,123 @@ export const createPages: GatsbyNode['createPages'] = async ({ actions: { create
                         slug
                     }
                     frontmatter {
-                        categories
+                        category
+                        tags
                     }
                 }
             }
-            sidebars: file(absolutePath: { regex: "//sidebars/sidebars.json$/" }) {
-                childSidebarsJson {
-                    handbook {
-                        children {
-                            children {
-                                children {
-                                    children {
-                                        children {
-                                            name
-                                            url
-                                        }
-                                        name
-                                        url
-                                    }
-                                    name
-                                    url
-                                }
-                                name
-                                url
-                            }
-                            name
-                            url
-                        }
-                        name
-                        url
+            libraryArticles: allMdx(
+                filter: {
+                    isFuture: { eq: false }
+                    frontmatter: { date: { ne: null } }
+                    fields: { slug: { regex: "/^/library|^/founders|^/product-engineers|^/features|^/newsletter/" } }
+                }
+            ) {
+                totalCount
+                nodes {
+                    id
+                    headings {
+                        depth
+                        value
                     }
-                    docs {
-                        children {
-                            children {
-                                children {
-                                    children {
-                                        children {
-                                            name
-                                            url
-                                        }
-                                        name
-                                        url
-                                    }
-                                    name
-                                    url
-                                }
-                                name
-                                url
-                            }
-                            name
-                            url
-                        }
-                        name
-                        url
+                    fields {
+                        slug
                     }
-                    apps {
-                        name
-                        url
-                    }
-                    product {
-                        name
-                        url
+                    frontmatter {
+                        category
+                        tags
                     }
                 }
             }
-            categories: allMdx(limit: 1000) {
-                group(field: frontmatter___categories) {
+            library: allMdx(
+                filter: {
+                    isFuture: { eq: false }
+                    frontmatter: { date: { ne: null } }
+                    fields: { slug: { regex: "/^/library/" } }
+                }
+            ) {
+                totalCount
+            }
+            founders: allMdx(
+                filter: {
+                    isFuture: { eq: false }
+                    frontmatter: { date: { ne: null } }
+                    fields: { slug: { regex: "/^/founders/" } }
+                }
+            ) {
+                totalCount
+            }
+            productEngineers: allMdx(
+                filter: {
+                    isFuture: { eq: false }
+                    frontmatter: { date: { ne: null } }
+                    fields: { slug: { regex: "/^/product-engineers/" } }
+                }
+            ) {
+                totalCount
+            }
+            features: allMdx(
+                filter: {
+                    isFuture: { eq: false }
+                    frontmatter: { date: { ne: null } }
+                    fields: { slug: { regex: "/^/features/" } }
+                }
+            ) {
+                totalCount
+            }
+            spotlights: allMdx(
+                filter: {
+                    isFuture: { eq: false }
+                    frontmatter: { date: { ne: null } }
+                    fields: { slug: { regex: "/^/spotlight/" } }
+                }
+            ) {
+                totalCount
+                nodes {
+                    id
+                    headings {
+                        depth
+                        value
+                    }
+                    fields {
+                        slug
+                    }
+                    frontmatter {
+                        category
+                        tags
+                    }
+                }
+            }
+            categories: allMdx(
+                sort: { order: DESC, fields: [frontmatter___date] }
+                filter: {
+                    isFuture: { eq: false }
+                    fields: { slug: { regex: "/^/blog/" } }
+                    frontmatter: { date: { ne: null } }
+                }
+            ) {
+                categories: group(field: frontmatter___category) {
                     category: fieldValue
+                    totalCount
+                }
+                tags: group(field: frontmatter___tags) {
+                    tag: fieldValue
+                    totalCount
                 }
             }
-            plugins: allPlugin(filter: { url: { regex: "/github.com/" } }) {
+            postCategories: allPostCategory(filter: { attributes: { folder: { ne: null } } }) {
                 nodes {
-                    id
-                    slug
-                }
-            }
-            hostHog: allMdx(filter: { fields: { slug: { regex: "/^/hosthog/" } } }) {
-                nodes {
-                    id
-                    slug
-                }
-            }
-            questions: allQuestion {
-                nodes {
-                    id
-                }
-            }
-            squeakTopics: allSqueakTopic {
-                nodes {
-                    label
-                    topicId
-                    slug
-                }
-            }
-            squeakTopicGroups: allSqueakTopicGroup {
-                nodes {
-                    label
-                    topics {
-                        id
+                    attributes {
                         label
+                        folder
+                        post_tags {
+                            data {
+                                attributes {
+                                    label
+                                    folder
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -263,16 +310,33 @@ export const createPages: GatsbyNode['createPages'] = async ({ actions: { create
                     }
                 }
             }
+            roadmapYears: allRoadmap {
+                group(field: year) {
+                    fieldValue
+                }
+            }
         }
-    `)
+    `)) as GatsbyContentResponse
 
-    if (result.errors) {
-        return Promise.reject(result.errors)
+    if (result.error) {
+        return Promise.reject(result.error)
+    }
+
+    const menuFlattened = flattenMenu(menu)
+
+    const findNext = (menu, currentURL) => {
+        for (let i = 0; i < menu.length; i++) {
+            if (menu[i].url !== currentURL) {
+                return menu[i]
+            }
+        }
     }
 
     function createPosts(data, menu, template, breadcrumbBase, context) {
-        const menuFlattened = flattenMenu(result.data.sidebars.childSidebarsJson[menu])
         data.forEach((node) => {
+            const links =
+                node?.rawBody &&
+                markdownLinkExtractor(node?.rawBody)?.map((url) => url.replace(/https:\/\/posthog.com|#.*/gi, ''))
             const slug = node.fields?.slug || node.url
             let next = null
             let previous = null
@@ -281,7 +345,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ actions: { create
             const tableOfContents = node.headings && formatToc(node.headings)
             menuFlattened.some((item, index) => {
                 if (item.url === slug) {
-                    next = menuFlattened[index + 1]
+                    next = findNext(menuFlattened.slice(index), slug)
                     nextURL = next && next.url ? next.url : ''
                     previous = menuFlattened[index - 1]
                     breadcrumb = [...item.breadcrumb]
@@ -297,11 +361,11 @@ export const createPages: GatsbyNode['createPages'] = async ({ actions: { create
                     nextURL,
                     next,
                     previous,
-                    menu: result.data.sidebars.childSidebarsJson[menu],
                     breadcrumb,
                     breadcrumbBase: breadcrumbBase || menuFlattened[0],
                     tableOfContents,
                     slug,
+                    links,
                     searchFilter: menu,
                     ...(context ? context(node) : {}),
                 },
@@ -310,104 +374,181 @@ export const createPages: GatsbyNode['createPages'] = async ({ actions: { create
     }
 
     function formatToc(headings) {
+        // need to use slugger for header links to match
+        const slugger = new Slugger()
         return headings.map((heading) => {
+            // Strip HTML tags from heading value
+            // Useful if we wanna add a beta label to a header
+            const cleanValue = heading.value.replace(/\s*<([a-z]+).+?>.+?<\/\1>/g, '')
+
             return {
                 ...heading,
                 depth: heading.depth - 2,
-                url: slugify(heading.value),
+                url: slugger.slug(cleanValue),
+                value: cleanValue,
             }
         })
     }
 
-    const categories = {}
-    result.data.categories.group.forEach(({ category }) => {
-        const slug = slugify(category, { lower: true })
-        const url = `/blog/categories/${slug}`
-        categories[category] = {
-            slug,
-            url,
-        }
-    })
+    const createPaginatedPages = ({ postsPerPage = 20, totalCount, base, template, extraContext = {} }) => {
+        const numPages = Math.ceil(totalCount / postsPerPage)
+        Array.from({ length: numPages }).forEach((_, i) => {
+            const context = {
+                ...extraContext,
+                limit: postsPerPage,
+                skip: i * postsPerPage,
+                numPages,
+                currentPage: i + 1,
+                base,
+            }
+            createPage({
+                path: i === 0 ? base : `${base}/${i + 1}`,
+                component: template,
+                context,
+            })
+        })
+    }
 
-    result.data.allMdx.nodes.forEach((node) => {
-        createPage({
-            path: replacePath(node.slug),
-            component: PlainTemplate,
-            context: {
-                id: node.id,
+    if (process.env.VERCEL_ENV !== 'preview') {
+        const categories = {}
+        result.data.categories.categories.forEach(({ category, totalCount }) => {
+            const slug = slugify(category, { lower: true })
+            const base = `/blog/categories/${slug}`
+            categories[category] = {
+                slug,
+                url: base,
+            }
+
+            createPaginatedPages({ totalCount, base, template: BlogCategoryTemplate, extraContext: { category, slug } })
+        })
+
+        result.data.categories.tags.forEach(({ tag, totalCount }) => {
+            const slug = slugify(tag, { lower: true })
+            const base = `/blog/tags/${slug}`
+
+            createPaginatedPages({
+                totalCount,
+                base,
+                template: BlogTagTemplate,
+                extraContext: { tag, slug },
+            })
+        })
+
+        createPaginatedPages({
+            totalCount: result.data.blogPosts.totalCount,
+            base: '/blog/all',
+            template: PaginationTemplate,
+            extraContext: {
+                regex: '/^/blog/',
+                title: 'Blog',
             },
         })
-    })
 
-    const createTeamContext = (node) => ({
-        mission: `${node.fields?.slug || node.url}/mission`,
-        objectives: `${node.fields?.slug || node.url}/objectives`,
-    })
+        createPaginatedPages({
+            totalCount: result.data.library.totalCount,
+            base: '/library/all',
+            template: PaginationTemplate,
+            extraContext: {
+                regex: '/^/library/',
+                title: 'Library',
+            },
+        })
 
-    createPosts(
-        result.data.handbook.nodes,
-        'handbook',
-        HandbookTemplate,
-        { name: 'Handbook', url: '/handbook' },
-        createTeamContext
-    )
+        createPaginatedPages({
+            totalCount: result.data.founders.totalCount,
+            base: '/founders/all',
+            template: PaginationTemplate,
+            extraContext: {
+                regex: '/^/founders/',
+                title: 'Founders',
+            },
+        })
+
+        createPaginatedPages({
+            totalCount: result.data.productEngineers.totalCount,
+            base: '/product-engineers/all',
+            template: PaginationTemplate,
+            extraContext: {
+                regex: '/^/product-engineers/',
+                title: 'Product engineers',
+            },
+        })
+
+        createPaginatedPages({
+            totalCount: result.data.features.totalCount,
+            base: '/features/all',
+            template: PaginationTemplate,
+            extraContext: {
+                regex: '/^/features/',
+                title: 'Features',
+            },
+        })
+
+        result.data.allMdx.nodes.forEach((node) => {
+            createPage({
+                path: replacePath(node.slug),
+                component: PlainTemplate,
+                context: {
+                    id: node.id,
+                },
+            })
+        })
+
+        result.data.tutorials.categories.forEach(({ category, totalCount }) => {
+            const slug = slugify(category, { lower: true })
+            const base = `/tutorials/categories/${slug}`
+
+            createPaginatedPages({
+                totalCount,
+                base,
+                template: TutorialsCategoryTemplate,
+                extraContext: { activeFilter: category, slug },
+            })
+        })
+
+        createPaginatedPages({
+            totalCount: result.data.tutorials.totalCount,
+            base: '/tutorials/all',
+            template: TutorialsTemplate,
+        })
+
+        result.data.postCategories.nodes.forEach(
+            ({ attributes: { folder: categoryFolder, label: categoryLabel, post_tags } }) => {
+                createPage({
+                    path: `/${categoryFolder}`,
+                    component: PostListingTemplate,
+                    context: {
+                        post: true,
+                        title: categoryLabel,
+                        article: false,
+                    },
+                })
+
+                post_tags?.data?.forEach(({ attributes: { label: tagLabel } }) => {
+                    createPage({
+                        path: `/${categoryFolder}/${slugify(tagLabel, { lower: true, strict: true })}`,
+                        component: PostListingTemplate,
+                        context: {
+                            selectedTag: tagLabel,
+                            post: true,
+                            title: tagLabel,
+                            article: false,
+                        },
+                    })
+                })
+            }
+        )
+    }
+
+    createPosts(result.data.handbook.nodes, 'handbook', HandbookTemplate, { name: 'Handbook', url: '/handbook' })
     createPosts(result.data.docs.nodes, 'docs', HandbookTemplate, { name: 'Docs', url: '/docs' })
-    createPosts(result.data.apidocs.nodes, 'docs', ApiEndpoint, { name: 'Docs', url: '/docs' })
+    createPosts(result.data.apidocs.nodes, 'docs', ApiEndpoint, { name: 'Docs', url: '/docs' }, (node) => ({
+        regex: `$${node.url}/`,
+    }))
     createPosts(result.data.manual.nodes, 'docs', HandbookTemplate, { name: 'Using PostHog', url: '/using-posthog' })
 
-    const tutorialsPageViewExport = await fetch(
-        'https://app.posthog.com/shared/4lYoM6fa3Sa8KgmljIIHbVG042Bd7Q.json'
-    ).then((res) => res.json())
-
     result.data.tutorials.nodes.forEach((node) => {
-        const tableOfContents = formatToc(node.headings)
         const { slug } = node.fields
-        let pageViews
-        tutorialsPageViewExport.dashboard.items[0].result.some((insight) => {
-            if (insight.breakdown_value.includes(slug)) {
-                pageViews = insight.aggregated_value
-                return true
-            }
-        })
-
-        createPage({
-            path: replacePath(node.fields.slug),
-            component: TutorialTemplate,
-            context: {
-                id: node.id,
-                tableOfContents,
-                menu: result.data.sidebars.childSidebarsJson.docs,
-                pageViews,
-                slug,
-            },
-        })
-    })
-
-    result.data.tutorials.categories.forEach(({ fieldValue }) => {
-        const slug = `/tutorials/categories/${slugify(fieldValue, { lower: true })}`
-        createPage({
-            path: slug,
-            component: TutorialsCategoryTemplate,
-            context: {
-                activeFilter: fieldValue,
-            },
-        })
-    })
-
-    result.data.tutorials.contributors.forEach(({ fieldValue }) => {
-        const slug = `/tutorials/contributors/${slugify(fieldValue, { lower: true })}`
-        createPage({
-            path: slug,
-            component: TutorialsAuthorTemplate,
-            context: {
-                activeFilter: fieldValue,
-            },
-        })
-    })
-
-    result.data.blogPosts.nodes.forEach((node) => {
-        const { slug } = node.fields
-        const postCategories = node.frontmatter.categories || []
         const tableOfContents = node.headings && formatToc(node.headings)
         createPage({
             path: replacePath(slug),
@@ -415,33 +556,84 @@ export const createPages: GatsbyNode['createPages'] = async ({ actions: { create
             context: {
                 id: node.id,
                 tableOfContents,
-                categories: postCategories.map((category) => ({ name: category, url: categories[category]?.url })),
                 slug,
+                post: true,
+                article: true,
+                askMax: true,
             },
         })
     })
 
-    Object.keys(categories).forEach((category) => {
-        const { url, slug } = categories[category]
+    result.data.blogPosts.nodes.forEach((node) => {
+        const { slug } = node.fields
+        const tableOfContents = node.headings && formatToc(node.headings)
         createPage({
-            path: url,
-            component: BlogCategoryTemplate,
+            path: replacePath(slug),
+            component: BlogPostTemplate,
             context: {
-                title: category,
-                category,
+                id: node.id,
+                tableOfContents,
                 slug,
-                crumbs: [{ title: 'Blog', url: '/blog' }, { title: category }],
+                post: true,
+                article: true,
+            },
+        })
+    })
+
+    result.data.libraryArticles.nodes.forEach((node) => {
+        const { slug } = node.fields
+        const tableOfContents = node.headings && formatToc(node.headings)
+        createPage({
+            path: replacePath(slug),
+            component: BlogPostTemplate,
+            context: {
+                id: node.id,
+                tableOfContents,
+                slug,
+                post: true,
+                article: true,
+            },
+        })
+    })
+
+    createPage({
+        path: `/posts`,
+        component: PostListingTemplate,
+        context: {
+            post: true,
+            title: 'Posts',
+            article: false,
+        },
+    })
+
+    result.data.spotlights.nodes.forEach((node) => {
+        const { slug } = node.fields
+        const tableOfContents = node.headings && formatToc(node.headings)
+        createPage({
+            path: replacePath(slug),
+            component: BlogPostTemplate,
+            context: {
+                id: node.id,
+                tableOfContents,
+                slug,
+                post: true,
+                article: true,
             },
         })
     })
 
     result.data.customers.nodes.forEach((node) => {
         const { slug } = node.fields
+        const tableOfContents = node.headings && formatToc(node.headings)
         createPage({
-            path: slug,
-            component: CustomerTemplate,
+            path: replacePath(slug),
+            component: BlogPostTemplate,
             context: {
                 id: node.id,
+                tableOfContents,
+                slug,
+                post: true,
+                article: true,
             },
         })
     })
@@ -449,100 +641,36 @@ export const createPages: GatsbyNode['createPages'] = async ({ actions: { create
     result.data.apps.nodes.forEach((node) => {
         const { slug } = node.fields
         const { documentation } = node.frontmatter
-        let next = null
-        let previous = null
-        const sidebar = result.data.sidebars.childSidebarsJson.apps
-        sidebar.some((item, index) => {
-            if (item.url === slug) {
-                next = sidebar[index + 1]
-                previous = sidebar[index - 1]
-                return true
-            }
-        })
         createPage({
             path: slug,
             component: AppTemplate,
             context: {
                 id: node.id,
                 documentation: documentation || '',
-                next,
-                previous,
             },
         })
     })
-    result.data.product.nodes.forEach((node) => {
+
+    result.data.cdp.nodes.forEach((node) => {
         const { slug } = node.fields
         const { documentation } = node.frontmatter
-        let next = null
-        let previous = null
-        const sidebar = result.data.sidebars.childSidebarsJson.product
-        sidebar.some((item, index) => {
-            if (item.url === slug) {
-                next = sidebar[index + 1]
-                previous = sidebar[index - 1]
-                return true
-            }
-        })
         createPage({
             path: slug,
-            component: ProductTemplate,
+            component: PipelineTemplate,
             context: {
                 id: node.id,
                 documentation: documentation || '',
-                next,
-                previous,
             },
         })
     })
-    result.data.plugins.nodes.forEach((node) => {
-        const { id, slug } = node
-        if (slug) {
-            createPage({
-                path: slug,
-                component: PluginTemplate,
-                context: {
-                    id,
-                },
-            })
-        }
-    })
-    result.data.hostHog.nodes.forEach((node) => {
-        const { id, slug } = node
-        if (slug) {
-            createPage({
-                path: slug,
-                component: HostHogTemplate,
-                context: {
-                    id,
-                },
-            })
-        }
-    })
 
-    const menu = []
-    result.data.squeakTopicGroups.nodes.forEach(({ label, topics }) => {
-        menu.push({ name: label })
-        topics.forEach(({ label }) => {
-            menu.push({
-                name: label,
-                url: `/questions/${slugify(label, {
-                    lower: true,
-                })}`,
-            })
-        })
-    })
-
-    result.data.squeakTopics.nodes.forEach((node) => {
-        const { slug, label, topicId } = node
-
+    result.data.templates.nodes.forEach((node) => {
+        const { slug } = node.fields
         createPage({
-            path: `questions/${slug}`,
-            component: SqueakTopic,
+            path: slug,
+            component: DashboardTemplate,
             context: {
-                id: topicId,
-                topics: result.data.squeakTopics.nodes,
-                label,
-                menu,
+                id: node.id,
             },
         })
     })
@@ -551,12 +679,13 @@ export const createPages: GatsbyNode['createPages'] = async ({ actions: { create
         for (node of result.data.jobs.nodes) {
             const { id, parent } = node
             const slug = node.fields.slug
-            const team = parent?.customFields?.find(({ title, value }) => title === 'Team')?.value
-            const issues = parent?.customFields?.find(({ title, value }) => title === 'Issues')?.value?.split(',')
-            const repo = parent?.customFields?.find(({ title, value }) => title === 'Repo')?.value
+            const issues = parent?.customFields?.find(({ title }) => title === 'Issues')?.value?.split(',')
+            const repo = parent?.customFields?.find(({ title }) => title === 'Repo')?.value
+            const teams = JSON.parse(parent?.customFields?.find(({ title }) => title === 'Teams')?.value || '[]')
             let gitHubIssues = []
             if (issues) {
                 for (const issue of issues) {
+                    if (!issue) continue
                     const { html_url, number, title, labels } = await fetch(
                         `https://api.github.com/repos/${repo}/issues/${issue.trim()}`,
                         {
@@ -579,13 +708,22 @@ export const createPages: GatsbyNode['createPages'] = async ({ actions: { create
                 context: {
                     id,
                     slug,
-                    teamName: team,
-                    teamNameInfo: `${team} Team`,
-                    objectives: `/handbook/small-teams/${slugify(team, { lower: true })}/objectives`,
-                    mission: `/handbook/small-teams/${slugify(team, { lower: true })}/mission`,
+                    objectives: `/teams/${slugify(teams[0] || '', { lower: true })}/objectives`,
+                    mission: `/teams/${slugify(teams[0] || '', { lower: true })}/mission`,
                     gitHubIssues,
+                    teams,
                 },
             })
         }
     }
+
+    result.data.roadmapYears.group.forEach(({ fieldValue: year }) => {
+        createPage({
+            path: `/changelog/${year}`,
+            component: ChangelogTemplate,
+            context: {
+                year: Number(year),
+            },
+        })
+    })
 }

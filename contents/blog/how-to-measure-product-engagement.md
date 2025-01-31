@@ -5,10 +5,15 @@ rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-author: ['hanna-crombie']
-featuredImage: ../images/blog/lw-queries.png
+author:
+  - hanna-crombie
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/lw-queries.png
 featuredImageType: full
-categories: ["Guides", "Product analytics", "PostHog Academy"]
+category: Product growth
+tags:
+  - Product metrics
+  - Guides
 ---
 
 Product engagement is the most important factor when it comes to driving retention and revenue for your business. Though it seems easy to view success through a financial lens, revenue alone is rarely a clear indicator of a sustainable product. 
@@ -23,7 +28,7 @@ In this article we’ll take a look at why strong customer engagement metrics ar
 - [What tools are good for tracking product engagement?](#what-tools-are-good-for-tracking-product-engagement)
 - [Further reading](#further-reading)
 
-> This article is part of our [PostHog Academy series](/blog/categories/posthog-academy) where we explain the fundamentals of product analytics.
+> This article is part of our [PostHog Academy series](/tracks) where we explain the fundamentals of product analytics.
 
 ## What is product engagement?
 The golden rule for any product manager: [listen to your users](https://posthog.com/handbook/product/user-feedback).
@@ -40,7 +45,7 @@ Product engagement also makes a great [North Star Metric](https://posthog.com/bl
 The engagement metrics you need to track will depend on what your business looks like and what your product is.
 
 In order to use the right product engagement metric for your organization you need a strong understanding of your customer personas. What does your ideal user look like? How do they interact with your platform? What are the revenue drivers attached to them?
-By examining your personas and how their individual actions influence revenue and growth, you can select the most appropriate engagement metrics for your product.
+By examining [your user personas](/product-engineers/how-to-create-user-personas) and how their individual actions influence revenue and growth, you can select the most appropriate engagement metrics for your product.
 
 ### Common engagement metrics
 If your product is an online service which users engage with regularly then **interactions** are a key metric. Social media platforms, for example, look at numbers of likes, comments and shares.
@@ -54,7 +59,7 @@ The individual metrics are limitless. You’ll see **pageviews**, **bounce rate*
 ## What is the best way to measure product engagement?
 Listening to users’ actions is important, but how can you track engagement metrics and translate them into actionable insights?
 
-![](../images/blog/how-to-measure-engagement/product-engagement-metrics.jpeg)
+![](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/blog/how-to-measure-engagement/product-engagement-metrics.jpeg)
 
 A good way to get started is to use some basic metrics to create a broad framework for engagement insight. The following metrics are very easy to track with the help of product analytics software such as PostHog (pictured above).
 
@@ -89,12 +94,12 @@ If users are paying for features they don’t use then it lowers the perceived v
 
 By comparing the values of these metrics against each other you can begin to get an idea of where you’re winning on product engagement, and where you might be losing out. 
 
-![](../images/blog/how-to-measure-engagement/correlation.png)
+![](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/blog/how-to-measure-engagement/correlation.png)
 
 ## What tools are good for tracking product engagement?
 Naturally, we think PostHog is the best tool for tracking product engagement. 
 
-This is because, in addition to tracking the metrics above, PostHog enables you to understand their context through tools such as  [Session Recording](https://posthog.com/docs/user-guides/sessions), [Heatmaps](https://posthog.com/docs/user-guides/toolbar#inspecting-elements), [Cohorts](https://posthog.com/docs/user-guides/cohorts) and [Correlation analysis](https://posthog.com/docs/user-guides/correlation). You can also create dashboards to monitor engagement continuously.
+This is because, in addition to tracking the metrics above, PostHog enables you to understand their context through tools such as  [Session Recording](https://posthog.com/docs/user-guides/sessions), [Heatmaps](https://posthog.com/docs/user-guides/toolbar#inspecting-elements), [Cohorts](https://posthog.com/docs/user-guides/cohorts) and [Correlation analysis](https://posthog.com/docs/user-guides/correlation). You can also [create dashboards](/templates) to monitor engagement continuously.
 
 Paying attention to engagement and building more of what your customers love is a sure way to turn them from regular users into fans and advocates. Stay on top of your user engagement, listen and respond, and you’ll turn casual customers into product champions.
 
@@ -106,7 +111,5 @@ Paying attention to engagement and building more of what your customers love is 
 
 - [B2B Product Metrics 101:](/blog/b2b-saas-product-metrics): Everything you need to know about metrics for B2B SaaS products
 
-> PostHog is an open source analytics platform you can host yourself. We help you build better products faster, without user data ever leaving your infrastructure.
-
-<ArrayCTA />
+<NewsletterForm />
 

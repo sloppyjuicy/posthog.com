@@ -1,17 +1,19 @@
 ---
 date: 2022-11-23
-title: "HogMail #17: The personal traits that can't be taught"
+title: 'HogMail #17: The personal traits that can''t be taught'
 rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-author: ["andy-vandervell"]
-featuredImage: ../images/blog/hogmail.png
+author:
+  - andy-vandervell
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/hogmail.png
 featuredImageType: full
-categories: ["HogMail"]
+category: General
 ---
 
-> Welcome to HogMail, our newsletter featuring the best of the PostHog blog, tutorials, product guides, and curated articles on building great products and companies. We send it every two weeks. [Signup here](/newsletter) so you don't miss it.
+> Welcome to HogMail, our newsletter featuring the best of the PostHog blog, tutorials, product guides, and curated articles on building great products and companies. We send it every two weeks. [Signup here](https://newsletter.posthog.com/subscribe) so you don't miss it.
 
 Welcome insight seekers, very British ContentHog here. Some quick updates for you:
 
@@ -25,7 +27,7 @@ Coming up: how we made revenue go up and to the right, the important traits you 
 
 ## #posthog-blog
 
-🚀 [How we found our Ideal Customer Profile](https://posthog.com/blog/creating-ideal-customer-profile): Creating an Ideal Customer Profile (ICP) is one of the most important things we've ever done. Why? Look at that graph.
+🚀 [How we found our Ideal Customer Profile](/newsletter/ideal-customer-profile-framework): Creating an Ideal Customer Profile (ICP) is one of the most important things we've ever done. Why? Look at that graph.
 
 📲 [How we built an app server (MVP to billions of events)](https://posthog.com/blog/how-we-built-an-app-server): Marius dives deep into how PostHog apps went from three-day MVP to a service handling billions of events.
 
@@ -35,7 +37,7 @@ Charles shares his practical guide to how we run finance without a dedicated fin
 
 ## #tutorials-and-guides
 
-🧰 [How to set up cross domain tracking in PostHog](https://posthog.com/tutorials/cross-domain-tracking): Do you use multiple domains or subdomains? This guide explains how to track users across them.
+🧰 [How to set up cross-domain tracking in PostHog](https://posthog.com/tutorials/cross-domain-tracking): Do you use multiple domains or subdomains? This guide explains how to track users across them.
 
 👯‍♀️ [Understanding group analytics: frontend vs backend implementations](https://posthog.com/tutorials/frontend-vs-backend-group-analytics): The two different ways to implement group analytics, so you can understand how companies use your product.
 
@@ -80,4 +82,4 @@ Charles shares his practical guide to how we run finance without a dedicated fin
 
 - [Marie Kondo your software stack with open source](https://github.com/readme/featured/open-source-minimalism) (17 min read)
 
-> We send HogMail every two weeks. [Signup here](/newsletter) so you don't miss it.
+<NewsletterForm />

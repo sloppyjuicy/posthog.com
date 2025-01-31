@@ -13,8 +13,8 @@ Before jumping into setup, let's dissect a PostHog.
 
 The app itself is made up of 4 components that run simultaneously:
 
--   Django server
 -   Celery worker (handles execution of background tasks)
+-   Django server
 -   Node.js plugin server (handles event ingestion and apps/plugins)
 -   React frontend built with Node.js
 
@@ -37,7 +37,7 @@ This is what we'll be using in the guide below.
 > It is also technically possible to run PostHog in Docker completely, but syncing changes is then much slower, and for development you need PostHog dependencies installed on the host anyway (such as formatting or typechecking tools).
 > The other way around – everything on the host, is not practical due to significant complexities involved in instantiating Kafka or ClickHouse from scratch.
 
-The instructions here assume you're running macOS or the current Ubuntu Linux LTS (22.04).
+The instructions here assume you're running macOS or the current Ubuntu Linux LTS (24.04).
 
 For other Linux distros, adjust the steps as needed (e.g. use `dnf` or `pacman` in place of `apt`).
 
@@ -45,20 +45,42 @@ Windows isn't supported natively. But, Windows users can run a Linux virtual mac
 
 In case some steps here have fallen out of date, please tell us about it – feel free to [submit a patch](https://github.com/PostHog/posthog.com/blob/master/contents/handbook/engineering/developing-locally.md)!
 
-## macOS prerequisites
+## Option 1: Developing with Codespaces
+
+This is a faster option to get up and running. If you don't want to or can't use Codespaces, continue from the next section.
+
+1. Create your codespace.
+![](https://user-images.githubusercontent.com/890921/231489405-cb2010b4-d9e3-4837-bfdf-b2d4ef5c5d0b.png)
+2. Update it to 8-core machine type (the smallest is probably too small to get PostHog running properly).
+![](https://user-images.githubusercontent.com/890921/231490278-140f814e-e77b-46d5-9a4f-31c1b1d6956a.png)
+3. Open the codespace, using one of the "Open in" options from the list.
+4. In the codespace, open a terminal window and run `docker compose -f docker-compose.dev.yml up`.
+5. In another terminal, run `pnpm i` (and use the same terminal for the following commands)
+6. Then run `pip install -r requirements.txt -r requirements-dev.txt`
+7. Now run `./bin/migrate` and then `./bin/start`.
+8. Open browser to http://localhost:8010/.
+9. To get some practical test data into your brand-new instance of PostHog, run `DEBUG=1 ./manage.py generate_demo_data`.
+
+## Option 2: Developing locally
+
+### Prerequisites
+
+#### macOS
 
 1. Install Xcode Command Line Tools if you haven't already: `xcode-select --install`.
 
 2. Install the package manager Homebrew by following the [instructions here](https://brew.sh/).
 
-<blockquote class="warning-note">
-    After installation, make sure to follow the instructions printed in your terminal to add Homebrew to your{' '}
-    <code>$PATH</code>. Otherwise the command line will not know about packages installed with <code>brew</code>.
-</blockquote>
+    <blockquote class="warning-note">
+        After installation, make sure to follow the instructions printed in your terminal to add Homebrew to your{' '}
+        <code>$PATH</code>. Otherwise the command line will not know about packages installed with <code>brew</code>.
+    </blockquote>
 
-3. Install [Docker Desktop](https://www.docker.com/products/docker-desktop) and in its settings give Docker **at least 4 GB of RAM** (or 6 GB if you can afford it) and at least 4 CPU cores.
+3. Install [OrbStack](https://orbstack.dev/) – a more performant Docker Desktop alternative – with `brew install orbstack`. Go to OrbStack settings and set the memory usage limit to **at least 4 GB** (or 8 GB if you can afford it) + the CPU usage limit to at least 4 cores (i.e. 400%). You'll want to use Brex for the license if you work at PostHog.
 
-## Ubuntu prerequisites
+4. Continue with [cloning the repository](#cloning-the-repository).
+
+#### Ubuntu
 
 1. Install Docker following [the official instructions here](https://docs.docker.com/engine/install/ubuntu/).
 
@@ -66,31 +88,56 @@ In case some steps here have fallen out of date, please tell us about it – fee
 
     ```bash
     sudo apt install -y build-essential
-    ````
+    ```
+3. Continue with [cloning the repository](#cloning-the-repository).
 
-## Common prerequisites for both macOS & Linux
+#### Cloning the repository
 
-1. Append line `127.0.0.1 kafka clickhouse` to `/etc/hosts`. You can do it in one line with:
+
+Clone the [PostHog repo](https://github.com/posthog/posthog). All future commands assume you're inside the `posthog/` folder.
+
+```bash
+git clone https://github.com/PostHog/posthog && cd posthog/
+```
+
+### Instant setup
+
+You can set your development environment up instantly using [Flox](https://flox.dev/). Flox is a dev environment manager, which takes care of the whole dependency graph needed to develop PostHog – all declared in the repo's `.flox/manifest.toml`. To get this environment going:
+
+1. Install Flox (plus `ruff` and `rustup` for pre-commit checks outside of the Flox env).
 
     ```bash
-    echo '127.0.0.1 kafka clickhouse' | sudo tee -a /etc/hosts
+    brew install flox ruff rustup && rustup-init && rustup default stable
     ```
 
-    ClickHouse and Kafka won't be able to talk to each other without these mapped hosts.
-
-2. Clone the [PostHog repository](https://github.com/posthog/posthog). All future commands assume you're inside the `posthog/` folder.
+2. From the root of the repository, activate the environment. (On first activation, you'll be prompted if you'd like the environment to be activated automatically using `direnv`.)
 
     ```bash
-    git clone https://github.com/PostHog/posthog && cd posthog/
+    flox activate
     ```
 
-## Get things up and running
+This gets you a fully fledged environment, with its executables and linked libraries stored under `.flox/`. You should now be seeing instructions for migrations and running the app.
 
-### 1. Spin up external services
+That's it! You can now change PostHog in any way you want. See [Project structure](/handbook/engineering/project-structure) for an intro to the repository's contents. To commit changes, create a new branch based on `master` for your intended change, and develop away.
+
+### Manual setup
+
+Alternatively, if you'd prefer not to use [Flox-based instant setup](#instant-setup), you can set the environment up manually:
+
+#### 1. Spin up external services
 
 In this step we will start all the external services needed by PostHog to work.
 
-We'll be using `docker compose`, which is the successor to `docker-compose`. One of its features is better compatibility with ARM environments like Apple Silicon Macs. ([See Docker documentation for details.](https://docs.docker.com/compose/#compose-v2-and-the-new-docker-compose-command))
+First, append line `127.0.0.1 kafka clickhouse clickhouse-coordinator` to `/etc/hosts`. Our ClickHouse and Kafka data services won't be able to talk to each other without these mapped hosts.  
+You can do this in one line with:
+
+```bash
+echo '127.0.0.1 kafka clickhouse clickhouse-coordinator' | sudo tee -a /etc/hosts
+```
+
+> If you are using a newer (>=4.1) version of Podman instead of Docker, the host machine's `/etc/hosts` is used as the base hosts file for containers by default, instead of container's `/etc/hosts` like in Docker. This can make hostname resolution fail in the ClickHouse container, and can be mended by setting `base_hosts_file="none"` in [`containers.conf`](https://github.com/containers/common/blob/main/docs/containers.conf.5.md#containers-table).
+
+Now, start the Docker Compose stack:
 
 ```bash
 docker compose -f docker-compose.dev.yml up
@@ -98,26 +145,31 @@ docker compose -f docker-compose.dev.yml up
 
 > **Friendly tip 1:** If you see `Error while fetching server API version: 500 Server Error for http+docker://localhost/version:`, it's likely that Docker Engine isn't running.
 
-> **Friendly tip 2:** If you see "Exit Code 137" anywhere, it means that the container has run out of memory. In this case you need to allocate more RAM in Docker Desktop settings.
+> **Friendly tip 2:** If you see "Exit Code 137" anywhere, it means that the container has run out of memory. In this case you need to allocate more RAM in OrbStack settings.
 
-> **Friendly tip 3:** You _might_ need `sudo` – see [Docker docs on managing Docker as a non-root user](https://docs.docker.com/engine/install/linux-postinstall).
+> **Friendly tip 3:** On Linux, you might need `sudo` – see [Docker docs on managing Docker as a non-root user](https://docs.docker.com/engine/install/linux-postinstall). Or look into [Podman](https://podman.io/getting-started/installation) as an alternative that supports rootless containers.
 
->**Friendly tip 4:** If you see `Error: (HTTP code 500) server error - Ports are not available: exposing port TCP 0.0.0.0:5432 -> 0.0.0.0:0: listen tcp 0.0.0.0:5432: bind: address already in use`,  - refer to this [stackoverflow answer](https://stackoverflow.com/questions/38249434/docker-postgres-failed-to-bind-tcp-0-0-0-05432-address-already-in-use). In most cases, you can solve this by stopping the `postgresql` service.
+>**Friendly tip 4:** If you see `Error: (HTTP code 500) server error - Ports are not available: exposing port TCP 0.0.0.0:5432 -> 0.0.0.0:0: listen tcp 0.0.0.0:5432: bind: address already in use`, you have Postgres already running somewhere. Try `docker compose -f docker-compose.dev.yml` first, alternatively run `lsof -i :5432` to see what process is using this port.
 ```bash
 sudo service postgresql stop
 ```
 
-Second, verify via `docker ps` and `docker logs` (or via the Docker Desktop dashboard) that all these services are up and running. They should display something like this in their logs:
+Second, verify via `docker ps` and `docker logs` (or via the OrbStack dashboard) that all these services are up and running. They should display something like this in their logs:
 
 ```shell
 # docker ps                                                                                     NAMES
-CONTAINER ID   IMAGE                               COMMAND                  CREATED         STATUS          PORTS                                                                                            NAMES
-567a4bb735be   clickhouse/clickhouse-server:22.3   "/entrypoint.sh"         3 minutes ago   Up 24 seconds   0.0.0.0:8123->8123/tcp, 0.0.0.0:9000->9000/tcp, 0.0.0.0:9009->9009/tcp, 0.0.0.0:9440->9440/tcp   posthog-clickhouse-1
-9dc22c70865d   bitnami/kafka:2.8.1-debian-10-r99   "/opt/bitnami/script…"   3 minutes ago   Up 24 seconds   0.0.0.0:9092->9092/tcp                                                                           posthog-kafka-1
-add6475ae0db   postgres:12-alpine                  "docker-entrypoint.s…"   3 minutes ago   Up 24 seconds   0.0.0.0:5432->5432/tcp                                                                           posthog-db-1
-6037fb28659b   minio/minio                         "sh -c 'mkdir -p /da…"   3 minutes ago   Up 24 seconds   9000/tcp, 0.0.0.0:19000-19001->19000-19001/tcp                                                   posthog-object_storage-1
-d80a9304f4a7   zookeeper:3.7.0                     "/docker-entrypoint.…"   3 minutes ago   Up 24 seconds   2181/tcp, 2888/tcp, 3888/tcp, 8080/tcp                                                           posthog-zookeeper-1
-d2d00eae3fc0   redis:6.2.7-alpine                  "docker-entrypoint.s…"   3 minutes ago   Up 24 seconds   0.0.0.0:6379->6379/tcp                                                                           posthog-redis-1                                                                       posthog-redis-1
+CONTAINER ID   IMAGE                                      COMMAND                  CREATED          STATUS                    PORTS                                                                                            NAMES
+5a38d4e55447   temporalio/ui:2.10.3                       "./start-ui-server.sh"   51 seconds ago   Up 44 seconds             0.0.0.0:8081->8080/tcp                                                                           posthog-temporal-ui-1
+89b969801426   temporalio/admin-tools:1.20.0              "tail -f /dev/null"      51 seconds ago   Up 44 seconds                                                                                                              posthog-temporal-admin-tools-1
+81fd1b6d7b1b   clickhouse/clickhouse-server:23.6.1.1524   "/entrypoint.sh"         51 seconds ago   Up 50 seconds             0.0.0.0:8123->8123/tcp, 0.0.0.0:9000->9000/tcp, 0.0.0.0:9009->9009/tcp, 0.0.0.0:9440->9440/tcp   posthog-clickhouse-1
+f876f8bff35f   bitnami/kafka:2.8.1-debian-10-r99          "/opt/bitnami/script…"   51 seconds ago   Up 50 seconds             0.0.0.0:9092->9092/tcp                                                                           posthog-kafka-1
+d22559261575   temporalio/auto-setup:1.20.0               "/etc/temporal/entry…"   51 seconds ago   Up 45 seconds             6933-6935/tcp, 6939/tcp, 7234-7235/tcp, 7239/tcp, 0.0.0.0:7233->7233/tcp                         posthog-temporal-1
+5313fc278a70   postgres:12-alpine                         "docker-entrypoint.s…"   51 seconds ago   Up 50 seconds (healthy)   0.0.0.0:5432->5432/tcp                                                                           posthog-db-1
+c04358d8309f   zookeeper:3.7.0                            "/docker-entrypoint.…"   51 seconds ago   Up 50 seconds             2181/tcp, 2888/tcp, 3888/tcp, 8080/tcp                                                           posthog-zookeeper-1
+09add699866e   maildev/maildev:2.0.5                      "bin/maildev"            51 seconds ago   Up 50 seconds (healthy)   0.0.0.0:1025->1025/tcp, 0.0.0.0:1080->1080/tcp                                                   posthog-maildev-1
+61a44c094753   elasticsearch:7.16.2                       "/bin/tini -- /usr/l…"   51 seconds ago   Up 50 seconds             9200/tcp, 9300/tcp                                                                               posthog-elasticsearch-1
+a478cadf6911   minio/minio:RELEASE.2022-06-25T15-50-16Z   "sh -c 'mkdir -p /da…"   51 seconds ago   Up 50 seconds             9000/tcp, 0.0.0.0:19000-19001->19000-19001/tcp                                                   posthog-object_storage-1
+91f838afe40e   redis:6.2.7-alpine                         "docker-entrypoint.s…"   51 seconds ago   Up 50 seconds             0.0.0.0:6379->6379/tcp                                                                           posthog-redis-1
 
 # docker logs posthog-db-1 -n 1
 2021-12-06 13:47:08.325 UTC [1] LOG:  database system is ready to accept connections
@@ -127,6 +179,10 @@ d2d00eae3fc0   redis:6.2.7-alpine                  "docker-entrypoint.s…"   3 
 
 # docker logs posthog-clickhouse-1 -n 1
 Saved preprocessed configuration to '/var/lib/clickhouse/preprocessed_configs/users.xml'.
+
+# ClickHouse writes logs to `/var/log/clickhouse-server/clickhouse-server.log` and error logs to `/var/log/clickhouse-server/clickhouse-server.err.log` instead of stdout/stsderr. It can be useful to `cat` these files if there are any issues:
+# docker exec posthog-clickhouse-1 cat /var/log/clickhouse-server/clickhouse-server.log
+# docker exec posthog-clickhouse-1 cat /var/log/clickhouse-server/clickhouse-server.err.log
 
 # docker logs posthog-kafka-1
 [2021-12-06 13:47:23,814] INFO [KafkaServer id=1001] started (kafka.server.KafkaServer)
@@ -155,7 +211,7 @@ This intentionally only installs the Postgres client and drivers, and not the se
 
 On Linux you often have separate packages: `postgres` for the tools, `postgres-server` for the server, and `libpostgres-dev` for the `psycopg2` dependencies. Consult your distro's list for an up-to-date list of packages.
 
-### 2. Prepare the frontend
+#### 2. Prepare the frontend
 
 1. Install nvm, with `brew install nvm` or by following the instructions at https://github.com/nvm-sh/nvm. If using fish, you may instead prefer https://github.com/jorgebucaran/nvm.fish.
 
@@ -164,32 +220,48 @@ On Linux you often have separate packages: `postgres` for the tools, `postgres-s
     <code>$PATH</code>. Otherwise the command line will use your system Node.js version instead.
 </blockquote>
 
-2. Install the latest Node.js 16 (the version used by PostHog in production) with `nvm install 16`. You can start using it in the current shell with `nvm use 16`.
+2. Install the latest Node.js 18 (the version used by PostHog in production) with `nvm install 18`. You can start using it in the current shell with `nvm use 18`.
 
-3. Install yarn with `npm install -g yarn@1`.
+3. Install pnpm by running `corepack enable` and then running `corepack prepare pnpm@8.10.5 --activate`. Validate the installation with `pnpm --version`.
 
-4. Install Node packages by running `yarn`.
+4. Install Node packages by running `pnpm i`.
 
-5. Run `yarn typegen:write` to generate types for [Kea](https://keajs.org/) state management logics used all over the frontend.
+5. Run `pnpm typegen:write` to generate types for [Kea](https://keajs.org/) state management logics used all over the frontend.
 
-> The first time you run typegen, it may get stuck in a loop. If so, cancel the process (`Ctrl+C`), discard all changes in the working directory (`git reset --hard`), and run `yarn typegen:write` again. You may need to discard all changes once more when the second round of type generation completes.
+> The first time you run typegen, it may get stuck in a loop. If so, cancel the process (`Ctrl+C`), discard all changes in the working directory (`git reset --hard`), and run `pnpm typegen:write` again. You may need to discard all changes once more when the second round of type generation completes.
 
-### 3. Prepare plugin server
+#### 3. Prepare plugin server
 
-Assuming Node.js is installed, run `yarn --cwd plugin-server` to install all required packages. You'll also need to install the `brotli` compression library:
+1. Install the `brotli` compression library and `rust` stable via `rustup`:
 
 - On macOS:
     ```bash
-    brew install brotli
+    brew install brotli rustup
+    rustup default stable
+    rustup-init
+    # Select 1 to proceed with default installation
     ```
 - On Debian-based Linux:
     ```bash
     sudo apt install -y brotli
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    # Select 1 to proceed with default installation
     ```
+2. Run `pnpm i --dir plugin-server` to install all required packages. We'll actually run the plugin server in a later step.
 
-We'll run the plugin server in a later step.
+> **Note:** If you face an error like `ld: symbol(s) not found for architecture arm64`, most probably your openssl build flags are coming from the wrong place. To fix this, run:
+```bash
+export CPPFLAGS=-I/opt/homebrew/opt/openssl/include
+export LDFLAGS=-L/opt/homebrew/opt/openssl/lib
+pnpm i --dir plugin-server
+```
 
-### 4. Prepare the Django server
+> **Note:** If you face an error like `import gyp  # noqa: E402`, most probably need to install `python-setuptools`. To fix this, run:
+```bash
+brew install python-setuptools
+```
+
+#### 4. Prepare the Django server
 
 1. Install a few dependencies for SAML to work. If you're on macOS, run the command below, otherwise check the official [xmlsec repo](https://github.com/mehcode/python-xmlsec) for more details.
 
@@ -197,30 +269,36 @@ We'll run the plugin server in a later step.
         ```bash
         brew install libxml2 libxmlsec1 pkg-config
         ```
+        > If installing `xmlsec` doesn't work, try updating macOS to the latest version (Sonoma).
+
     - On Debian-based Linux:
         ```bash
-        sudo apt install -y libxml2 libxmlsec1-dev pkg-config
+        sudo apt install -y libxml2 libxmlsec1-dev libffi-dev pkg-config
         ```
 
-1. Install Python 3.8.
+1. Install Python 3.11.
 
-    - On macOS, you can do so with Homebrew: `brew install python@3.8`.
+    - On macOS, you can do so with Homebrew: `brew install python@3.11`.
 
     - On Debian-based Linux:
         ```bash
         sudo add-apt-repository ppa:deadsnakes/ppa -y
         sudo apt update
-        sudo apt install python3.8 python3.8-venv python3.8-dev -y
+        sudo apt install python3.11 python3.11-venv python3.11-dev -y
         ```
 
-Make sure when outside of `venv` to always use `python3` instead of `python`, as the latter may point to Python 2.x on some systems. If installing multiple versions of Python 3, such as by using the `deadsnakes` PPA, use `python3.8` instead of `python3`.
+Make sure when outside of `venv` to always use `python3` instead of `python`, as the latter may point to Python 2.x on some systems. If installing multiple versions of Python 3, such as by using the `deadsnakes` PPA, use `python3.11` instead of `python3`.
 
 You can also use [pyenv](https://github.com/pyenv/pyenv) if you wish to manage multiple versions of Python 3 on the same machine.
+
+1. Install `uv`
+
+`uv` is a very fast tool you can use for python virtual env and dependency management. See [https://docs.astral.sh/uv/](https://docs.astral.sh/uv/). Once installed you can prefix any `pip` command with `uv` to get the speed boost.
 
 1. Create the virtual environment in current directory called 'env':
 
     ```bash
-    python3 -m venv env
+    uv venv env --python 3.11
     ```
 
 1. Activate the virtual environment:
@@ -236,7 +314,7 @@ You can also use [pyenv](https://github.com/pyenv/pyenv) if you wish to manage m
 1. Upgrade pip to the latest version:
 
     ```bash
-    pip install -U pip
+    uv pip install -U pip
     ```
 
 1. Install requirements with pip
@@ -245,28 +323,23 @@ You can also use [pyenv](https://github.com/pyenv/pyenv) if you wish to manage m
 
     ```bash
     brew install openssl
-    CFLAGS="-I /opt/homebrew/opt/openssl/include $(python3.8-config --includes)" LDFLAGS="-L /opt/homebrew/opt/openssl/lib" GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=1 GRPC_PYTHON_BUILD_SYSTEM_ZLIB=1 pip install -r requirements.txt
+    CFLAGS="-I /opt/homebrew/opt/openssl/include $(python3.11-config --includes)" LDFLAGS="-L /opt/homebrew/opt/openssl/lib" GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=1 GRPC_PYTHON_BUILD_SYSTEM_ZLIB=1 uv pip install -r requirements.txt
     ```
+
+    > **Friendly tip:** If you see `ERROR: Could not build wheels for xmlsec`, refer to this [issue](https://github.com/xmlsec/python-xmlsec/issues/254).
 
     These will be used when installing `grpcio` and `psycopg2`. After doing this once, and assuming nothing changed with these two packages, next time simply run:
 
     ```bash
-    pip install -r requirements.txt
+    uv pip install -r requirements.txt -r requirements-dev.txt
     ```
 
-    If on an x86 platform, simply run the latter version.
-
-1. Install dev requirements
-
-    ```bash
-    pip install -r requirements-dev.txt
-    ```
-
-### 5. Prepare databases
+#### 5. Prepare databases
 
 We now have the backend ready, and Postgres and ClickHouse running – these databases are blank slates at the moment however, so we need to run _migrations_ to e.g. create all the tables:
 
 ```bash
+cargo install sqlx-cli # If you haven't already
 DEBUG=1 ./bin/migrate
 ```
 
@@ -274,7 +347,7 @@ DEBUG=1 ./bin/migrate
 
 > **Another friendly tip:** You may run into `psycopg2` errors while migrating on an ARM machine. Try out the steps in this [comment](https://github.com/psycopg/psycopg2/issues/1216#issuecomment-820556849) to resolve this.
 
-### 6. Start PostHog
+#### 6. Start PostHog
 
 Now start all of PostHog (backend, worker, plugin server, and frontend – simultaneously) with:
 
@@ -282,23 +355,55 @@ Now start all of PostHog (backend, worker, plugin server, and frontend – simul
 ./bin/start
 ```
 
-Open [http://localhost:8000](http://localhost:8000) to see the app.
+> **Note:** This command uses [mprocs](https://github.com/pvolok/mprocs) to run all development processes in a single terminal window.
+
+> **Friendly tip:** If you get the error `Configuration property "enable.ssl.certificate.verification" not supported in this build: OpenSSL not available at build time`, make sure your environment is using the right `openssl` version by setting [those](https://github.com/xmlsec/python-xmlsec/issues/261#issuecomment-1630889826) environment variables, and then run `./bin/start` again.
+
+Open [http://localhost:8010](http://localhost:8010) to see the app.
 
 > **Note:** The first time you run this command you might get an error that says "layout.html is not defined". Make sure you wait until the frontend is finished compiling and try again.
 
 To get some practical test data into your brand-new instance of PostHog, run `DEBUG=1 ./manage.py generate_demo_data`. For a list of useful arguments of the command, run `DEBUG=1 ./manage.py generate_demo_data --help`.
 
-### 7. Develop
+> **Friendly Tip** The first time you run the app, you can log in with a test account: _user_:`test@posthog.com` _pwd_:`12345678`.
 
-This is it! You can now change PostHog in any way you want. See [Project Structure](/handbook/engineering/project-structure) for an intro to the repository's contents.
+#### 7. Develop
 
-To commit changes, create a new branch based on `master` for your intended change, and develop away. Just make sure not use to use `release-*` patterns in your branches unless putting out a new version of PostHog, as such branches have special handling related to releases.
+That's it! You can now change PostHog in any way you want. See [Project structure](/handbook/engineering/project-structure) for an intro to the repository's contents. To commit changes, create a new branch based on `master` for your intended change, and develop away.
 
 ## Testing
 
 For a PostHog PR to be merged, all tests must be green, and ideally you should be introducing new ones as well – that's why you must be able to run tests with ease.
 
-For backend, simply use:
+### Frontend
+
+For frontend unit tests, run:
+
+```bash
+pnpm test:unit
+```
+
+You can narrow the run down to only files under matching paths:
+
+```bash
+pnpm jest --testPathPattern=frontend/src/lib/components/IntervalFilter/intervalFilterLogic.test.ts
+```
+
+To update all visual regression test snapshots, make sure Storybook is running on your machine (you can start it with `pnpm storybook` in a separate Terminal tab). You may also need to install Playwright with `pnpm exec playwright install`. And then run:
+
+```bash
+pnpm test:visual
+```
+
+To only update snapshots for stories under a specific path, run:
+
+```bash
+pnpm test:visual:update frontend/src/lib/Example.stories.tsx
+```
+
+### Backend
+
+For backend tests, run:
 
 ```bash
 pytest
@@ -307,22 +412,20 @@ pytest
 You can narrow the run down to only files under matching paths:
 
 ```bash
-pytest posthog/test/test_entity_model.py
+pytest posthog/test/test_example.py
 ```
 
 Or to only test cases with matching function names:
 
 ```bash
-pytest posthog/test/test_entity_model.py -k test_inclusion
+pytest posthog/test/test_example.py -k test_something
 ```
 
 To see debug logs (such as ClickHouse queries), add argument `--log-cli-level=DEBUG`.
 
-For Cypress end-to-end test, run `bin/e2e-test-runner`. This will temporarily install required dependencies inside the project, spin up a test instance of PostHog, and show you the Cypress interface, from which you'll manually choose tests to run.
+### End-to-end
 
-Once you're done, terminate the command with cmd + C. Be sure to wait until the command terminates gracefully so temporary dependencies are removed from `package.json` and you don't commit them accidentally.
-
-For frontend tests, all you need is `yarn test`.
+For Cypress end-to-end tests, run `bin/e2e-test-runner`. This will spin up a test instance of PostHog and show you the Cypress interface, from which you'll manually choose tests to run. You'll need `uv` installed (the Python package manager), which you can do so with `brew install uv`. Once you're done, terminate the command with Cmd + C.
 
 ## Extra: Working with feature flags
 
@@ -331,23 +434,115 @@ all analytics inside your local PostHog instance is based on that instance itsel
 This means that your activity is immediately reflected in the current project, which is potentially useful for testing features
 – for example, which feature flags are currently enabled for your development instance is decided by the project you have open at the very same time.
 
-So, when working with a feature based on feature flag `foo-bar`, [add a feature flag with this key to your local instance](http://localhost:8000/feature_flags/new) and release it there.
+So, when working with a feature based on feature flag `foo-bar`, [add a feature flag with this key to your local instance](http://localhost:8010/feature_flags/new) and release it there.
 
-If you'd like to have ALL feature flags that exist in PostHog at your disposal right away, run `python3 manage.py sync_feature_flags` – they will be added to each project in the instance, fully rolled out by default.
+If you'd like to have ALL feature flags that exist in PostHog at your disposal right away, run `DEBUG=1 python3 manage.py sync_feature_flags` – they will be added to each project in the instance, fully rolled out by default.
 
 This command automatically turns any feature flag ending in `_EXPERIMENT` as a multivariate flag with `control` and `test` variants.
+
+Backend side flags are only evaluated locally, which requires the `POSTHOG_PERSONAL_API_KEY` env var to be set. Generate the key in [your user settings](http://localhost:8010/settings/user#personal-api-keys).
+
+## Extra: Debugging with VS Code
+
+The PostHog repository includes [VS Code launch options for debugging](https://github.com/PostHog/posthog/blob/master/.vscode/launch.json). Simply go to the `Run and Debug` tab in VS Code, select the desired service you want to debug, and run it. Once it starts up, you can set breakpoints and step through code to see exactly what is happening. There are also debug launch options for frontend and backend tests if you're dealing with a tricky test failure.
+
+> **Note:** You can debug all services using the main "PostHog" launch option. Otherwise, if you are running most of the PostHog services locally with `./bin/start`, for example if you only want to debug the backend, make sure to comment out that service from the [start script temporarily](https://github.com/PostHog/posthog/blob/master/bin/start#L22). 
 
 ## Extra: Debugging the backend in PyCharm
 
 With PyCharm's built in support for Django, it's fairly easy to setup debugging in the backend. This is especially useful when you want to trace and debug a network request made from the client all the way back to the server. You can set breakpoints and step through code to see exactly what the backend is doing with your request.
 
-1. Setup Django configuration as per JetBrain's [docs](https://blog.jetbrains.com/pycharm/2017/08/develop-django-under-the-debugger/).
-2. Click Edit Configuration to edit the Django Server configuration you just created.
-3. Point PyCharm to the project root (`posthog/`) and settings (`posthog/posthog/settings.py`) file.
-4. Add these environment variables
+### Setup PyCharm
+
+1. Open the repository folder.
+2. Setup the python interpreter (Settings… > Project: posthog > Python interpreter > Add interpreter): Select "Existing" and set it to `path_to_repo/posthog/env/bin/python`.
+3. Setup Django support (Settings… > Languages & Frameworks > Django):
+   - Django project root: `path_to_repo`
+   - Settings: `posthog/settings/__init__py`
+
+### Start the debugging environment
+
+1. Instead of manually running `docker compose` you can open the `docker-compose.dev.yml` file and click on the double play icon next to `services`
+2. From the run configurations select:
+   - "PostHog" and click on debug
+   - "Celery" and click on debug (optional)
+   - "Frontend" and click on run
+   - "Plugin server" and click on run
+
+## Extra: Accessing Postgres
+
+While developing, there are times you may want to connect to the database to query the local database, make changes, etc. To connect to the database, use a tool like pgAdmin and enter these connection details: _host_:`localhost` _port_:`5432` _database_:`posthog`, _username_:`posthog`, _pwd_:`posthog`.
+
+## Extra: Accessing the Django Admin
+
+If you cannot access the Django admin http://localhost:8000/admin/, it could be that your local user is not set up as a staff user. You can connect to the database, find your `posthog_user` and set `is_staf` to `true`. This should make the admin page accessible.
+
+## Extra: Developing paid features (PostHog employees only)
+
+If you're a PostHog employee, you can get access to paid features on your local instance to make development easier. [Learn how to do so in our internal guide](https://github.com/PostHog/billing?tab=readme-ov-file#licensing-your-local-instance).
+
+## Extra: Working with the data warehouse and a MySQL source
+
+If you want to set up a local MySQL database as a source for the data warehouse, there are a few extra set up steps you'll need to complete:
+1. Setting up a local MySQL database to connect to.
+2. Installing MS SQL drivers on your machine.
+3. Defining additional environment variables for the Temporal task runner.
+
+First, install MySQL:
+
+```bash
+brew install mysql
+brew services start mysql
+```
+
+Once MySQL is installed, create a database and table, insert a row, and create a user who can connect to it:
+
+```bash
+mysql -u root
+```
+```sql
+CREATE DATABASE posthog_dw_test;
+CREATE TABLE IF NOT EXISTS payments (id INT AUTO_INCREMENT PRIMARY KEY, timestamp DATETIME, distinct_id VARCHAR(255), amount DECIMAL(10,2));
+INSERT INTO payments (timestamp, distinct_id, amount) VALUES (NOW(), 'testuser@example.com', 99.99);
+CREATE USER 'posthog'@'%' IDENTIFIED BY 'posthog';
+GRANT ALL PRIVILEGES ON posthog_dw_test.* TO 'posthog'@'%';
+FLUSH PRIVILEGES;
+```
+
+Next, you'll need to install some MS SQL drivers for PostHog the application to connect to the MySQL database. Learn the entire process in [posthog/warehouse/README.md](https://github.com/PostHog/posthog/blob/master/posthog/warehouse/README.md). Without the drivers, you'll get the following error when connecting a SQL database to data warehouse:
 
 ```
-DEBUG=1;
-KAFKA_HOSTS=kafka:9092;
-DATABASE_URL=postgres://posthog:posthog@localhost:5432/posthog
+symbol not found in flat namespace '_bcp_batch'
 ```
+
+Lastly, you'll need to define these environment variables in order for the Temporal task runner monitor the correct queue and work as expected:
+
+```
+# Ask for the values in #team-data-warehouse
+export PYTHONUNBUFFERED=
+export DJANGO_SETTINGS_MODULE=
+export DEBUG=
+export CLICKHOUSE_SECURE=
+export KAFKA_HOSTS=
+export DATABASE_URL=
+export SKIP_SERVICE_VERSION_REQUIREMENTS=
+export PRINT_SQL=
+export BUCKET_URL=
+export AIRBYTE_BUCKET_KEY=
+export AIRBYTE_BUCKET_SECRET=
+export AIRBYTE_BUCKET_REGION=
+export AIRBYTE_BUCKET_DOMAIN=
+export TEMPORAL_TASK_QUEUE=
+export AWS_S3_ALLOW_UNSAFE_RENAME=
+export HUBSPOT_APP_CLIENT_ID=
+export HUBSPOT_APP_CLIENT_SECRET=
+```
+
+If you put them in a `.temporal-worker-settings` file, you can run `source .temporal-worker-settings` before you call `DEBUG=1 ./bin/start`.
+
+To verify everything is working as expected:
+1. Navigate to "Data pipeline" in the PostHog application.
+2. Create a new MySQL source using the settings above.
+3. Once the source is created, click on the "MySQL" item. In the schemas table, click on the triple dot menu and select the "Reload" option.
+
+After the job runs, clicking on the synced table name should take you to your data.

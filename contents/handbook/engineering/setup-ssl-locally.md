@@ -44,7 +44,7 @@ ngrok start --all
 export WEBPACK_HOT_RELOAD_HOST=0.0.0.0
 export LOCAL_HTTPS=1
 export JS_URL=https://68f83839843a.ngrok.io
-yarn start
+pnpm start
 ```
 
 6. Use the same URL as the value for `JS_URL` again and start the Django server
@@ -62,11 +62,11 @@ python manage.py runserver
 
 If you're testing the Toolbar, make sure to add the ngrok urls to the list on the 'Project Settings' page.
 
-![Permitted domains](../../images/engineering/toolbar-permitted-ngrok.png)
+![Permitted domains](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/engineering/toolbar-permitted-ngrok.png)
 
 Also, watch out, network requests can be slow through ngrok:
 
-![Network slow with ngrok](../../images/engineering/ngrok-slow.gif)
+![Network slow with ngrok](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/engineering/ngrok-slow.gif)
 
 ## Set up SSL via NGINX and a local certificate
 

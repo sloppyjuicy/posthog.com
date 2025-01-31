@@ -1,22 +1,5 @@
 @import '../../vars';
 
-.posthog-scrollbars::-webkit-scrollbar {
-    width: 10px !important;
-    height: 10px !important;
-}
-.posthog-scrollbars::-webkit-scrollbar-thumb {
-    background: #bfbfbc !important;
-    border-radius: 30px !important;
-}
-.posthog-scrollbars::-webkit-scrollbar-thumb:hover {
-    background: #878387 !important;
-}
-.posthog-scrollbars::-webkit-scrollbar-track {
-    background: #fff !important;
-    border-radius: 0px !important;
-    box-shadow: inset 0px 0px 0px 0px #f0f0f0 !important;
-}
-
 body {
     font-variant-numeric: proportional-nums !important;
     font-feature-settings: unset !important;
@@ -149,11 +132,12 @@ button::-moz-focus-inner {
     border-style: none;
     padding: 0;
 }
-[type='button']:-moz-focusring,
-[type='reset']:-moz-focusring,
-[type='submit']:-moz-focusring,
-button:-moz-focusring {
-    outline: 1px dotted ButtonText;
+button,
+a {
+    &:focus-visible {
+        outline: 2px solid $primary;
+        outline-offset: 2px;
+    }
 }
 fieldset {
     border: 1px solid silver;
@@ -208,15 +192,7 @@ body.light {
     background-color: #eeefe9;
 }
 body.dark {
-    background-color: #151515;
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        color: white;
-    }
+    background-color: #1d1f27;
 }
 
 img {
@@ -438,6 +414,9 @@ ul li {
     padding-left: 0;
 }
 blockquote *:last-child {
+    margin-bottom: 0;
+}
+.article-content blockquote *:last-child {
     margin-bottom: 0;
 }
 p *:last-child {
@@ -1246,36 +1225,6 @@ a.middle {
         font-size: 16px !important;
     }
 }
-/* TEAM PAGE STYLES */
-
-.team-body {
-    background-color: none;
-}
-
-.team-title {
-    width: 100%;
-    float: left;
-    padding-top: 25px;
-}
-.team-row {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap-reverse;
-    width: 100%;
-    margin-bottom: 25px;
-    white-space: normal;
-}
-
-body.dark {
-    .team-right-image {
-        color: white;
-    }
-    .team-row {
-        svg {
-            fill: white;
-        }
-    }
-}
 
 /*the globe wraps below the intro text
 for all other rows the portrait image wraps above bio*/
@@ -1328,10 +1277,6 @@ for all other rows the portrait image wraps above bio*/
 }
 
 .main-nav-cta-wrapper:hover {
-    .main-nav-cta-light-bg {
-        background-color: darken($primary, 5%);
-    }
-
     .main-nav-cta-dark-bg {
         background-color: #fff !important;
         color: #222d5b !important;
@@ -1353,58 +1298,6 @@ for all other rows the portrait image wraps above bio*/
     color: $brand_blue;
 }
 
-/*split to one column on smaller screens*/
-@media screen and (max-width: 560px) {
-    .team-left-text,
-    .team-right-text {
-        width: 100%;
-    }
-    .team-center-space {
-        display: none;
-    }
-}
-
-/*maintain columns & spacing on larger screens*/
-@media screen and (min-width: 560px) {
-    .team-left-text,
-    .team-right-text {
-        width: 50%;
-    }
-    .team-left-image,
-    .team-right-image {
-        width: 40%;
-    }
-    .team-center-space {
-        width: 5%;
-    }
-}
-
-.team-left-text,
-.team-right-text {
-    min-width: 280px;
-}
-
-.team-left-image,
-.team-right-image {
-    min-width: 200px;
-    vertical-align: top;
-    padding-top: 50px;
-}
-
-/* Team page: scroll bar styles */
-
-.scroll-area {
-    height: 400px;
-    width: 45%;
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-
-.team-left-text-scroll {
-    float: left;
-    padding-right: 25px;
-}
-
 /* width */
 div:not(.default-scrollbar)::-webkit-scrollbar {
     width: 10px;
@@ -1424,6 +1317,18 @@ div:not(.default-scrollbar)::-webkit-scrollbar-thumb {
 /* handle on hover */
 div:not(.default-scrollbar)::-webkit-scrollbar-thumb:hover {
     background: #b0bec5;
+}
+
+/* Remove scrollbars inside of merch drawer */
+.drawer div::-webkit-scrollbar-track {
+    background: rgb(35, 36, 41);
+}
+.drawer div::-webkit-scrollbar-thumb {
+    background: black;
+}
+.drawer div::-webkit-scrollbar {
+    margin-left: none;
+    width: 0px;
 }
 
 @media screen and (max-width: 834px) {

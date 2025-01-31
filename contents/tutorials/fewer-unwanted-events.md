@@ -2,10 +2,15 @@
 title: How to capture fewer unwanted events
 sidebar: Docs
 showTitle: true
-author: ['ian-vanagas']
+author:
+  - ian-vanagas
 date: 2022-10-20
-featuredImage: ../images/tutorials/banners/fewer-unwanted-events.png
-topics: ['events', 'apps', 'data management']
+tags:
+  - events
+  - apps
+  - data management
+  - product os
+  - product analytics
 ---
 
 **Estimated reading time:** 5 minutes ☕
@@ -18,13 +23,15 @@ PostHog provides options to capture fewer events and limit the number of unwante
 
 ## Configuring autocapture
 
-Autocapture enables you to start capturing events on your site quickly, but this can lead to large numbers of events. 
+[Autocapture](/docs/product-analytics/autocapture) is a powerful way to capture user behavior and interactions without needing to manually set up events. It captures data you didn't know you need before you realize you need it. This helps you do analysis without waiting days or weeks for manually instrumented events to show up.
+
+The potential challenge for high-traffic apps and sites is too many events being captured.
 
 To counteract this, autocapture is configurable. For example, you can use the frontend JavaScript library without enabling autocapture. Just set `autocapture` to `false` when initializing the library (this still captures `pageview` and `pageleave`).
 
 ```js
 posthog.init('<ph_project_api_key>', {
-  api_host: '<ph_instance_address>',
+  api_host: '<ph_client_api_host>',
   autocapture: false,
   // ... more options
 })
@@ -32,7 +39,7 @@ posthog.init('<ph_project_api_key>', {
 
 You can also disable `pageview` and `pageleave` with the `capture_pageview` option and session recordings with `disable_session_recording`. You can find all the [configuration options for our JavaScript library](/docs/integrate/client/js#config) in our docs.
 
-Disabling these options still allows you to use other PostHog features such as `posthog.capture()` calls or feature flags. If limiting unwanted events is what is important for you, using disabling autocapture and using capture calls gives you more control over the events you are capturing. 
+Disabling these options still allows you to use other PostHog features such as `posthog.capture()` calls or feature flags. If limiting unwanted events is what is important for you, disabling autocapture and using capture calls gives you more control over the events you are capturing. 
 
 ## Using feature flags
 
@@ -44,10 +51,12 @@ First, you can turn off autocapture with a feature flag when the PostHog library
 posthog.init(
   '<ph_project_api_key>',
   { 
-    api_host: '<ph_instance_address>',
+    api_host: '<ph_client_api_host>',
     loaded: function (posthog) {
-      if (posthog.isFeatureEnabled('disable-autocapture')) {
-        posthog.config.autocapture = false;
+      posthog.onFeatureFlags((_flags) => {
+        if (posthog.isFeatureEnabled('disable-autocapture')) {
+          posthog.config.autocapture = false;
+        }
       }
     }
   }
@@ -58,7 +67,7 @@ Second, you can put events in key areas behind feature flags and turn them off i
 
 ```js
 if (!posthog.isFeatureEnabled('disable-event-capture')) {
-	posthog.capture('event');
+  posthog.capture('event');
 }
 ```
 
@@ -82,7 +91,7 @@ PostHog has apps that enable you to modify the events flowing into your instance
 
 The first app is the "Filter Out" app. It is used to filter out (or in) events matching certain conditions. This includes filters like number comparison, string regex, and boolean checks.
 
-To set it up, go to Browse Apps, search for "Filter Out Plugin," and upload JSON matching the schema detailed in the [README](https://github.com/plibither8/posthog-filter-out-plugin). This will look something like:
+To set it up, navigate to Data Pipeline, select the Transformations tab, select the **+ New transformation** button (in the top right hand corner), and search for "Filter Out Plugin". Upload JSON matching the schema detailed in the [README](https://github.com/posthog/posthog-filter-out-plugin). This will look something like:
 
 ```js
 [
@@ -110,23 +119,13 @@ Finally, click save and toggle the app to activate it. You'll be able to track h
 
 > Be sure to test your filters drop the events you expect, because miswritten schema can filter large amounts of events. For example, our sample `email` filter filters all events without an email key and autocaptured properties must start with `$`.
 
-## Drop events based on property app
-
-The second app is the “[Drop events based on property](https://github.com/PostHog/drop-events-on-property-plugin)” app. It is similar to the Filter Out app. You can use it to drop events that match a specified property. This is useful for [privacy-focused](/tutorials/property-filter) teams or teams who want to keep fewer events. 
-
-To set up this app, search for “Drop Events Based On Property” in Apps, click the blue gear, add the key and value (optional) of the event you want to drop, click save, and activate the toggle. As an example, if I want to drop events related to a specific page, I can set the property key to `$pathname` and the property value to `/about`
-
-![Drop events based on property app](../images/tutorials/fewer-unwanted-events/drop-events.png)
-
-Doing this drops any events where the property `$pathname` is `/about`. This is useful if certain pages on your site create a lot of events, but aren’t useful to you. Other uses include dropping events from a specific OS, browser, device type, location, user (distinct ID), and more.
-
 ## Downsampling app (not recommended)
 
-The third app you can use to keep fewer events is the [Downsampler](/docs/apps/downsampling) app. It reduces the number of events your instance will ingest by a percentage.
+The second app you can use to keep fewer events is the [Downsampler](/docs/apps/downsampling) app. It reduces the number of events your instance will ingest by a percentage.
 
 To configure it, search for the “Downsampling Plugin” in Apps, click the blue gear, pick a percentage of events you want to keep, and click the toggle to activate.
 
-![Downsampler app](../images/tutorials/fewer-unwanted-events/downsampler.png)
+![Downsampler app](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/tutorials/fewer-unwanted-events/downsampler.png)
 
 The problem with downsampling (compared to the other methods covered) is that you have less control over event ingestion. The app drops a random selection of all events. For example, if you have a funnel that goes from pageview to signup to paid. The downsampler could drop the signup event breaking a funnel, or worse, it could drop a paid subscription making your customer data inaccurate.
 
@@ -137,7 +136,7 @@ On top of this, you must guess what percentage you need. A percentage of a large
 Hopefully, these options helped you get your event data ingestion and costs in control. From that, you can increase the amount you are capturing again. Here are some recommendations to help you out:
 
 - Not getting enough events? Check out our [event tracking guide](/tutorials/event-tracking-guide).
-- Trouble with pageview captures on your single page app? Check out our [tutorial on how to set it up](/tutorials/spa).
+- Trouble with pageview captures on your single-page app? Check out our [tutorial on how to set it up](/tutorials/spa).
 - Want to avoid using cookies in your tracking? Follow our [cookieless tracking tutorial](/tutorials/cookieless-tracking).
 
-<NewsletterTutorial compact/>
+<NewsletterForm />

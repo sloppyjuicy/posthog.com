@@ -6,24 +6,24 @@ showTitle: true
 
 We want to support other YC companies using PostHog because:
 
-- Many of these companies will quickly grow into [our ICP](https://posthog.com/handbook/strategy/ideal-customer-persona) and we have an opportunity to get in early with them. 
+- Many of these companies will quickly grow into [our ICP](/handbook/who-we-are-building-for) and we have an opportunity to get in early with them. 
 - A lot of our most helpful and direct product feedback has generally come from other YC companies. 
 - It's nice to give back to the YC community. 
 
 ## The YC deal
 
-For startups in the W23 batch:
+For startups in the current batch:
 
-- Get PostHog Cloud free for 12 months with up to 20m events and 50,000 session recordings per month
-- Choose between a free pair of Airpods or a Timbuk2 backpack
-- Book into a free YC group setup session where we will…
-  - Build a dashboard for the batch with your product growth metrics
-  - Pair with you to ensure you pass calls correctly
+- Get $50k of credit for PostHog Cloud for 12 months
+- _All founders_ get a Timbuk2 backpack
+- A private YC Slack channel for priority support
 - Get the batphone - CEO on whatsapp/text
+
+If a founder refers us to another YC company, both founders get an additional $5k of credit for PostHog Cloud plus a copy of the PMF guide. 
 
 For previous batches:
 
-- Get PostHog Cloud free for 6 months with up to 20m events and 50,000 session recordings per month
+- Get $50k of credit for PostHog Cloud for 12 months ($25k / 6 months for anyone not in the last 4 batches).
 
 > Only James has the ability to update our deal in Bookface, so any changes to the deal text should be made in [this Google Doc](https://docs.google.com/document/d/17MtngAx2DeVo3YyhPwwKRvakI54SJuNmHkPtFns2IVQ/edit) then shared with him. 
 
@@ -35,58 +35,37 @@ We want to make this feel as personalized as possible - there is an outsized imp
 - James H messages every single one of them individually so that a) they have his number, and b) to tell them about the YC deal on Bookface
 - YC companies check out the deal and then book in for an onboarding call (see detailed section below)
 - Once companies are set up with us, we ask them to mark themselves as 'using' PostHog in Bookface
+- Add them to the `#posthog-founders-club` channel in Slack - this is where they can get priority support
 
-## Onboarding call
+## Setting up billing
 
-### Inbound request sources
+To get them set up for the YC Deal there are various options in the [Zapier table](https://tables.zapier.com/app/tables/t/01H2896A4Y47C650WK0ZKX9FPE).
 
-YC companies can either book a demo [dedicated YC Onboarding page](/yc-onboarding) or email us directly on _[yc@posthog.com](mailto:yc@posthog.com)_.
+There are three Approve buttons for each row in the table corresponding to the different YC deals.  There's also a handy link in the table to the YC Search for their company name so you can click through to validate them.
 
-Having received a demo request through one of these sources, schedule an appropriate 1-hour slot and ensure at least one YC company can definitely attend it. Ideally you want to batch these demos into small groups. 
+**Note that the Approve buttons require the following fields to be populated, or the automation will fail silently:**
+* Stripe Customer ID (for Stripe credit)
+* Company Name (for Zendesk tagging)
+* Domain (for Zendesk tagging)
+* Email (for confirmation and to share Brilliant giveaway links)
 
-### Before the call
+If the Stripe Customer ID is set to `unknown` it's because we couldn't automatically find a Stripe subscription for the email they used.  You need to populate it yourself or ask the customer to subscribe if they've not yet set up billing.  There's a handy *Subscribe Please* button in each table row which will email them asking to subscribe.
 
-Ideally, we want users to have gotten started with PostHog before the demo call. From our YC Onboarding page:
+Once you click the correct Approve button the [Zap](https://zapier.com/editor/196025535/published/196317316) will automatically do the following:
 
-> Before the call, we recommend you sign up to our Cloud version and try installing our snippet on your website. Doing so would allow us to tailor the onboarding to your needs, leveraging data from your website instead of demo data. However, if you prefer to get a demo first, we'll give you access to a demo playground during our call.
+1. Apply the correct credit amount to their Stripe customer object, and also update the plan expiry data metadata
+2. Set up their org on Zendesk and tag them as on the startup plan (meaning their tickets will be tagged with Normal priority)
+3. (Current batch only) Generate a Brilliant giveaway link
+4. Email the details of the plan and giveaway link to the customer (from Cameron)
 
-> We recommend PostHog Cloud as a way to get started quickly, but it's up to them if they want to set up a self-hosted instance before the call. You should also help with this.
+### If we need to send giveaways outside of the Zapier automation
 
-If users come to the call with a ready instance, we can focus more on their needs and setting up relevant views than a basic overview of the platform that they could have gotten without us.
+Customers have the following giveaway options. Our default are a choice of AirPods or Timbuk2 rucksack for folks in the US or Canada - if they live outside these countries, you should offer them a choice between $150 merch credit or Open Collective donation.
 
-### The demo
+Please do _not_ send Airpods or Timbuk2 outside of the US and Canada - this creates big customs headaches for us and is a bad experience for the user. If a user outside those countries is desperate for them, then either:
 
-When doing a demo of PostHog, you should prioritize using the following environments:
-
-1. The client's instance or PostHog Cloud account (if they have one **and** are OK with this). 
-2. The [PostHog Demo Environment](https://playground.posthog.com)
-3. A local environment
-4. PostHog Cloud 
-
-Read more about running demos on our [dedicated page](/handbook/growth/sales/demos).
-
-#### Bookmarklet
-
-A super cool way of doing demos for websites and web apps is using the PostHog bookmarklet. This way, you can set up funnels, charts, and other views for the user (or, ideally, have them set it up themselves) by leveraging their *own data*. If done on their instance, some of these views might even be ready for them to start analyzing user data once "real events" start coming in.
-
-To learn more about the bookmarklet, check out our [Snippet Installation](/docs/integrate/client/snippet-installation#get-started-with-no-code) page.
-
-#### Let the user drive
-
-Always tailor the demo to the user specifically! Skip things they don't need and let them decide what they want to see. Be friendly and helpful, not salesy! Our goal is for these users to be able to use PostHog to improve *their* product.
-
-### After the call
-
-If you have time left in the 1-hour slot, **do this during the call** - ensure the user is fully set up by the time the call is over. Finally, make sure they are in our [user Slack group](/slack). 
-
-Then you should:
-
-
-#### 1. Send a one-time giveaway
-
-Customers have the following giveaway options. Our default are a choice of AirPods or Timbuk2 rucksack for folks in the US or Canada - if they live outside these countries, you should offer them a choice between $150 merch credit or Open Collective donation. 
-
-Please do _not_ send Airpods or Timbuk2 outside of the US and Canada, no matter how much someone asks - this creates big customs headaches for us and is a bad experience for the user. 
+- Suggest they give us a US/Canada postal address they can forward or collect from
+- Send them the item but at their own risk for paying customs fees etc.
 
 <table>
 <thead>
@@ -110,7 +89,7 @@ Please do _not_ send Airpods or Timbuk2 outside of the US and Canada, no matter 
 </thead>
 <tbody>
 
-<!-- AirPods or Timbuk2 backpack via Printfection -->
+<!-- AirPods or Timbuk2 backpack via Brilliant -->
 <tr>
 <td valign="top">
 
@@ -120,17 +99,18 @@ AirPods or Timbuk2 backpack
 </td>
 <td valign="top">
 
-US and Canada only
+US and Canada addresses only*
 
 </td>
 <td valign="top">
 
 To create a one-time giveaway link:
 
-- [Login to Printfection](https://app.printfection.com/account/secure_login.php)
-- Go to **Campaigns** -> **Giveaways** -> **The PostHog YC Program**.
-- Click the **Get New Link** button and copy the link.
-- Send the link to the YC contact and mark the link as sent in Printfection.
+- Login to Brilliant ([details](/handbook/company/merch-store)).
+- _These instructions need updating._
+- ~~Go to **Campaigns** -> **Giveaways** -> **The PostHog YC Program**.~~
+- ~~Click the **Get New Link** button and copy the link.~~
+- ~~Send the link to the YC contact and mark the link as sent in Printfection.~~
 
 </td>
 </tr>
@@ -190,19 +170,3 @@ To create a giftcard in Open Collective:
 
 </tbody>
 </table>
-
-#### 2. Set up billing
-
-If they use PostHog Cloud, [update their plan to the Startup plan](/handbook/growth/sales/billing) using the Django Admin panel. Also, set `should_setup_billing` to `True` - this will prompt them to add card details (but assure them they won't get charged!)
-
-Ask them to confirm they've tagged themselves as using us, and send a direct link [to the deal](https://bookface.ycombinator.com/deals/687), so this is easy.
-
-#### 3. Set up HubSpot
-
-After they've gotten set up, if appropriate, [create a deal on the appropriate Hubspot pipeline](/handbook/growth/sales/sales-operations).
-
-## Responsibilities
-
-- James H and Kendal manage 1-1 comms with YC companies initially
-- Cameron handles YC onboarding calls, billing, and HubSpot
-- Grace manages Printfection, Open Collective, and Shopify

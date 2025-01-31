@@ -5,10 +5,12 @@ rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-categories: ["CEO diaries", "Inside PostHog"]
-author: ["james-hawkins"]
-featuredImage: ../images/blog/ceo-diary.png
+author:
+  - james-hawkins
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/posthog-ceo-diary-blog.png
 featuredImageType: full
+category: CEO diaries
 ---
 
 2021 went well for PostHog - especially given we're not even two years old yet.
@@ -22,7 +24,7 @@ Here's what we learned - good and bad...
 
 ## We were disciplined at letting people go, but we got scared to re-hire
 
-We hired [world class people](../handbook/company/team), and we let people go quickly when it wasn't working (paying much greater [severance](../handbook/people/offboarding#involuntary-departure) than industry standard when this happened).
+We hired [world class people](/people), and we let people go quickly when it wasn't working (paying much greater [severance](../handbook/people/offboarding#involuntary-departure) than industry standard when this happened).
 
 Tim and I believed that people working with great people is a huge motivator - [talent compounds](../handbook/company/values#talent-compounds) is one of our [values](../handbook/company/values). Feedback from our team surveys have since confirmed our team agrees. 
 
@@ -34,7 +36,7 @@ The end result? Lost time - and that has a lot of opportunity cost.
 
 It was midway through last year when it clicked.
 
-We had thousands of companies deploying, but some companies just felt like they were a better fit than others. PostHog's platform is exceptionally broad - we have multiple traditional products built in. We had doubled the [team](../handbook/company/team) size too. Those things combined makes knowing where to focus particularly challenging!
+We had thousands of companies deploying, but some companies just felt like they were a better fit than others. PostHog's platform is exceptionally broad - we have multiple traditional products built in. We had doubled the [team](/people) size too. Those things combined makes knowing where to focus particularly challenging!
 
 We were getting a lot of inbound paid demand, so we felt we should figure out how to get product market fit for our paid product. This would force us to have a clear split between our free and paid products.
 
@@ -44,7 +46,7 @@ We did this:
   * Reference = paying list price, genuinely delighted, using the product a lot
 * Wrote out what they had in common along the way. We created a spreadsheet that looked a little like this:
 
-![A spreadsheet showing company names listed alongside what they need and what they have](../images/5-reference-customers.png)
+![A spreadsheet showing company names listed alongside what they need and what they have](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/5-reference-customers.png)
 
 Note - we had to sell more than 5 deals, to get 5 reference customers. We also looked for antipatterns - when a customer wasn't having a great experience, what did they look like.
 
@@ -59,7 +61,7 @@ Don't they just dictate what to build to our team, thus annoying our team, and p
 At our first offsite in 2020, we ran a [full team feedback session](../handbook/people/feedback#full-team-feedback-sessions). This is a unique experience:
 
 - Everyone sits around a table. Ok, you've probably done that before.
-- The person who's turn it is, gets feedback from everyone else in the team
+- The person who's turn it is, gets [feedback from everyone else in the team](/newsletter/how-to-give-feedback)
 - This feedback is moderated to be 70% [constructive and as specific as possible](../handbook/people/feedback#how-to-give-good-feedback)
 
 Tim and I were both given the feedback that we've seen product done badly in our previous careers, and as a result, we aren't building this discipline at all into the company. We were just a bunch of engineers building what we felt users wanted - which was probably the right choice in the first few months, but not the path to building a world-class experience.
@@ -135,4 +137,4 @@ The team is bigger, we have way more customers, and the platform is bigger and m
 
 The good news? We know we're selling something people want.
 
-_Enjoyed this? Subscribe to our [newsletter](/newsletter) to hear more from us twice a month!_
+<NewsletterForm />

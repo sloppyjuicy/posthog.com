@@ -11,13 +11,8 @@ export const OpenRoles = () => {
                 <div className="md:flex">
                     <div className="flex-1 max-w-md md:mr-16 md:mt-4 mb-12 md:mb-0 mx-auto">
                         <p>We take exceptional people when they come along - and we really mean that!</p>
-                        <p>
-                            <strong>Don’t see a specific role listed?</strong> That doesn't mean we won't have a spot
-                            for you. <a href="/careers/speculative-application">Send us a speculative application!</a>
-                            <a href=""></a>
-                        </p>
                         <p className="mt-2">
-                            We take applications seriously - you won't just end up in a candidate database. We make
+                            Applications are taken seriously - you won't just end up in a candidate database. We make
                             quick decisions, and if the timing isn’t quite right, we’ll do our best to provide insight
                             into a better time to apply.
                         </p>
@@ -26,15 +21,8 @@ export const OpenRoles = () => {
                             contribute to one of our{' '}
                             <a href="https://github.com/PostHog/posthog/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22">
                                 good first issues
-                            </a>{' '}
-                            or build an app as part of our{' '}
-                            <a href="https://github.com/PostHog/posthog/issues/8437">app bounty</a>.
-                        </p>
-                        <p>
-                            <em>
-                                When you click through some of these jobs might say 'San Francisco' or 'London', but
-                                we're hiring all over the world.
-                            </em>
+                            </a>
+                            .
                         </p>
                     </div>
                     <div className="flex-1 max-w-md mx-auto">

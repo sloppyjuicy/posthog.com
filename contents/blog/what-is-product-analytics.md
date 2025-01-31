@@ -5,10 +5,14 @@ rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-author: ["joe-martin"]
-featuredImage: ../images/blog/posthog-ceo-diary-blog.png
+author:
+  - joe-martin
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/posthog-ceo-diary-blog.png
 featuredImageType: full
-categories: ["Guides", "Product analytics", "PostHog Academy"]
+category: Product growth
+tags:
+  - Explainers
 ---
 ## What is product analytics?
 
@@ -18,7 +22,7 @@ Where it gets more complicated is in the particular situations and decisions tha
 
 A good example of product analytics in action is collecting information about how many users reach each stage of an onboarding funnel, then using that information to improve or optimize a funnel. This is exactly [what companies such as Hasura use tools like PostHog for](/customers/hasura)!
 
-![Product analytics funnel](../images/tutorials/pirate-funnel/slide-funnels.png)
+![Product analytics funnel](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/tutorials/pirate-funnel/slide-funnels.png)
 
 <p align = "center"><figcaption>Above: An example of a simple product analytics funnel</figcaption>
 </p>
@@ -28,9 +32,9 @@ There are two types of data which you can gather for product analytics:
 - *Quantitative data* is objectively measurable, such as an increase in a number of users or sales. Using [funnel analysis](/docs/user-guides/funnels) in PostHog to measure drop-off is an example of quantitative data analysis.
 - *Qualitative data* is that which is subjective, such as user feedback or observations. Using [session recording](/docs/user-guides/recordings) in PostHog to intuit where users may be experiencing friction is an example of qualitative data analysis.
 
-There are also frameworks which can be used to translate information between the two. NPS scores, for example, are often used to translate a user sentiment into a measurable data point.
+There are also frameworks which can be used to translate information between the two. [NPS and CSAT scores](/product-engineers/nps-vs-csat-vs-ces), for example, are often used to translate user sentiment into a measurable data point.
 
-> This article is part of our [PostHog Academy series](/blog/categories/posthog-academy) where we explain the fundamentals of product analytics.
+> This article is part of our [PostHog Academy series](/tracks) where we explain the fundamentals of product analytics.
 
 ## Why are product analytics tools important?
 
@@ -61,9 +65,10 @@ Individuals will often employ product analytics on a particular area, depending 
     />
 </BorderWrapper>
 
+
 ## What product metrics should I track?
 
-It’s important when using product analytics tools to look at metrics relevant to specific decisions. Metrics such as the number of customers, can give you a good sense of your overall product health but won't help you plan a roadmap.
+It’s important when using product analytics tools to look at metrics relevant to specific decisions. Metrics such as the number of customers, can give you a good sense of your overall [product health](/blog/product-health-metrics) but won't help you plan a roadmap.
 
 One simple set of metrics which can help all teams to focus their efforts is the so-called pirate funnel, which was created by Dave McClure and tracks AARRR. That stands for:
 

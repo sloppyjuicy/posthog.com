@@ -1,17 +1,19 @@
 ---
 date: 2022-10-27
-title: "HogMail #15"
+title: 'HogMail #15'
 rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-author: ["andy-vandervell"]
-featuredImage: ../images/blog/hogmail.png
+author:
+  - andy-vandervell
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/hogmail.png
 featuredImageType: full
-categories: ["HogMail"]
+category: General
 ---
 
-> Welcome to HogMail, our newsletter featuring the best of the PostHog blog, tutorials, product guides, and curated articles on building great products and companies. We send it every two weeks. [Signup here](/newsletter) so you don't miss it.
+> Welcome to HogMail, our newsletter featuring the best of the PostHog blog, tutorials, product guides, and curated articles on building great products and companies. We send it every two weeks. [Signup here](https://newsletter.posthog.com/subscribe) so you don't miss it.
 
 ## #posthog-blog
 
@@ -23,9 +25,7 @@ categories: ["HogMail"]
 
 ## #tutorials-and-guides
 
-💸 [How to get Stripe revenue data into PostHog](https://posthog.com/tutorials/stripe-payment-data): How to import Stripe data and what to do once it's there.
-
-🔎 [Tracking pageviews in single page apps](https://posthog.com/tutorials/spa): All the ways to track pageviews in single page apps (SPA) using PostHog.
+🔎 [Tracking pageviews in single-page apps](https://posthog.com/tutorials/spa): All the ways to track pageviews in single-page apps (SPA) using PostHog.
 
 📉 [How to calculate and lower churn rate with PostHog](https://posthog.com/tutorials/churn-rate): Master using session recordings, cohorts, and actions to lower churn.
 
@@ -69,4 +69,4 @@ categories: ["HogMail"]
 
 * [How Do You Prove a Secret?](https://www.quantamagazine.org/how-to-prove-you-know-a-secret-without-giving-it-away-20221011/)
 
-> We send HogMail every two weeks. [Signup here](/newsletter) so you don't miss it.
+<NewsletterForm />

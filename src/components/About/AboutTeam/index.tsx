@@ -1,23 +1,8 @@
 import React from 'react'
-import { StaticImage } from 'gatsby-plugin-image'
 import { CallToAction } from 'components/CallToAction'
 import { Avatar } from './Avatar'
 import { graphql, useStaticQuery } from 'gatsby'
 import Map from './Map'
-
-interface DotProps {
-    classes: string
-}
-
-const Dot = ({ classes }: DotProps) => {
-    return (
-        <div className={`absolute ${classes}`}>
-            <span className="inline-flex h-4 w-4 mx-auto bg-red rounded-full relative border-[2.5px] border-solid border-white">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red opacity-75"></span>
-            </span>
-        </div>
-    )
-}
 
 const avatarStyles = [
     { color: '#DCB1E3', className: 'right-[-30.5rem] top-[-2.5rem]', size: 'lg' },
@@ -31,38 +16,42 @@ const avatarStyles = [
     { color: '#E6A9E8', className: 'left-[-6rem] bottom-[-12rem]', size: 'md' },
 ]
 
-export const AboutTeam = () => {
-    const { teamMembers } = useStaticQuery(query)
+export const AboutTeam = (): JSX.Element => {
+    const { avatarTeamMembers, teamMembers } = useStaticQuery(query)
+    const maxTheHedgehog = 1
 
     return (
         <section id="team" className="pt-16 pb-12 px-4">
             <h3 className="text-5xl mb-4 lg:mb-1 text-center">
-                We're a team of <span className="text-blue">35</span> from all over the world.
+                We're a team of <span className="text-blue">{teamMembers.count - maxTheHedgehog}</span> from all over
+                the world.
             </h3>
             <h4 className="font-semibold opacity-70 text-center">
                 Many of us move around a lot. Here's where we're currently shipping code.
             </h4>
 
             <div className="text-center mb-4">
-                <CallToAction to="/handbook/company/team" type="secondary">
+                <CallToAction to="/team" type="secondary">
                     Meet the team
                 </CallToAction>
             </div>
 
             <div className="relative text-center py-14 md:py-28">
                 <div className="absolute inset-1/2 scale-[.4] sm:scale-[.6] md:scale-100">
-                    {teamMembers.nodes.map(({ frontmatter: { name, country, headshot } }, index) => {
+                    {avatarTeamMembers.nodes.map(({ firstName, lastName, country, avatar }, index) => {
                         const styles = avatarStyles[index]
+                        const name = [firstName, lastName].filter(Boolean).join(' ')
                         return (
                             <Avatar
                                 key={name}
                                 size={styles.size}
                                 className={styles.className}
                                 color={styles.color}
-                                image={headshot}
+                                image={avatar?.url}
                                 name={name}
                                 country={country}
                             />
+
                         )
                     })}
                 </div>
@@ -76,38 +65,24 @@ export const AboutTeam = () => {
 
 const query = graphql`
     {
-        teamMembers: allMdx(
+        avatarTeamMembers: allSqueakProfile(
             filter: {
-                fields: { slug: { regex: "/^/team/" } }
-                frontmatter: {
-                    name: {
-                        in: [
-                            "Li Yi Yu"
-                            "Neil Kakkar"
-                            "Yakko Majuri"
-                            "Eric Duong"
-                            "Marius Andra"
-                            "Lottie Coxon"
-                            "Coua Phang"
-                            "Guido Iaquinti"
-                            "Cameron DeLeone"
-                        ]
-                    }
-                }
+                lastName: { in: ["Andra", "Coxon", "Phang", "Obermüller", "Matloka", "Majerik"] }
+                teams: { data: { elemMatch: { attributes: { name: { ne: null } } } } }
             }
-            sort: { fields: frontmatter___startDate }
+            sort: { fields: startDate }
         ) {
             nodes {
-                frontmatter {
-                    country
-                    name
-                    headshot {
-                        childImageSharp {
-                            gatsbyImageData(placeholder: NONE)
-                        }
-                    }
+                country
+                firstName
+                lastName
+                avatar {
+                    url
                 }
             }
+        }
+        teamMembers: allSqueakProfile(filter: { teams: { data: { elemMatch: { id: { ne: null } } } } }) {
+            count: totalCount
         }
     }
 `

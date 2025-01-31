@@ -1,22 +1,24 @@
 import React from 'react'
 import { useSearch } from './SearchContext'
-import type { SearchResultType } from './SearchContext'
+import type { SearchResultType, SearchLocation } from './SearchContext'
 
 type SearchBoxProps = {
     placeholder?: string
+    location: SearchLocation
     filter?: SearchResultType
+    className?: string
 }
 
-export const SearchBox: React.FC<SearchBoxProps> = ({ placeholder, filter }) => {
+export const SearchBox: React.FC<SearchBoxProps> = ({ placeholder, location, filter, className }) => {
     const { open } = useSearch()
 
     const handleSearchBoxClick = (event: React.MouseEvent) => {
         event.preventDefault()
-        open(filter)
+        open(location, filter)
     }
 
     return (
-        <button onClick={handleSearchBoxClick} className="flex items-center relative m-0">
+        <button onClick={handleSearchBoxClick} className="flex items-center relative m-0 w-full">
             <div className="absolute left-4 w-4 h-4">
                 <svg className="opacity-50" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18">
                     <g opacity="1" clipPath="url(#a)">
@@ -32,7 +34,9 @@ export const SearchBox: React.FC<SearchBoxProps> = ({ placeholder, filter }) => 
                     </defs>
                 </svg>
             </div>
-            <div className="pl-10 py-3 text-base text-left text-primary/40 hover:text-primary/60 dark:text-white/30 dark:hover:text-white/40 bg-white dark:bg-gray-accent-dark dark:text-white rounded-full w-full md:w-[300px] mdlg:w-[400px] lg:w-[375px] xl:w-[500px] ring-red shadow-lg">
+            <div
+                className={`pl-10 py-3 text-base text-left text-black/40 hover:text-black/60 dark:text-white/40 dark:hover:text-white/60 bg-white dark:bg-accent-dark dark:text-white rounded-md w-full md:w-[300px] mdlg:w-[400px] lg:w-[375px] xl:w-[500px] border border-border dark:border-dark border-b-3 active:border-[#aaa] ${className}`}
+            >
                 {placeholder || 'Search...'}
             </div>
         </button>

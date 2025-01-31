@@ -1,14 +1,14 @@
 ---
-title: Building and measuring a sign up funnel with Next.js, Supabase, and PostHog
+title: 'Building and measuring a sign up funnel with Next.js, Supabase, and PostHog'
 sidebar: Docs
 showTitle: true
-featuredImage: ../images/tutorials/banners/nextjs-supabase.png
-author: ['leggetter']
-topics:
-    - funnels
-    - user paths
-    - session recording
-    - events
+author:
+  - leggetter
+tags:
+  - funnels
+  - user paths
+  - session replay
+  - events
 date: 2021-10-21
 ---
 
@@ -16,7 +16,7 @@ _Estimated reading time: 20 minutes_ ☕☕☕
 
 With the number of software frameworks and services available to help with developer productivity and feature building, it's never been a better time to be a software developer. One of most important things you'll have to build, whether building a SaaS, developer tool, or consumer app, is a sign up flow that begins on a landing page and ideally results in a successful sign up. The purpose of this sign up flow is to get as many real users through to being successfully signed up on your app or platform. So, it's important that you can measure whether your sign up flow is converting and where any potential sign ups are dropping out of that funnel.
 
-In this tutorial, we'll create a simple sign up flow in a Next.js app, starting with a Supabase example for authentication. We'll then look at how you can instrument that sign up flow using the [PostHog JavaScript SDK](/docs/integrate/client/js) and create a sign up [funnel visualization](/docs/user-guides/funnels) within PostHog to analyze the success - or failure - of the sign up flow.
+In this tutorial, we'll create a simple sign up flow in a Next.js app, starting with a [Supabase](/tutorials/supabase-query) example for authentication. We'll then look at how you can instrument that sign up flow using the [PostHog JavaScript SDK](/docs/integrate/client/js) and create a sign up [funnel visualization](/docs/user-guides/funnels) within PostHog to analyze the success - or failure - of the sign up flow.
 
 ## Before you begin
 
@@ -24,11 +24,11 @@ The application in this tutorial is built entirely upon open-source technologies
 
 -   [Next.js](https://nextjs.org/) is feature rich, Node.js open-source React framework for building modern web apps.
 -   [Supabase](https://supabase.io/) is an open-source alternative to Firebase offering functionality such as a Postgres database, authentication, realtime subscriptions and storage.
--   [PostHog](/) is an open-source product analytics platform with features including feature flags, session recording, analysis of trends, funnels, user paths, and more.
+-   [PostHog](/) is an open-source product analytics platform with features including feature flags, session replay, analysis of trends, funnels, user paths, and more.
 
 To follow this tutorial along, you need to have:
 
-1. A [self-hosted instance of PostHog](/signup/self-host) or [sign up for PostHog Cloud](https://app.posthog.com/signup)
+1. A [self-hosted instance of PostHog](/docs/self-host) or [sign up for PostHog Cloud](https://app.posthog.com/signup)
 1. A [self-hosted instance of Supabase](https://supabase.io/docs/guides/hosting/overview) or [sign up for a hosted Supabase account](https://app.supabase.io/api/login)
 1. [Node.js](https://nodejs.org/en/download/) installed
 
@@ -103,13 +103,13 @@ cp .env.local.example .env.local
 
 Now, head to the [Supabase dashboard](https://app.supabase.io/) to create a project. Click the **New project** button and you'll be presented with a "Create new project" dialog.
 
-![Supabase Create new project dialog](../images/tutorials/supabase-nextjs-signup-funnel/supabase-create-new-project-dialog.png)
+![Supabase Create new project dialog](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/tutorials/supabase-nextjs-signup-funnel/supabase-create-new-project-dialog.png)
 
 You may need to select an Organization. You will need to enter details for a project name, database password, and choose a deployment region. Once done, click the **Create new project** button.
 
 You'll then be presented with a page showing **Project API keys** and **Project Configuration**.
 
-![Supabase Project API keys and Project Configuration](../images/tutorials/supabase-nextjs-signup-funnel/supabase-api-keys-configuration.png)
+![Supabase Project API keys and Project Configuration](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/tutorials/supabase-nextjs-signup-funnel/supabase-api-keys-configuration.png)
 
 Update the contents of `.env.local` as follows:
 
@@ -118,7 +118,7 @@ Update the contents of `.env.local` as follows:
 
 Next, within the Supabase dashboard project settings select **Auth settings** and add `http://localhost:3000/auth` to the **Additional Redirect URLs** field.
 
-![Supabase Auth settings](../images/tutorials/supabase-nextjs-signup-funnel/supabase-auth-redirect-settings.png)
+![Supabase Auth settings](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/tutorials/supabase-nextjs-signup-funnel/supabase-auth-redirect-settings.png)
 
 With the Supabase configuration in place, we can run the app with:
 
@@ -128,11 +128,11 @@ npm run dev
 
 You can then navigate to `http://localhost:3000/auth` to try out the Supabase authentication functionality including sign up, login, login/sign up with magic link (email), and forgot password.
 
-![Supabase basic authentication app UI](../images/tutorials/supabase-nextjs-signup-funnel/supabase-auth-app.png)
+![Supabase basic authentication app UI](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/tutorials/supabase-nextjs-signup-funnel/supabase-auth-app.png)
 
 When you're signed up and logged in the UI will look like this:
 
-![Supabase Auth signed in example](../images/tutorials/supabase-nextjs-signup-funnel/supabase-signed-in.png)
+![Supabase Auth signed in example](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/tutorials/supabase-nextjs-signup-funnel/supabase-signed-in.png)
 
 We'll focus on sign up for our application, so try out the sign up with email and password functionality as well as the magic link sign up (note magic link emails for a single email address can be sent once per 60 seconds).
 
@@ -223,13 +223,13 @@ As planned, the page has two CTA `<button>` elements that send the user to the `
 
 This will result in an "Awesome API" landing page that looks as follows:
 
-![Awesome API example app landing page](../images/tutorials/supabase-nextjs-signup-funnel/awesome-api-landing-page.png)
+![Awesome API example app landing page](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/tutorials/supabase-nextjs-signup-funnel/awesome-api-landing-page.png)
 
 Feel free to rebrand!
 
 Now that a landing page is in place we have all the assets required for a basic sign up flow that we want the user to successfully navigate through.
 
-import signUpFlowAnimation from '../images/tutorials/supabase-nextjs-signup-funnel/supabase-signup-flow.gif'
+export const signUpFlowAnimation = "https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/tutorials/supabase-nextjs-signup-funnel/supabase-signup-flow.gif"
 
 <center>
     <img
@@ -257,7 +257,7 @@ NEXT_PUBLIC_POSTHOG_HOST=your_posthog_host
 
 The value for `NEXT_PUBLIC_POSTHOG_API_KEY` can be found via **Project** in the left-hand menu of your PostHog app, underneath the **Project API Key** heading.
 
-The value for `NEXT_PUBLIC_POSTHOG_HOST` is the public URL for your running PostHog instance. If you're using cloud, this is `https://app.posthog.com`.
+The value for `NEXT_PUBLIC_POSTHOG_HOST` is the public URL for ingesting events into your PostHog instance. If you're using US cloud, this is `https://us.i.posthog.com`.
 
 With the required config in place we can install the PostHog JavaScript SDK:
 
@@ -265,60 +265,53 @@ With the required config in place we can install the PostHog JavaScript SDK:
 npm i -S posthog-js
 ```
 
-Create a new file, `utils/initPostHog.js`, and within it add code to initialize the PostHog JavaScript client:
-
-```js
-import posthog from 'posthog-js'
-
-export const initPostHog = () => {
-    if (typeof window !== 'undefined') {
-        posthog.init(process.env.NEXT_PUBLIC_POSTHOG_API_KEY, {
-            api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST,
-        })
-    }
-
-    return posthog
-}
-```
-
-The file exports a single function, `initPostHog`, that checks to ensure that the current runtime is the browser and, if so, initializes the PostHog JavaScript client with the config we've just stored. It also returns the `posthog` client instance so we can use within our app.
-
-PostHog JS has an [autocapture](/docs/integrate/client/js#autocapture) feature that automatically captures browser events (this can be disabled). However, it won't capture navigation events in Next.js where the window doesn't reload, so we need to add some custom code to capture navigations.
-
 Open up `pages/_app.js` and add this code within the `MyApp` function:
 
 ```js
 import { useEffect } from 'react'
+import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
-import { initPostHog } from '../utils/initPostHog'
 
-export default function MyApp({ Component, pageProps }) {
+import posthog from 'posthog-js'
+import { PostHogProvider } from 'posthog-js/react'
 
-  const router = useRouter()
+// Check that PostHog is client-side
+if (typeof window !== 'undefined') {
+    posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY, {
+        api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://us.i.posthog.com',
+        // Enable debug mode in development
+        loaded: (posthog) => {
+        if (process.env.NODE_ENV === 'development') posthog.debug()
+        }
+    })
+}
 
-  useEffect(() => {
-    // Init for auto capturing
-    const posthog = initPostHog()
+export default function App({ Component, pageProps }: AppProps) {
+    const router = useRouter()
 
-    const handleRouteChange = () => {
-      if(typeof window !== 'undefined') {
-        posthog.capture('$pageview')
-      }
-    }
+    useEffect(() => {
+        // Track page views
+        const handleRouteChange = () => posthog.capture('$pageview')
+        router.events.on('routeChangeComplete', handleRouteChange)
 
-    router.events.on("routeChangeComplete", handleRouteChange)
+        return () => {
+            router.events.off('routeChangeComplete', handleRouteChange)
+        }
+    }, [])
 
-    return () => {
-      router.events.off("routeChangeComplete", handleRouteChange)
-    };
-  }, [router.events])
+    return (
+        <PostHogProvider client={posthog}>
+            <Component {...pageProps} />
+        </PostHogProvider>
+    )
+}
 ```
 
 Here, we import the [React `useEffect`](https://reactjs.org/docs/hooks-effect.html) and [Next.js Router](https://nextjs.org/docs/api-reference/next/router) hooks. Within the `useEffect` hook we initialize the PostHog JS client using the function we've just created and bind to a `routeChangeComplete` on the Next.js router, handling the event within the `handleRouteChange` function. When this function is called, we manually trigger a `$pageview` event using PostHog JS with `posthog.capture('$pageview')`.
 
 Now, restart your application so it picks up the new config in `.env.local` and head over to the **Events** section within your PostHog instance and you'll see new events appear as you test out the sign up flow.
 
-![Signup funnel events in PostHog UI](../images/tutorials/supabase-nextjs-signup-funnel/posthog-signup-funnel-events.png)
+![Signup funnel events in PostHog UI](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/tutorials/supabase-nextjs-signup-funnel/posthog-signup-funnel-events.png)
 
 Here's how some of the events can tie in to the flow we're trying to build:
 
@@ -334,37 +327,34 @@ From the above table, you can see that we can track everything up until the sign
 
 It is theoretically possible to track the step 4, email verification, if the email provider exposes an email sent notification mechanism via something like as a webhook. So, if Supabase offered a webhook when auth emails were sent we could track this from the server.
 
-However, we need and should be able to track step 5, when the user has successfully signed up. We know that the user lands on `/auth` when they are logged in. If we look at the code for that page there is a `user` variable that is set if the user is logged in. So, let's update `/pages/auth.js` so we can track a logged in user. First, include the `initPostHog` utility:
+However, we need and should be able to track step 5, when the user has successfully signed up. We know that the user lands on `/auth` when they are logged in. If we look at the code for that page there is a `user` variable that is set if the user is logged in. So, let's update `/pages/auth.js` so we can track a logged in user.
+
+To do this, update the `Index` definition:
 
 ```js
-import { initPostHog } from '../utils/initPostHog'
-```
+import { usePostHog } from 'posthog-js/react'
 
-Next, update the `Index` definition:
-
-```js
 const Index = () => {
+  const posthog = usePostHog()
   const { user, session } = useUser()
   const { data, error } = useSWR(session ? ['/api/getUser', session.access_token] : null, fetcher)
   const [authView, setAuthView] = useState('sign_up')
 
-  const posthog = initPostHog()
-
   if(user) {
     posthog.identify(user.email, user)
-    posthog.capture('loggedIn')
+    posthog.capture('logged_in')
   }
 
 ```
 
-In the above code we utilize the `initPostHog` function again to reference an initialized PostHog JS instance. We then make two function calls:
+In the above code we utilize the `usePostHog` function again to reference an initialized PostHog JS instance. We then make two function calls:
 
 1. `posthog.identify(user.email, user)` - since the user is logged in we can identify them. We pass in `user.email`, their email address, as a distinct identifier. We also pass in the Supabase `user` variable so PostHog has access to additional user data.
 2. `posthog.capture('loggedIn')` - this triggers a simple `loggedIn` event that we can use to identify the user as successfully having logged in.
 
 If you now go through the login flow, you can map all the required events in PostHog to the sign up funnel that we're building.
 
-![Mapping events in PostHog to the sign up funnel](../images/tutorials/supabase-nextjs-signup-funnel/signup-flow-posthog-events.png)
+![Mapping events in PostHog to the sign up funnel](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/tutorials/supabase-nextjs-signup-funnel/signup-flow-posthog-events.png)
 
 You'll also see the point at which `posthog.identify` is called since the **Person** associated with the event is now listed with each event entry.
 
@@ -386,7 +376,7 @@ First, let's recap the events in the funnel and include the new `loggedIn` event
 
 To begin defining a funnel click on the **New Insight** left-hand menu item within PostHog and select the **Funnels** tab.
 
-![New Funnels Insight view](../images/tutorials/supabase-nextjs-signup-funnel/new-funnel-insight.png)
+![New Funnels Insight view](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/tutorials/supabase-nextjs-signup-funnel/new-funnel-insight.png)
 
 On the left-hand side of the view there is a panel with **Graph Type** and **Steps** headings. The **Graph Type** value is set to **Conversion steps**, which is what we want. The first of the **Steps** is set to **Pageview**. As we flesh out the steps, the funnel visualization will appear on the right.
 
@@ -394,19 +384,19 @@ On the left-hand side of the view there is a panel with **Graph Type** and **Ste
 
 The first step within the funnel is the user landing on the main website landing page with a path of `/`. So, the event is correctly set to **Pageview** but we need to filter the event by path. To do this, click the filter icon next to the step and filter on **Path Name** where the path value is `/`.
 
-![Step 1 - filter on landing page based on path name](../images/tutorials/supabase-nextjs-signup-funnel/step-1-funnel-landing-page.png)
+![Step 1 - filter on landing page based on path name](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/tutorials/supabase-nextjs-signup-funnel/step-1-funnel-landing-page.png)
 
 A funnel visualization won't appear at this point because a funnel must have more than one step.
 
 ### Step 2 - User clicks SignUp button
 
-To add the second step, click either of the **Add funnel step** buttons. Change the event to **Autocapture** since the event we're looking to make use of was one [autocaptured](/docs/integrate/client/js#autocapture) by the PostHog JS SDK. Then, set a filter. When you click the filter icon this time, select the **Elements** tab and select the **Text** property.
+To add the second step, click either of the **Add funnel step** buttons. Change the event to **Autocapture** since the event we're looking to make use of was one [autocaptured](/docs/data/autocapture) by the PostHog JS SDK. Then, set a filter. When you click the filter icon this time, select the **Elements** tab and select the **Text** property.
 
-![Step 2 - user clicks sign up button filter on element text](../images/tutorials/supabase-nextjs-signup-funnel/step-2-signup-button-clicked.png)
+![Step 2 - user clicks sign up button filter on element text](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/tutorials/supabase-nextjs-signup-funnel/step-2-signup-button-clicked.png)
 
 For the filter value choose `SignUp`, which should be pre-populated based on the values that PostHog has already ingested from our testing.
 
-![Step 2 - user clicks sign up button filter on element text value](../images/tutorials/supabase-nextjs-signup-funnel/step-2-signup-button-clicked-text-value.png)
+![Step 2 - user clicks sign up button filter on element text value](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/tutorials/supabase-nextjs-signup-funnel/step-2-signup-button-clicked-text-value.png)
 
 As you populate this step, you'll see the funnel visualization appear.
 
@@ -416,17 +406,17 @@ _Note: you could also have done a **Pageview** again here, filtered by a **Path 
 
 For this step we want to track the sign up form submission. So, create a new step with an event of **Autocapture** and a first filter on the **Event Type** property (not be confused with the top-level event) with a value of "submit" for the form submission.
 
-![Step 3 - filter on Event Type of submit](../images/tutorials/supabase-nextjs-signup-funnel/step-3-event-type-submit.png)
+![Step 3 - filter on Event Type of submit](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/tutorials/supabase-nextjs-signup-funnel/step-3-event-type-submit.png)
 
 However, the above filter will track all form submissions. This may include forms other than the sign up form. So, add a second filter specifically identifying the sign up form based. To do this, select the **Elements** tab, choose **CSS Selector**, and set the selector value as `[id="sign_up_form"]` to identify the `id` attribute as having a value of `sign_up_form`.
 
-![Step 3 - CSS Selector filter](../images/tutorials/supabase-nextjs-signup-funnel/step-3-css-selector-id-signup-form.png)
+![Step 3 - CSS Selector filter](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/tutorials/supabase-nextjs-signup-funnel/step-3-css-selector-id-signup-form.png)
 
 ### Step 4 - User receives registration email
 
 As noted in the table above, we don't presently have a way of tracking this because it happens on systems outside of our control. Remember, though, it may be that an email provider could integrate with PostHog to also track email events.
 
-![Step 4 - Supabase sig nup verification email](../images/tutorials/supabase-nextjs-signup-funnel/signup-email.png)
+![Step 4 - Supabase sig nup verification email](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/tutorials/supabase-nextjs-signup-funnel/signup-email.png)
 
 ### Step 5 - User clicks on link in email and logs into app
 
@@ -434,17 +424,17 @@ This represents successful completion of our sign up funnel. We added some custo
 
 So, add a new step to the funnel and select the `loggedIn`.
 
-![Step 5 - user signed up and logged in](../images/tutorials/supabase-nextjs-signup-funnel/step-5-user-signed-up-logged-in.png)
+![Step 5 - user signed up and logged in](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/tutorials/supabase-nextjs-signup-funnel/step-5-user-signed-up-logged-in.png)
 
 The funnel is now complete and we can see the journey of users through the sign up funnel, users that have dropped off, and users that have completed sign up.
 
 You can adjust the options in the right-hand panel, if required. For example, you can change the orientation of the funnel visualization from left-to-right to top-to-bottom, the computation in the steps from **Overall conversion** to **Relative to previous step**, and the period of time the Funnel is calculated over.
 
-![Funnel visualization options](../images/tutorials/supabase-nextjs-signup-funnel/funnel-visualization-options.png)
+![Funnel visualization options](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/tutorials/supabase-nextjs-signup-funnel/funnel-visualization-options.png)
 
 Finally, you can save the Funnel, giving it a name of **Signup Funnel**, and add it to a Dashboard by clicking **Save & add to dashboard**.
 
-![Save and name sign up funnel](../images/tutorials/supabase-nextjs-signup-funnel/save-and-name-signup-funnel.png)
+![Save and name sign up funnel](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/tutorials/supabase-nextjs-signup-funnel/save-and-name-signup-funnel.png)
 
 ## Conclusion
 
@@ -469,4 +459,4 @@ There are a couple of options here:
 1. Supabase uses a tool called [GoTrue](https://github.com/supabase/gotrue) which does support webhook configuration for email events such as `validate`, `signup` or `login`. Why not get involved in the Supabase community and see if these events can be exposed via Supabase?
 2. Turn on **Enable Custom SMTP** within Supabase and use a third-party email provider that exposes webhooks for email events?
 
-<NewsletterTutorial compact/>
+<NewsletterForm />

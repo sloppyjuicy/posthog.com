@@ -15,6 +15,79 @@ require('dotenv').config({
 
 // exports.onPreBuild = async () => {}
 
+const isValidUrl = (url: string): boolean => {
+    try {
+        const newUrl = new URL(url)
+        return newUrl.protocol === 'http:' || newUrl.protocol === 'https:'
+    } catch (err) {
+        return false
+    }
+}
+
+exports.onPreInit = async function (_, options) {
+    const { strapiURL, strapiKey } = options
+    if (!strapiURL || !strapiKey) return
+    const createStrapiPageNodes = async (limit = 100, page = 1) => {
+        const strapiPages = await fetch(
+            `${strapiURL}/api/markdowns?pagination[pageSize]=${limit}&pagination[page]=${page}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${strapiKey}`,
+                },
+            }
+        ).then((res) => res.json())
+        const { data, meta } = strapiPages
+        if (data) {
+            data.forEach(({ id, attributes }) => {
+                files[attributes.path] = { contributors: attributes.contributors, lastUpdated: attributes.lastUpdated }
+            })
+        }
+        if (meta?.pagination?.pageCount > page) {
+            return await createStrapiPageNodes(limit, page + 1)
+        }
+    }
+
+    await createStrapiPageNodes()
+}
+
+const cloudinaryCache = {}
+
+export const onPreInit: GatsbyNode['onPreInit'] = async function ({ actions }) {
+    if (
+        !process.env.CLOUDINARY_API_KEY ||
+        !process.env.CLOUDINARY_API_SECRET ||
+        !process.env.GATSBY_CLOUDINARY_CLOUD_NAME
+    ) {
+        console.warn('Cloudinary credentials not found')
+        return
+    }
+    console.log('Fetching cloudinary data')
+
+    const fetchCloudinaryImages = async (nextCursor = null) => {
+        const { resources, next_cursor } = await fetch(
+            `https://${process.env.CLOUDINARY_API_KEY}:${process.env.CLOUDINARY_API_SECRET}@api.cloudinary.com/v1_1/${
+                process.env.GATSBY_CLOUDINARY_CLOUD_NAME
+            }/resources/image?type=upload&max_results=500${nextCursor ? `&next_cursor=${nextCursor}` : ``}`
+        )
+            .then((res) => res.json())
+            .catch((e) => console.error(e))
+        resources.forEach((resource) => {
+            cloudinaryCache[resource.public_id] = resource
+        })
+
+        if (next_cursor) {
+            await fetchCloudinaryImages(next_cursor)
+        }
+    }
+
+    await fetchCloudinaryImages()
+}
+
+function getPublicID(image: string) {
+    const imagePath = image.split('/upload/')[1]
+    return imagePath.substring(0, imagePath.lastIndexOf('.'))
+}
+
 export const onCreateNode: GatsbyNode['onCreateNode'] = async ({
     node,
     getNode,
@@ -27,7 +100,50 @@ export const onCreateNode: GatsbyNode['onCreateNode'] = async ({
 
     if (node.internal.type === `MarkdownRemark` || node.internal.type === 'Mdx') {
         const parent = getNode(node.parent)
-        if (parent.internal.type === 'Reply') return
+        if (parent?.internal.type === 'PostHogPull' || parent?.internal.type === 'PostHogIssue') return
+
+        const imageFields = ['featuredImage', 'thumbnail', 'logo', 'logoDark', 'icon']
+        imageFields.forEach((field) => {
+            if (node.frontmatter?.[field] && node.frontmatter?.[field].includes('res.cloudinary.com')) {
+                const publicId = getPublicID(node.frontmatter?.[field])
+                const cloudinaryData = cloudinaryCache[publicId]
+                if (!cloudinaryData) {
+                    console.warn(`Cloudinary data not found for ${publicId}`)
+                }
+                node.frontmatter[field] = {
+                    publicURL: node.frontmatter?.[field],
+                    childImageSharp: {
+                        cloudName: process.env.GATSBY_CLOUDINARY_CLOUD_NAME,
+                        publicId,
+                        originalFormat: cloudinaryData?.format,
+                        originalWidth: cloudinaryData?.width,
+                        originalHeight: cloudinaryData?.height,
+                    },
+                }
+            }
+        })
+
+        const images = node.frontmatter?.images
+        if (images?.length > 0) {
+            node.frontmatter.images = images.map((image) => {
+                const publicId = getPublicID(image)
+                const cloudinaryData = cloudinaryCache[publicId]
+                if (!cloudinaryData) {
+                    console.warn(`Cloudinary data not found for ${publicId}`)
+                }
+                return {
+                    publicURL: image,
+                    childImageSharp: {
+                        cloudName: process.env.GATSBY_CLOUDINARY_CLOUD_NAME,
+                        publicId,
+                        originalFormat: cloudinaryData?.format,
+                        originalWidth: cloudinaryData?.width,
+                        originalHeight: cloudinaryData?.height,
+                    },
+                }
+            })
+        }
+
         const slug = createFilePath({ node, getNode, basePath: `pages` })
 
         createNodeField({
@@ -54,7 +170,7 @@ export const onCreateNode: GatsbyNode['onCreateNode'] = async ({
             }
         }
 
-        if (/^\/docs\/apps/.test(slug) && node?.frontmatter?.github && process.env.GITHUB_API_KEY) {
+        if (/^\/docs\/(apps|cdp)/.test(slug) && node?.frontmatter?.github && process.env.GITHUB_API_KEY) {
             const { name, owner } = GitUrlParse(node.frontmatter.github)
 
             try {
@@ -97,6 +213,33 @@ export const onCreateNode: GatsbyNode['onCreateNode'] = async ({
                 }
             } catch (error) {
                 console.error(`Error fetching plugin.json from ${owner}/${name}: ${error}`)
+            }
+        }
+
+        if (/^\/docs\/(apps|cdp)/.test(slug) && node?.frontmatter?.templateId) {
+            const templateId = node.frontmatter.templateId
+
+            try {
+                const res = await fetch(`https://us.posthog.com/api/public_hog_function_templates/`)
+
+                if (res.status !== 200) {
+                    throw `Got status code ${res.status}`
+                }
+
+                const body = await res.json()
+                const config = body.results.find(
+                    (template: { id: string }) => template?.id === templateId
+                ).inputs_schema
+
+                if (config) {
+                    createNodeField({
+                        node,
+                        name: `templateConfig`,
+                        value: config,
+                    })
+                }
+            } catch (error) {
+                console.error(`Error fetching input_schema for ${templateId}: ${error}`)
             }
         }
     }
@@ -151,9 +294,33 @@ export const onCreateNode: GatsbyNode['onCreateNode'] = async ({
         }
     }
 
+    const getAshbyLocationName = async (id) =>
+        fetch(`https://api.ashbyhq.com/location.info`, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: `Basic ${Buffer.from(`${process.env.ASHBY_API_KEY}:`).toString('base64')}`,
+            },
+            body: JSON.stringify({ locationId: id }),
+        })
+            .then((res) => res.json())
+            .then((data) => data.results.name)
+
     if (node.internal.type === 'AshbyJobPosting') {
         const title = node.title.replace(' (Remote)', '')
         const slug = `/careers/${slugify(title, { lower: true })}`
+        const locations = [
+            await getAshbyLocationName(node.locationIds.primaryLocationId),
+            ...(await Promise.all(node.locationIds.secondaryLocationIds.map((id) => getAshbyLocationName(id)))),
+        ]
+            .map((location) => location.replace(/\(|\)|remote/gi, '').trim())
+            .filter(Boolean)
+        createNodeField({
+            node,
+            name: 'locations',
+            value: locations,
+        })
         createNodeField({
             node,
             name: `title`,
@@ -201,6 +368,22 @@ export const onCreateNode: GatsbyNode['onCreateNode'] = async ({
                 name: `html`,
                 value: html,
             })
+        }
+    }
+    if (node.internal.type === 'SlackEmoji') {
+        const { url } = node
+        if (isValidUrl(url)) {
+            const local = await createRemoteFileNode({
+                url,
+                parentNodeId: node.id,
+                createNode,
+                createNodeId,
+                cache,
+                store,
+            })
+            if (local) {
+                createNodeField({ node, name: 'localFile', value: local.id })
+            }
         }
     }
 }

@@ -24,6 +24,9 @@ Of course our audience is developers, so you can assume _some_ baseline knowledg
 
 PostHog is a global company. Our team and our customers are distributed around the world. For consistency, we use American English spelling and grammar.
 
+**Use Allowlist/Denylist instead of Whitelist/Blocklist**
+This term is clearer, and isn't rooted in the idea that white=good, black=bad. 
+
 **Use the Oxford comma** 
 
 Write "bananas, apples, and oranges", not "bananas, apples and oranges".
@@ -67,7 +70,7 @@ We talk a lot about "third-party cookies". And that's how we spell them. Same fo
 
 Don't just write "You can contact us to learn more" and not link it to anything.
 
-Write "To learn more, [join our Slack community](https://posthog.com/slack) or email us at [hey@posthog.com](mailto:hey@posthog.com)."
+Write "To learn more, [join our  community](https://posthog.com/questions)."
 
 **The backtick is your friend**
 
@@ -76,3 +79,12 @@ Remember to use backticks around inline code snippets, and triple backticks arou
 **Do not fear the copyeditor**
 
 Whatever documentation improvement you submit, we are grateful for it. Don't worry if you think it may fall short of any of these recommendations. We are happy to have your assistance in improving our docs, and we will work with you to copyedit your contributions.
+
+**Use analytics platform**
+
+When talking about PostHog in content, substitute references to “product analytics” or “product analytics tool” with the phrase “analytics platform”.
+
+Example: “A data warehouse or product analytics tool like PostHog can be helpful here.” would become “A data warehouse or analytics platform like PostHog can be helpful here.
+
+Exception would be specific references to our product analytics suite (e.g. when comparing rival product analytics tools to our product analytics product).
+

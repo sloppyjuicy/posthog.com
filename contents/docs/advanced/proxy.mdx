@@ -1,0 +1,49 @@
+---
+title: Deploying a reverse proxy to PostHog Cloud
+sidebar: Docs
+showTitle: true
+---
+
+A reverse proxy allows you to send events to PostHog Cloud using your own domain.
+
+This means that events are less likely to be intercepted by tracking blockers. You'll be able to capture more usage data without having to self-host PostHog.
+
+Setting up a reverse proxy means setting up a service to redirect requests from a subdomain you choose (like `e.yourdomain.com`) to PostHog. It is best practice to use a subdomain that does not include `posthog`, `analytics`, `tracking`, or other similar words. 
+
+> **Note:** PostHog Cloud requires that the proxy sets the `Host` header to the same host it is calling. Check the guides below on how to do that for several proxies.
+
+You then use this subdomain as your `api_host` in the initialization of PostHog instead of `us.i.posthog.com` or `eu.i.posthog.com`.
+
+> **Note** Make sure to [pass the proper `ui_host` parameter](/docs/libraries/js#config) when initializing PostHog, so that links to PostHog point to the correct host. This is required for tasks like authenticating the toolbar.
+
+## Deploying a reverse proxy
+
+Options for deploying a reverse proxy include:
+
+- [PostHog's managed reverse proxy](/docs/advanced/proxy/managed-reverse-proxy) (Recommended, requires the Teams add-on)
+- [AWS CloudFront](/docs/advanced/proxy/cloudfront)
+- [Caddy](/docs/advanced/proxy/caddy)
+- [Cloudflare](/docs/advanced/proxy/cloudflare)
+- [Kubernetes Ingress Controller](/docs/advanced/proxy/kubernetes-ingress-controller)
+- [Netlify](/docs/advanced/proxy/netlify)
+- [Next.js rewrites](/docs/advanced/proxy/nextjs)
+- [Next.js middleware](/docs/advanced/proxy/nextjs-middleware)
+- [nginx](/docs/advanced/proxy/nginx)
+- [Remix](/docs/advanced/proxy/remix)
+- [Vercel](/docs/advanced/proxy/vercel)
+- [Nuxt](/docs/advanced/proxy/nuxt)
+- [Pomerium](/docs/advanced/proxy/pomerium)
+
+## Reverse proxy requirements
+
+If you want to use an alternative reverse proxy that we have not documented, it must meet the following requirements:
+
+```yaml
+- route: e.yourdomain.com/static/*
+  reverse_proxy: https://us-assets.i.posthog.com/static/*
+  host_header: us-assets.i.posthog.com
+
+- route: e.yourdomain.com/*
+  reverse_proxy: https://us.i.posthog.com/*
+  host_header: us.i.posthog.com
+```

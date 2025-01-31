@@ -5,10 +5,12 @@ rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-author: ["joe-martin"]
-featuredImage: ../images/blog/wren.png
+author:
+  - joe-martin
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/wren.png
 featuredImageType: full
-categories: ["Inside PostHog"]
+category: Inside PostHog
 ---
 
 Earlier this month, we finished our first PostHog offsite of the year near Porto, in Portugal. Team members travelled from America, Estonia, The United Kingdom, and Poland to spend a week living together and, in many cases, meeting for the first time.
@@ -29,4 +31,4 @@ Carbon offsetting won't fix the climate change crisis on its own - and we don’
 
 However, while carbon offsetting isn’t a cure-all, it remains an effective tool in limiting our environmental impact. We’re excited to offer it as a benefit for all team members. You can check out [other benefits we offer](https://posthog.com/careers) or even [submit an issue in GitHub](https://github.com/PostHog) if you have ideas for how we can be even more climate friendly.
 
-_Enjoyed this? Subscribe to our [newsletter](/newsletter) to hear more from us twice a month!_
+_Enjoyed this? Subscribe to our [newsletter](https://newsletter.posthog.com/subscribe) to hear more from us twice a month!_

@@ -4,41 +4,48 @@ import Link from 'components/Link'
 import Logo from 'components/Logo'
 import React from 'react'
 import { IProps, LinkListItem } from './LinkList'
-import ProductIcons from 'components/ProductIcons'
 import { GitHub, LinkedIn, YouTube, SlackMonochrome, Twitter } from 'components/Icons/Icons'
 
 const linklist: IProps[] = [
     {
-        title: 'Product',
-        url: '/product',
+        title: 'Products',
+        url: '/products',
         items: [
             {
-                title: 'Overview',
-                url: '/product',
-            },
-            {
-                title: 'Pricing',
-                url: '/pricing',
+                title: 'All products',
+                url: '/products',
             },
             {
                 title: 'Product analytics',
-                url: '/product#top-features',
+                url: '/product-analytics',
             },
             {
-                title: 'Session recording',
-                url: '/product/session-recording',
+                title: 'Web analytics',
+                url: '/web-analytics',
             },
             {
-                title: 'A/B testing',
-                url: '/product/experimentation-suite',
+                title: 'Session replay',
+                url: '/session-replay',
             },
             {
                 title: 'Feature flags',
-                url: '/product/feature-flags',
+                url: '/feature-flags',
             },
             {
-                title: 'Apps',
-                url: '/apps',
+                title: 'Experiments',
+                url: '/experiments',
+            },
+            {
+                title: 'Surveys',
+                url: '/surveys',
+            },
+            {
+                title: 'Product OS',
+                url: '/product-os',
+            },
+            {
+                title: 'Data connections',
+                url: '/cdp',
             },
             {
                 title: 'Customer stories',
@@ -46,7 +53,53 @@ const linklist: IProps[] = [
             },
             {
                 title: 'PostHog vs...',
-                url: '/blog/categories/comparisons',
+                url: '/blog/tags/comparisons',
+            },
+            {
+                title: 'For startups',
+                url: '/startups',
+            },
+            {
+                title: 'Pricing',
+                url: '/pricing',
+            },
+            {
+                title: 'How we do "sales"',
+                url: '/sales',
+            },
+        ],
+    },
+    {
+        title: 'Product OS',
+        url: '/docs/product-os',
+        items: [
+            {
+                title: 'New? Start here.',
+                url: '/docs/getting-started/install',
+            },
+            {
+                title: 'SDKs',
+                url: '/docs/libraries/js',
+            },
+            {
+                title: 'Framework guides',
+                url: '/docs/frameworks',
+            },
+            {
+                title: 'Data management',
+                url: '/docs/data',
+            },
+            {
+                title: 'HogQL',
+                url: '/docs/hogql',
+            },
+            {
+                title: 'Toolbar',
+                url: '/docs/toolbar',
+            },
+            {
+                title: 'API',
+                url: '/docs/api',
             },
         ],
     },
@@ -55,54 +108,36 @@ const linklist: IProps[] = [
         url: '/docs',
         items: [
             {
-                title: 'Quickstart guide',
-                url: '/docs/getting-started/cloud',
+                title: 'Product analytics',
+                url: '/docs/product-analytics/',
             },
             {
-                title: 'Self-hosting',
-                url: '/docs/self-host',
+                title: 'Session replay',
+                url: '/docs/session-replay',
             },
             {
-                title: 'Installing PostHog',
-                url: '/docs/integrate',
+                title: 'Feature flags',
+                url: '/docs/feature-flags',
             },
             {
-                title: 'Building an app',
-                url: '/docs/apps/build',
+                title: 'Experiments',
+                url: '/docs/experiments',
             },
             {
-                title: 'API',
-                url: '/docs/api',
+                title: 'Surveys',
+                url: '/docs/surveys',
             },
             {
-                title: 'Webhooks',
-                url: '/docs/integrate/webhooks/message-formatting',
+                title: 'CDP',
+                url: '/docs/cdp',
             },
             {
-                title: 'How PostHog works',
-                url: '/docs/how-posthog-works',
+                title: 'Data warehouse',
+                url: '/docs/data-warehouse',
             },
             {
-                title: 'Data privacy',
-                url: '/docs/privacy',
-            },
-        ],
-    },
-    {
-        title: 'Using PostHog',
-        url: '/using-posthog',
-        items: [
-            {
-                title: 'Product manual',
-                url: '/using-posthog/',
-            },
-            {
-                title: 'Apps manuals',
-                url: '/docs/apps',
-            },
-            {
-                title: 'Tutorials',
-                url: '/tutorials',
+                title: 'Migrate',
+                url: '/docs/migrate',
             },
         ],
     },
@@ -115,24 +150,40 @@ const linklist: IProps[] = [
                 url: '/questions',
             },
             {
-                title: 'Product roadmap',
-                url: '/roadmap',
+                title: 'Guides',
+                url: '/tutorials',
+            },
+            {
+                title: 'Integrations',
+                url: '/cdp',
+            },
+            {
+                title: 'Dashboard templates',
+                url: '/templates',
+            },
+            {
+                title: 'Founders',
+                url: '/founders/all',
+            },
+            {
+                title: 'Product engineers',
+                url: '/product-engineers/all',
+            },
+            {
+                title: 'Tracks',
+                url: '/tracks',
+            },
+            {
+                title: 'Merch',
+                url: '/merch',
             },
             {
                 title: 'Contributors',
                 url: '/contributors',
             },
             {
-                title: 'Partners',
-                url: '/partners',
-            },
-            {
                 title: 'Newsletter',
-                url: '/newsletter',
-            },
-            {
-                title: 'Merch',
-                url: 'https://merch.posthog.com/collections/all',
+                url: 'https://newsletter.posthog.com',
             },
             {
                 title: 'PostHog FM',
@@ -142,6 +193,10 @@ const linklist: IProps[] = [
                 title: 'PostHog on GitHub',
                 url: 'https://github.com/PostHog/posthog',
             },
+            {
+                title: 'Cool tech jobs',
+                url: '/cool-tech-jobs',
+            },
         ],
     },
     {
@@ -149,24 +204,28 @@ const linklist: IProps[] = [
         url: '/handbook',
         items: [
             {
-                title: 'Getting started',
-                url: '/handbook/getting-started/start-here',
+                title: "Why we're here",
+                url: '/handbook/why-does-posthog-exist',
             },
             {
-                title: 'Company',
-                url: '/handbook/company/story',
-            },
-            {
-                title: 'Strategy',
-                url: '/handbook/strategy/overview',
+                title: 'Our story',
+                url: '/handbook/story',
             },
             {
                 title: 'How we work',
                 url: '/handbook/company/culture',
             },
             {
-                title: 'Small teams',
-                url: '/handbook/small-teams/team-structure',
+                title: 'Values',
+                url: '/handbook/values',
+            },
+            {
+                title: 'Tips for working here',
+                url: '/handbook/help',
+            },
+            {
+                title: 'Team structure',
+                url: '/handbook/team-structure',
             },
             {
                 title: 'People & Ops',
@@ -177,20 +236,12 @@ const linklist: IProps[] = [
                 url: '/handbook/engineering/developing-locally',
             },
             {
-                title: 'Product',
-                url: '/handbook/product/product-team',
-            },
-            {
                 title: 'Design',
                 url: '/handbook/design/philosophy',
             },
             {
                 title: 'Marketing',
                 url: '/handbook/growth/marketing',
-            },
-            {
-                title: 'Customer success',
-                url: '/handbook/growth/strategy',
             },
         ],
     },
@@ -203,8 +254,24 @@ const linklist: IProps[] = [
                 url: '/about',
             },
             {
-                title: 'Team',
-                url: '/handbook/company/team',
+                title: 'Roadmap',
+                url: '/roadmap',
+            },
+            {
+                title: 'Changelog',
+                url: '/changelog/2025',
+            },
+            {
+                title: 'People',
+                url: '/people',
+            },
+            {
+                title: 'Small teams',
+                url: '/teams',
+            },
+            {
+                title: 'Blog',
+                url: '/blog/all',
             },
             {
                 title: 'Investors',
@@ -215,12 +282,12 @@ const linklist: IProps[] = [
                 url: '/media',
             },
             {
-                title: 'Blog',
-                url: '/blog',
-            },
-            {
                 title: 'FAQ',
                 url: '/faq',
+            },
+            {
+                title: 'Security',
+                url: '/handbook/company/security',
             },
             {
                 title: 'Support',
@@ -260,7 +327,7 @@ const link = (marginBottom = '1') => cntl`
     leading-tight
     text-primary
     hover:text-primary
-    dark:text-primary-dark
+    dark:text-primary-dark/75
     dark:hover:text-white
     text-base
     font-bold
@@ -281,17 +348,13 @@ const FooterMenuItem = ({ title, url, className = '', marginBottom = '1' }) => {
 export function Footer(): JSX.Element {
     const social: Social[] = [
         {
-            Icon: <SlackMonochrome className="w-8 h-8 box-border fill-current" />,
-            url: '/slack',
-        },
-        {
-            Icon: <Twitter className="w-8 h-8 box-border fill-current" />,
-            url: 'https://twitter.com/posthog',
+            Icon: <Twitter className="w-5 h-5 box-border fill-current" />,
+            url: 'https://x.com/posthog',
         },
         {
             Icon: (
                 <span className="fill-current">
-                    <LinkedIn className="w-8 h-8 box-border" />
+                    <LinkedIn className="w-6 h-6 box-border" />
                 </span>
             ),
             url: 'https://www.linkedin.com/company/posthog',
@@ -299,7 +362,7 @@ export function Footer(): JSX.Element {
         {
             Icon: (
                 <span className="fill-current">
-                    <YouTube className="w-8 h-8 box-border" />
+                    <YouTube className="w-6 h-6 box-border" />
                 </span>
             ),
             url: 'https://www.youtube.com/channel/UCn4mJ4kK5KVSvozJre645LA',
@@ -307,7 +370,7 @@ export function Footer(): JSX.Element {
         {
             Icon: (
                 <span className="fill-current">
-                    <GitHub className="w-8 h-8 box-border" />
+                    <GitHub className="w-6 h-6 box-border" />
                 </span>
             ),
             url: 'https://github.com/PostHog',
@@ -315,32 +378,32 @@ export function Footer(): JSX.Element {
     ]
 
     return (
-        <footer className="mt-20 border-t border-dashed border-gray-accent-light dark:border-gray-accent-dark">
-            <div className="relative">
-                <div className="relative -top-6">
-                    <Link
-                        to="/"
-                        className="left-[calc(50%-40px)] w-20 h-12 inline-flex justify-center items-center absolute z-10 rounded !bg-tan hover:!bg-gray-accent-light/90 px-4 active:!bg-gray-accent-light/100 dark:!hover:gray-accent-dark border border-dashed border-gray-accent-light dark:border-gray-accent-dark hover:scale-[1.02] active:top-[1px] active:scale-[.99] transition-all"
-                    >
-                        <span className="inline-block">{ProductIcons.posthogMonochrome}</span>
-                    </Link>
-                </div>
+        <footer className="bg-accent dark:bg-accent-dark border-y border-light dark:border-dark print:hidden">
+            <div className="relative -top-6">
+                <Link
+                    to="/"
+                    className="left-[calc(50%-40px)] w-20 h-12 inline-flex justify-center items-center absolute z-10 rounded bg-light dark:bg-dark px-2 pt-1.5 pb-1 mb-1 border border-b-3 border-light dark:border-dark hover:bg-accent dark:hover:bg-accent-dark hover:translate-y-[-1px] active:translate-y-[1px] active:transition-all"
+                >
+                    <span className="inline-block">
+                        <Logo noText={true} />
+                    </span>
+                </Link>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 border-r border-dashed border-gray-accent-light dark:border-gray-accent-dark lg:border-r-0 last:border-r-0 lg:grid-cols-6 w-full max-w-screen-2xl mx-auto">
+            <div className="grid grid-cols-2 mdlg:grid-cols-3 lg:grid-cols-6 w-full max-w-screen-2xl mx-auto">
                 {linklist.map((item) => (
                     <LinkListItem {...item} key={item.url} />
                 ))}
             </div>
 
-            <div className="flex lg:border-t border-gray-accent-light dark:border-gray-accent-dark border-dashed justify-center">
-                <ul className="list-none px-0 py-2 flex space-x-4">
+            <div className="flex justify-center">
+                <ul className="list-none px-0 py-2 flex space-x-4 items-center">
                     {social.map(({ Icon, url }: Social) => {
                         return (
                             <li key={url}>
                                 <Link
                                     to={url}
-                                    className="rounded p-2 inline-flex hover:bg-gray-accent-light dark:hover:bg-gray-accent-dark opacity-70 hover:opacity-90 relative hover:scale-[1.01] active:top-[1px] active:scale-[.99] transition-all"
+                                    className="flex items-center relative px-2.5 pt-2 pb-1.5 mb-1 rounded border border-b-3 border-transparent opacity-70 hover:opacity-100 hover:border-light dark:hover:border-dark hover:translate-y-[-1px] active:translate-y-[1px] active:transition-all"
                                 >
                                     {Icon}
                                 </Link>
@@ -349,24 +412,53 @@ export function Footer(): JSX.Element {
                     })}
                 </ul>
             </div>
-            <div className="py-5 border-t border-dashed border-gray-accent-light dark:border-gray-accent-dark border-l-0 border-r-0">
-                <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center text-lg px-5">
+            <div className="py-5  border-l-0 border-r-0">
+                <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-baseline text-lg px-5">
                     <small className="font-semibold dark:text-gray">
                         &copy; {new Date().getFullYear()} PostHog, Inc.
                     </small>
-                    <ul className="m-0 p-0 list-none sm:ml-auto flex sm:space-x-8 space-x-4 mt-2 sm:mt-0">
+                    <ul className="m-0 pl-0 pb-32 mdlg:pb-0 list-none sm:ml-auto flex flex-col mdlg:flex-row items-baseline sm:space-x-8 mdlg:space-x-4 mt-2 sm:mt-0 gap-2 mdlg:gap-0">
                         <li>
                             <Link
-                                to="/docs/contribute/code-of-conduct"
-                                className="font-bold text-sm text-almost-black/70 hover:text-almost-black/90 dark:text-gray dark dark:hover:text-gray"
+                                to="https://status.posthog.com"
+                                className="font-bold text-sm text-primary/70 hover:text-red dark:text-primary-dark/75 dark:hover:text-yellow"
                             >
-                                Code of conduct
+                                System status
+                            </Link>
+                        </li>
+                        <li className="-mt-1 mdlg:mt-0">
+                            <span className="hidden mdlg:inline-block pr-1 text-xl relative top-0.5">👉</span>
+                            <Link
+                                to="/dpa"
+                                className="font-bold text-sm text-primary/70 hover:text-red dark:text-primary-dark/75 dark:hover:text-yellow"
+                            >
+                                Generate a DPA
+                            </Link>
+                            <span className="inline-block px-1 text-xl relative top-0.5">👈</span>
+                            <span className="text-gradient bg-[length:700%_100%] text-sm ml-1 font-semibold italic">
+                                (It's guaranteed fun!)
+                            </span>
+                        </li>
+                        <li>
+                            <Link
+                                to="/handbook/company/security#soc-2"
+                                className="font-bold text-sm text-primary/70 hover:text-red dark:text-primary-dark/75 dark:hover:text-yellow"
+                            >
+                                SOC 2
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                to="/docs/privacy/hipaa-compliance"
+                                className="font-bold text-sm text-primary/70 hover:text-red dark:text-primary-dark/75 dark:hover:text-yellow"
+                            >
+                                HIPAA
                             </Link>
                         </li>
                         <li>
                             <Link
                                 to="/privacy"
-                                className="font-bold text-sm text-almost-black/70 hover:text-almost-black/90 dark:text-gray dark dark:hover:text-gray"
+                                className="font-bold text-sm text-primary/70 hover:text-red dark:text-primary-dark/75 dark:hover:text-yellow"
                             >
                                 Privacy policy
                             </Link>
@@ -374,7 +466,7 @@ export function Footer(): JSX.Element {
                         <li>
                             <Link
                                 to="/terms"
-                                className="font-bold text-sm text-almost-black/70 hover:text-almost-black/90 dark:text-gray dark dark:hover:text-gray"
+                                className="font-bold text-sm text-primary/70 hover:text-red dark:text-primary-dark/75 dark:hover:text-yellow"
                             >
                                 Terms
                             </Link>

@@ -49,6 +49,8 @@ Bonus points - writing your own independent decision in front of your peers, for
 
 ## Figure out why you're not excited
 
+You will be asked to give a score out of 4 for each interview (where 4 is the highest). If you don't give a 4/4, please articulate as clearly as you can why, even if it's a minor concern. This helps (i) subsequent interviewers to dig further into a concern to validate/invalidate it and (ii) it may cause other people to spot/mention the same issue - which can stop us moving forward with someone that won't be a good fit.
+
 Some of the hardest decisions are when lots of people are _fairly_ lukewarm on a candidate. This is particularly likely when a candidate has relevant experience but is a poor cultural fit.
 
 Beware of how you're feeling through the interview, and adapt as you go.
@@ -67,7 +69,7 @@ How did they solve the impressive sounding technical problem? Why did they solve
 
 In one interview, assessing organization skill, I've even found out how a candidate used to organize her fridge. "What's something you've done that is so organized, that it was weird".
 
-## Keep it on track
+## Keep it on track
 
 Some candidates, due to nerves, will go down rabbit holes. The ability to sum up information concisely, under pressure, usually isn't something that appears in our job descriptions.
 

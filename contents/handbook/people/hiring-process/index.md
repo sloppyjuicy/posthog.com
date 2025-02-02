@@ -3,14 +3,14 @@ title: Hiring process
 sidebarTitle: Overview
 sidebar: Handbook
 showTitle: true
-hideAnchor: true
+hideAnchor: false
 ---
 
 ## Our approach to hiring 
 
 Our goal is to build a [diverse](/handbook/company/diversity), world-class team that allows us to act and iterate fast, with a high level of [autonomy and innovation](/handbook/company/small-teams).
 
-Our recruitment strategy is to run:
+Our [recruitment strategy](/blog/early-stage-startup-hiring-strategy) is to run:
 - **100% inbound by default** - effectively a word of mouth strategy, like our marketing and sales model.
 - Supplement this with **occasional, targeted sourcing** to increase the pool of diverse candidates (if needed).
 
@@ -19,26 +19,36 @@ This has resulted in the highest number of qualified and motivated candidates re
 - Writing exceptional job descriptions, and re-writing them frequently
 - Ensuring our careers page and application experience are world class
 - Sharing our roles within our networks for exposure in unusual ways (as candidates are likely to be pre-qualified)
-- Giving candidates genuinely useful and direct feedback if they weren't successful with us
+- Where we can, giving candidates genuinely useful and direct feedback if they weren't successful with us
 - Running a smooth and incredibly slick recruitment process, from application to offer
+
+## Countries we employ people in
+
+We are all-remote, but we have a few limitations on the countries we are able to employ people in:
+
+- We hire within -8 to +2 GMT timezones - beyond these, it proves too difficult for us to collaborate effectively. We do hire in GMT +2 countries that shift to GMT +3 for daylight saving time only (e.g. Bulgaria, Greece). 
+- Due to US sanctions, we can't hire folks in Cuba, Iran, North Korea, or Syria. 
+- We don't currently employ people via EOR in France, Italy, Iceland, Belgium, Luxembourg, Uruguay, Bolivia, or Brazil, mainly due to the very high employer costs. In some of these countries we _may_ consider hiring as a contractor, provided there is no misclassification risk. 
 
 ## Hiring Process
 
-### Summary of process for current live roles
+Our hiring process follows a relatively standard structure. However, please check the individual job posting on the [careers page](/careers) as there is occasionally changes. 
 
-| **Position title**        | **Location we're happy to hire in** | **Small Team**        | **Manager** | **Interview Process**                                                                                                                          | **SuperDay Task**              |
-|---------------------------|----------------------------------------|-----------------|-------------|------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------|
-| Full Stack Engineer       | GMT -5:00 to +2:00                   | Experimentation  | Eric | 1) Culture Screen - Coua<br/> 2) Technical Screen - Eric<br/> 3) Engineering Culture Screen - Tim<br/> 4) SuperDay Assessment - Eric, Li, Neil, Tim & James H. | Live Task (link not available) |
+Our process is as follows:- 
 
-Tasks are only available internally - please do not share these publicly. 
+1. Application - you let us know via the job posting you're interested in the role
+2. Culture Interview (20 mins)- you've made it to the next stage, this is a call with one our Ops team members. Our goal is to explore your motivations to join our team, learn why you’d be a great fit, and answer questions about us.
+3. Technical Interview (45-60 mins) - This stage is to assess your suitability for the role. For engineering roles, this is not a live coding interview.
+4. Founder Interview (20-30 mins) - You have reached the final boss. It's time to chat with James or Tim.
+5. SuperDay (Paid day of work) - You’ll meet a few more members of the team and work on a independent project. It's challenging, but most people say it's fun! Please note that for engineering roles this is not working on the live codebase. 
 
 ### External recruiters
 
-All of our recruiting is done in-house, and we do not work with external agencies for any of our roles. We frequently receive unsolicited messages from agencies - sometimes 20 in a week - who want to work with us, and the best response is to simply ignore the message. If they attach any candidate profiles or résumés to their email, please _do not_ open the attachment. If you are ever unsure what to do, feel free to forward any unsolicited messages to careers@posthog.com. 
+All of our recruiting is done in-house, and we do not work with external agencies for any of our roles. We frequently receive unsolicited messages from agencies - sometimes 20 in a week - who want to work with us, and the best response is to simply ignore the message. If they attach any candidate profiles or résumés to their email, please _do not_ open the attachment. If you are ever unsure what to do, feel free to forward any unsolicited messages to careers@posthog.com.
 
 ### Deciding to hire
 
-[‘Talent Compounds’](https://posthog.com/handbook/company/values#talent-compounds) is one of our values here at PostHog. We think carefully about each new role and the complexity it introduces to the organization. We also have an extremely high bar for the people we do hire! 
+[‘Talent Compounds’](/handbook/company/values#talent-compounds) is one of our values here at PostHog. We think carefully about each new role and the complexity it introduces to the organization. We also have an extremely high bar for the people we do hire! 
 
 We use Pry to plan our hiring. We use the hiring forecast as a guide, but iterate on this pretty much every month, so we can stay super responsive to changes PostHog's needs. Typically we know:
 
@@ -73,10 +83,9 @@ As we keep iterating on our specs, the best approach is to copy our most recentl
 
 Once the hiring manager has signed off on the spec, we will publish it on Ashby - [instructions on how to do this are here](/handbook/engineering/posthog-com/jobs). 
 
-
 #### Job boards
 
-Ashby will automatically add the role on our [careers page](https://posthog.com/careers). It will also 'helpfully' publish it on a bunch of other free but irrelevant job boards - you should manually remove all of those except for Ashby and LinkedIn. [AngelList](https://angel.co/company/posthoghq/jobs) will need to be posted manually. 
+Ashby will automatically add the role on our [careers page](/careers). It will also 'helpfully' publish it on a bunch of other free but irrelevant job boards - you should manually remove all of those except for Ashby and LinkedIn. [Wellfound](https://wellfound.com/company/posthoghq/jobs) will need to be posted manually. 
 
 As a Y Combinator company, we can post [jobs ads on the HackerNews front page](https://news.ycombinator.com/jobguide.html) for free at [https://news.ycombinator.com/submitjob](https://news.ycombinator.com/submitjob). This requires a founder's HackerNews account to do so. 
 
@@ -99,11 +108,11 @@ Ashby also had a partnership with YC's job board so all roles to YC's [Work at a
 *   [Lenny's Job Board](https://lennys-jobs.pallet.com/jobs)
 
 
-#### Referrals
+### Referrals
 
 Every time we open a new role, we will share the details and ideal profile with the team during All Hands.
 
-**Personal referral** 
+#### Personal referral
 
 If you know someone who would be a great addition to the team, please submit them as a personal referral. If they're successfully hired, you'll receive a $2,500 referral bonus! The bonus can be either paid to you directly, or towards a charity of your choice where we will match the amount! You can also split the amount between you and the charity.
 
@@ -113,74 +122,57 @@ We occasionally open up short term contracts, and you'll receive a $1,000 referr
 
 Unfortunately people who actively work on recruitment in the People & Ops team at PostHog are not eligible for referral bonuses, to mitigate the risk that they influence the process unfairly. If you would like to refer someone and are not sure if this applies to you, speak to Charles. 
 
-**What's the process?**
+#### What's the process?
 
 *   If there is an ongoing conversation, please cc careers@ into the email thread with the referred candidate and we will take it over from there.
 *   Otherwise, please upload the profile to the [Ashby referral page](https://app.ashbyhq.com/referrals). 
 *   If they have applied themselves already, let careers@ know within 48 hours of them applying.
 
-**Social referral** 
+#### Social referral
 
-The [Getting started for interviewers page](https://www.notion.so/Getting-Started-for-Interviewers-4b6bd7cc94834e1ebe8d63345030696f) makes it super easy to share referrals and track their applications as a social referral throughout the interview process. 
+Refer someone you know on the <PrivateLink url="https://app.ashbyhq.com/referrals/direct/">Ashby referral page</PrivateLink> by clicking the _Refer_ button. You'll need their resume to submit them.
 
-If you have other referrals in your network (e.g. 2nd degree connections), who have either applied or might be relevant for us to reach  out to, this also counts as a social referral. 
+If you have other referrals in your network (e.g. 2nd degree connections), who have either applied or might be relevant for us to reach out to, this also counts as a social referral.
 
 The referral bonus for social referrals is $500, and we again match any amount you choose to give this to charity.  
 
-**Referral payouts** 
+#### Referral payouts
 
 You'll get paid the bonus 3 months from the new team member's start date, and it will be processed as part of payroll. Bear in mind that you might be liable for income tax on the bonus. 
 
-**Non-team referrals** 
+#### Non-team referrals
 
 We also welcome external referrals, e.g. from:
 
 *   From our investors
-*   From the PostHog community (the users Slack Group, and posting on our social media profiles for our followers to see)
+*   From the PostHog community (by posting on our social media profiles for our followers to see)
 *   From the YC community (Slack / WhatsApp / Forum)
 
 As a thank you, we will give you $50 credit for our [merch shop](https://merch.posthog.com/).
 
 ## Managing candidates
 
-All of our candidates are managed in [Ashby](https://www.ashbyhq.com/) - please ask Coua or Charles for an invite to view candidates, leave feedback, and schedule meetings. 
+All of our candidates are managed in [Ashby](https://www.ashbyhq.com/) - all team members have access to the platform and Ashby will automate your specific level of access based on the role you play during the hiring process (i.e. hiring manager, team member, etc.). If you need additional access, please reach out to Coua or Charles. 
 
-We record all candidate-related comms in Ashby so we can ensure we provide all candidates with the best experience we possibly can - even if they are unsuccessful, they should come away feeling like they had a great interaction with PostHog.
+We record all candidate-related comms in Ashby so we can ensure we provide all candidates with the best experience we possibly can - even if they are unsuccessful, they should come away feeling like they had a great interaction with PostHog. 
 
 Ashby is a pretty intuitive platform to use, but here are a few helpful tips to get you going
 
-*   [A guide to getting started with the basics](https://www.notion.so/Getting-Started-for-Interviewers-4b6bd7cc94834e1ebe8d63345030696f) - this is pretty much everything you need to navigate through Ashby to provide feeedback and review candidates.
+*   [A guide to getting started with the basics](https://www.notion.so/Getting-Started-for-Interviewers-4b6bd7cc94834e1ebe8d63345030696f) - this is pretty much everything you need to navigate through Ashby to provide feedback and review candidates.
 *   Link your Gmail account in Settings if you are in direct contact with candidates - this means any emails you send directly from your inbox will automatically be captured on their Ashby record for everyone on the hiring team to see.
 *   When emailing candidates from within Ashby, you can select a Template from the drop down bar (and customize it if you want). If you find yourself writing the same email, it is worth saving as a template.
 
 If you receive an application via email or some other non-Ashby channel like Slack, pass it on to careers@posthog.com. 
 
-## Sourcing
-
-For most roles, we don’t just rely on incoming applications. Direct outreach is a great way to influence the hiring pipeline, and enables us to:
-
-*   Approach people with very specific or relevant experience, even when they are not currently looking for a new role
-*   Encourage candidates from a wider range of backgrounds to apply
-*   Build our employer brand and general awareness
-
-Good places to look for people include:
-
-*   Ashby - People search and tags
-*   LinkedIn - [Boolean searches](https://www.talentlyft.com/en/blog/article/306/boolean-search-a-simple-guide-for-recruiters) are your friend!
-*   Twitter
-*   GitHub
-*   YCombinator
-*   AngelList
-
-Sourcing isn't just something the People & Ops team do! If you want to get involved, get a LinkedIn Recruiter Lite license (~$80/month) and then send them an invitation to connect with a message. You'll find this is a better approach than using InMail. 
-
 ### Booking interviews through Ashby
 
 **Schedule interviews through Ashby itself.** Do not use Google Calendar, otherwise the event won't be populated with useful candidate info and we won't have a record of the meeting anywhere. 
 
-When we book a meeting, we have the option of selecting a Google Meet or Zoom call.  Zoom should be the default, unless we are scheduling a meeting where the organizer is not attending themselves, in which case use Google Meet (as Zoom will requires the host to attend).
+When we book a meeting, we have the option of selecting a Google Meet or Zoom call which Meet should be the default.
 
-## Hiring process overview
+If you are involved in interviewing it is important to keep your calendar up to date. Candidates can book directly into your calendar so having your calendar blocked when you are not available to interview is important. This includes things like personal appointments, travelling, attending off-sites etc. If you have an interview booked in you cannot make, do not just respond no to the calendar invite, please let the ops team know asap, or even better find a replacement for your interview and let Ops know and we can update the interview. We aim to provide a great candidate experience and moving interviews is one way to reduce the quality of that experience. 
+
+## Hiring stage overview
 
 > A good rule of thumb when deciding whether not to progress at any stage - if the candidate doesn't get a _definite yes_ then assume it's a _no_. It's almost never worth putting through someone who is a 'maybe'! We provide lots of information about PostHog to enable candidates to put their best application forward.
 
@@ -188,11 +180,15 @@ When we book a meeting, we have the option of selecting a Google Meet or Zoom ca
 
 The People & Ops team reviews applications and resumes/portfolios carefully and leaves their feedback as a comment on the candidate's record in Ashby if relevant.
 
-If a candidate hasn't customized the application or resume to the role, it is a flag they aren't that excited about working at PostHog. Cover letters are definitely _not_ mandatory, but at an interview stage, it's important to note how passionate they seem about the company. Did they try out the software already? Did they read the handbook? Are they in our community Slack?
+If a candidate hasn't customized the application or resume to the role, it is a flag they aren't that excited about working at PostHog. Cover letters are definitely _not_ mandatory, but at an interview stage, it's important to note how passionate they seem about the company. Did they try out the software already? Did they read the handbook? Are they in [our community forum](/questions)?
 
-Candidates who are unsuccessful at this stage will receive an automated rejection email, unless they personalized their application, in which we will try to send a personalized reply.
+Candidates who are unsuccessful at this stage will receive an automated rejection email. Due to the volume of applications we receive, we usually don't provide personalized feedback.
 
-### First interview - culture interview with People & Ops 
+### Interviews
+
+As a rule, all interviews at PostHog are conducted in English. Whilst this might seem obvious to some, we are lucky to have people from multiple different countries, that speak multiple languages. We are hiring for people to be successful at PostHog, and at PostHog we conduct our business in English so it is important the hiring process is also conducted in English. So if you are paired with an interviewee who speaks your native language, just politely acknowledge this and let them know all interviews are conducted in English. We also require these calls to be conducted as a video call so a working webcam is necessary.
+
+### 1. Culture interview with People & Ops 
 
 We start with an interview which is designed to get the overall picture on what a candidate is looking for, and to explain who we are. A template scorecard has been created for this stage in Ashby.
 
@@ -205,27 +201,35 @@ This round is loosely structured into 4 different sections:
 3. Talk about the hiring process and check if the candidate has seen our compensation calculator so we know we're roughly aligned.
 4. Answer any open questions
 
+This stage is usually a 20 minute video chat.
+
 Candidates who are unsuccessful at this stage should receive a short personalized email with feedback. 
 
-### Second interview - technical interview with the Hiring Manager
+### 2. Technical interview with the Hiring Manager
 
 In this round, the candidate will meet a 1-2 future team members. This round is usually 45-60 minutes and will focus on a mix of experience and technical skills. Please check the specific hiring process for each team for more details.  
 
 As a rule of thumb, everyone interviewing must feel a genuine sense of excitement about working with the candidate. Again - if it is not a _definite yes_, then it's a _no_. Ask yourself - does this candidate raise the bar?
 
-Candidates who are unsuccessful at this stage should receive a personalized email with feedback, including a few bullets that are quite specific. 
+Candidates who are unsuccessful at this stage should receive a personalized email with feedback.
 
-### Final round - PostHog SuperDay
+### 3. Small Team interview with James or Tim
 
-The final stage of our interview process is what we call a PostHog SuperDay. This is a paid full day of work with us, which we can flexibly arrange around the candidate's schedule.
+This is a call with either James or Tim, depending on which Small Team they are being hired into. They will probe further on the candidate's motivation, as well as checking for alignment with PostHog's values. 
+
+Candidates who are unsuccessful at this stage should receive a short personalized email with feedback. 
+
+### 4. PostHog SuperDay
+
+The final stage of our interview process is what we call a PostHog SuperDay. This is a paid full day of work with us, which we can flexibly arrange around the candidate's schedule. We are not able to bypass this stage so if the candidate is not interested in conducting this final round, unfortunately we will have to part ways and the candidate will no longer be considered for the role. 
 
 > If it is difficult for a candidate to commit to a whole day in one go - they may not be able to get the time off, or have childcare commitments that make this difficult - we can be _very_ flexible. For example, we can split the SuperDay across two or more sessions, and can align timezones to suit the candidate, given we have a team that's globally distributed. A candidate will never lose out because they are not available to do a SuperDay right away.
 
-The candidate will be working on a task that is similar to the day-to-day work someone in this role does at PostHog. They will also have the chance to meet a few of our team members, and if they haven’t already, our founders. This gives the candidate a chance to learn how we work, and for us to see the quality, speed and communication of the candidate. It is a demanding day of work.
+The candidate will be working on a task that is similar to the day-to-day work someone in this role does at PostHog. They will also have the chance to meet a few of their potential direct team members, and if they haven’t already, our founders. This gives the candidate a chance to show off their skills, and for us to see the quality, speed and communication of the candidate. It is a demanding day of work.
 
-We will pay the candidate their 'normal day rate.' If they have done contracting before they will have one, but if not we can use [this formula](https://www.ellwoodatfield.com/event/how-to-calculate-out-your-day-rate/) to calculate it. If the candidate is unable to accept payment for the SuperDay, we will donate the amount to a charity of their choice.
+We will pay the candidate their 'normal day rate.' If they have done contracting before they will have one, but if not we can use [this formula](https://www.ellwoodatfield.com/day-rate-caluclator) to calculate it. If the candidate is unable to accept payment for the SuperDay, we will donate the amount to a charity of their choice from our [Project list](/handbook/growth/marketing/open-source-sponsorship) of sponsorships.
 
-This day will be _the same_ task each time for a given role, to be shared with the candidate at the start of the day. The task is generally designed to be _too much_ work for one person to complete in a day, in order to get a sense of the person's ability to prioritize. 
+This day will be _the same_ task each time for a given role, to be shared with the candidate at the start of the day. The task is generally designed to be _too much_ work for one person to complete in a day, in order to get a sense of the person's ability to prioritize and get things done. 
 
 Overall, the candidate should aim to spend at least 80% of their time and energy on the task and less than 20% on meeting people, as we will base our decision on the output of the day. 
 
@@ -233,27 +237,27 @@ Overall, the candidate should aim to spend at least 80% of their time and energy
 
 In advance of the SuperDay, we will need to do some additional prep to ensure that the candidate has a great experience:
 
-*   Send them an email in the first instance to schedule the SuperDay - we aim to  do this as soon as possible, as candidates often will need to book a day off work. Use the Ashby email template for this. If the task involves them doing 'real' work for PostHog, we should ask them to check that their current employment contract permits this - we try to create fake tasks for this reason.
-*   (One day before the SuperDay) Send the candidate a follow up email with details of the task, and ask them for their day rate and bank details. There is a template for this email in Ashby, depending on the role - this will probably need customising.
+*   Send them an email in the first instance to schedule the SuperDay - we aim to  do this as soon as possible, as candidates often will need to book a day off work. Use the Ashby email template for this. If the task involves them doing 'real' work for PostHog, we should ask them to check that their current employment contract permits this - we try to create fake tasks for this reason. For all US candidates there is a requirement we collect a [W9](https://www.irs.gov/forms-pubs/about-form-w-9) from the candidate for accounting and tax purposes (_this doesn't apply if the US candidate decides to donate the funds to one of our sponsored projects_) 
+*   We also send the candidate a follow up email with details of the task, and ask them for their day rate and bank details right away so the candidate can fully prepared what to expect and who they will meet. There is a template for this email in Ashby, depending on the role - this will probably need customising.
 *   (One day before the SuperDay) Create a private channel in Slack for the candidate and all relevant people - this will be where they can chat to us over the course of the day if they have any questions etc. Invite the candidate as a single channel guest. We might need to add the candidate to one of our systems depending on the role, e.g. Ashby for a recruiter SuperDay, but on the whole this should be minimized.
 *   (One day before the SuperDay) Invite the candidate to a kickoff meeting with the hiring manager at the start of the day. On days when we have a company-wide meeting scheduled, invite them along. On days without standup, schedule an informal session with some team members to give them a chance to learn more about our culture. We may also want to have a proper wrap up with them at the end of their day.
-*   (On the SuperDay) Send the candidate the task - aim to send this before the kick-off session.
+*   (On the SuperDay) Send the candidate the task - aim to send this before the kick-off session so if the candidate has any questions they are able to go through them during the kick-off session. We encourage the candidate to ask questions throughout their SuperDay, but sometimes it is nice to have any questions answered in advance so they can kick off their task appropriately.
 *   (On the SuperDay) Give the candidate a warm welcome! Make it clear that the team is here to answer any questions, and they should feel free to reach out any time! Otherwise don't feel like we need to check in with them - let them get on with the task and trust that they will message us.
 *   (One day after the SuperDay) Pay the candidate using the bank details they provided.
+
+> For some roles, we may occasionally set a task that goes over multiple days. For example, we have set Content Marketer tasks that last 3 days in order to create a piece of content. 
 
 ### Decide if we will hire
 
 > We aim to make a decision within 48 hours of SuperDay - being decisive is important at this stage, as great candidates will probably be fielding multiple job offers. 
 
-After a SuperDay, everyone involved in the day leaves their feedback on Ashby. If there are wildly different opinions, you should open an issue in `company-internal` to discuss.
+After a SuperDay, everyone involved in the day leaves their feedback on Ashby. This is hugely important to us in making a final decision so team members should make an effort in completing their feedback as soon as possible. If there are wildly different opinions, you should open an issue in `company-internal` to discuss.
 
-If a decision is made to hire, the People & Ops team will also open an issue in `company-internal` to give the team context about who the person is and why they were hired. It is helpful to include:
-
-- Role background: what they will be doing, and a summary of the recruitment process (how long open for, no. of applicants etc.)
-- Who we are hiring: a brief intro
+If a decision is made to hire, the People & Ops team will open an onboarding issue once the candidate has accepted and James/Tim will share in our Monday All Hands Meeting a brief overview of the following: 
+- Who we ended up hiring and their background: what they will be doing, and a summary of the recruitment process (how long open for, no. of applicants etc.)
 - Why we are hiring them: feedback from the interview process, both positive and areas to improve
 - Start date and location
-- Share the output of their SuperDay (if it contains personal info, you can just share the task)
+- Share the output of their SuperDay (if applicable)
 
 If we don't make an offer, it's important to clearly outline to the candidate why that decision was made. Highlight what went well, but also mention specific points of improvement. Offer to schedule a call if they would like to discuss further. Make sure to leave the door open for the future so they can apply again in 12-18 months time as circumstances and people change.
 
@@ -261,21 +265,31 @@ If we don't make an offer, it's important to clearly outline to the candidate wh
 
 Hooray!
 
-The People & Ops team will prepare the offer details. James and Tim give final signoff. We then schedule an offer call with the candidate and the hiring manager. 
+The People & Ops team will prepare the offer details. James and Tim give final signoff. We then schedule an offer call with the candidate and Charles. 
 
-During the offer call, the Hiring Manager will share feedback from the interview process, and will sell the role and opportunity here at PostHog. They will also briefly cover the offer details (salary, equity, benefits), and answer any open questions. 
+During the offer call, Charles will share feedback from the interview process, and will sell the role and opportunity here at PostHog. He will also briefly cover the offer details (salary, equity, benefits), and answer any open questions. He'll then follow up with an offer email, outlining all details. If a candidate is proving tricky to close, he may escalate to James or Tim to help. 
 
-The People & Ops team will then follow up with an offer email, outlining all details. 
-
-Once the candidate accepts, the People & Ops team will kick off the [onboarding process](https://posthog.com/handbook/people/onboarding) and take the role offline, after rejecting all remaining candidates. 
+Once the candidate accepts, the People & Ops team will kick off the [onboarding process](/handbook/people/onboarding) and take the role offline, after rejecting all remaining candidates. 
 
 ## Visa sponsorship
 
-Building a diverse team is at the heart of our culture at PostHog and we are proud to be hiring internationally. In some cases, this includes the need for visa sponsorship. We are currently only able to provide visas in the US and the UK.
+Building a diverse team is at the heart of our culture at PostHog and we are proud to be hiring internationally. In some cases, this includes the need for visa sponsorship. We are currently only able to provide visas in the UK.
 
-*   If the candidate is already in the country on a visa (e.g. employed, youth mobility), or require a new visa to remain in the country (e.g. student converting to employed), we will cover the costs for any employee, new or current.
+*   If the candidate is already in the UK on a visa (e.g. employed, youth mobility), or require a new visa to remain in the country (e.g. student converting to employed), we will cover the costs for any employee, new or current.
 *   If they wish to relocate and need a visa, we unfortunately will not cover the cost for obtaining the visa or any relocation costs.
 
 For employees where PostHog covers the costs related to obtaining a visa, the employee agrees to reimburse PostHog if they voluntarily terminate their employment prior to the completion of 12 months of service. The costs will be calculated on a monthly basis, so when the employee decides to leave after 10 months, they will have to repay 2/12 of the costs related to the visa.
 
 If a candidate needs visa sponsorship, please keep in mind that the process is lengthy and costly.
+
+## E-Verify
+
+We participate in [E-verify](https://www.e-verify.gov/about-e-verify) for all US new hires which allows us to verify employment eligibility remotely and continue hiring in multiple states. E-Verify is not used as a tool to pre-screen candidates.
+
+## Location - April 2024 update
+
+For some teams, it's important to have a wide range of timezones covered by the small team - this allows us to have closer to 24 hour coverage in case of incidents, and is particularly relevant for infrastructure or pipeline teams.
+
+For teams working on a pre-product market fit product with no users, it is preferable to hire people within a few timezones of each other so it's easier to get together in person and to do synchronous meetings if people wish to work that way.
+
+Currently, we are hiring a lot - aiming to go from ~45 people to ~70 by the end of 2024. Our pace of hiring is the biggest blocker to shipping all the tools in one and driving our growth, so we need to go fast while keeping the bar high. Therefore we should _not_ restrict hires to certain timezones, even if in the short run a small team would prefer to have everyone closer together. This is because over the next six months, we'll have enough new people, that we can later re-org our teams to group people back together by timezone if needed as we have higher density of talent everywhere in the timezones we cover. 

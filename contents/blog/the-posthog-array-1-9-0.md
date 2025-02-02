@@ -5,9 +5,13 @@ rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-categories: ["Release notes", "Product updates"]
-featuredImage: ../images/blog/array/default.png
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/array/default.png
 featuredImageType: standard
+category: PostHog news
+tags:
+  - Product updates
+  - Release notes
 ---
 
 First, learn [how PostHog raised $3M for our open source project](/blog/raising-3m-for-os). We could not have done it without this community - thank you for all your issues, feedback, usage and support!
@@ -24,11 +28,11 @@ If you're self hosting and desire these features - [update your PostHog](/docs/r
 
 We kept getting requests to group events by user session, so we listened! We're proud to announce this is now merged:
 
-![sessions overview](../images/sessions-overview.png)
+![sessions overview](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/sessions-overview.png)
 
 You can then see exactly how a user interacted with your app:
 
-![sessions more detail](../images/session-broken-out.png)
+![sessions more detail](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/session-broken-out.png)
 
 This should really help with debugging, or just trying to get a detailed view of what users are up to.
 
@@ -46,21 +50,17 @@ What's new? We:
 * [Cached PostHog's yarn builds](https://github.com/PostHog/posthog/pull/927), which took e2e tests down by around 30%.
 * Finally, we now [wait for PostHog to start serving requests](https://github.com/PostHog/posthog/pull/920) rather than the 60 second sleep when running Cypress.
 
-### [Docusaurus integration](/docs/integrate/third-party/docusaurus)
+### [Docusaurus integration](/docs/libraries/docusaurus)
 
-If you're using Docusaurus for your own docs, there's now a [PostHog Docusaurus integration](/docs/integrate/third-party/docusaurus) for that!
+If you're using Docusaurus for your own docs, there's now a [PostHog Docusaurus integration](/docs/libraries/docusaurus) for that!
 
 ### [AWS marketplace - 1-click install](https://aws.amazon.com/marketplace/pp/B089QN5DZM)
 
-![PostHog on AWS Marketplace](../images/aws-posthog-marketplace.jpg)
+![PostHog on AWS Marketplace](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/aws-posthog-marketplace.jpg)
 
 You can now install PostHog in just a click or two via AWS' marketplace.
 
 This is just as easy as Heroku and fractionally less expensive!
-
-### [Develop PostHog with Porter](/docs/contribute/developing-locally#using-porter)
-
-This was an amazing PR to receive - you can now develop PostHog in the cloud, using Porter. Thank you to [Porter's team](https://getporter.dev/) for doing the work here. 
 
 ### [Management command for millions of events](https://github.com/PostHog/posthog/pull/475)
 
@@ -119,13 +119,19 @@ Other cool stuff from around the web:
 * [Funding for moonshots](https://apolloprojects.com/) - get your own $3M.
 * [Strandbeest](https://www.strandbeest.com/) - wooden, walking sculptures… they're pretty weird.
 
+## Share your feedback
+We'd love to hear anything you have to say about PostHog, good or bad. As a thank you, we'll share some awesome [PostHog merch](https://merch.posthog.com).
+
+Want to get involved? [Email us to schedule a 30 minute call](mailto:hey@posthog.com) with one of our teams to help us make PostHog even better!
+
+
 ## PostHog news
 
 We've had a wonderful two weeks.
 
 The PostHog team is growing - we're now 6 people, both our ability to ship and our product plans are bigger and better than ever.
 
-The seed round we raised is just the start of us making sure we create a full product experimentation platform with you, the community. Now is a great time if you have any ideas for ambitious feature requests to put them into the repo as issues. If you'd like to build something cool *with* us, we're open to some pair programming - get in touch in the [PostHog Users Slack](https://join.slack.com/t/posthogusers/shared_invite/zt-1ghutt7jr-jRj0_iYDRS7R~uKeZLIbdQ) :)
+The seed round we raised is just the start of us making sure we create a full product experimentation platform with you, the community. Now is a great time if you have any ideas for ambitious feature requests to put them into the repo as issues. If you'd like to build something cool *with* us, we're open to some pair programming - [get in touch](https://app.posthog.com/home#supportModal)! :)
 
 ### Open roles
 

@@ -1,8 +1,10 @@
+import CloudinaryImage from 'components/CloudinaryImage'
 import React from 'react'
 import { StaticImage } from 'gatsby-plugin-image'
-import CallToAction from 'components/MainNav/Submenus/CallToAction'
 import GitHubButton from 'react-github-btn'
 import { YCBadge } from './yc-badge'
+import { CallToAction } from 'components/CallToAction'
+import { James, Tim } from 'components/Signatures'
 
 export const AboutStory = () => {
     return (
@@ -18,11 +20,11 @@ export const AboutStory = () => {
                         weeks later, we'd gone past 1,500 stars on GitHub.
                     </p>
 
-                    <CallToAction to="/handbook/company/story" className="w-full mdlg:w-auto">
+                    <CallToAction to="/handbook/story#timeline" className="w-full mdlg:w-auto">
                         Continue reading
                     </CallToAction>
                 </div>
-                <div className="border-t border-dashed border-gray-accent-light inline-flex sm:flex-col mdlg:flex-row  gap-8 sm:gap-2 mdlg:gap-8 items-center sm:items-start mdlg:items-center pt-3 pb-5 mt-6 sm:mr-12 mdlg:mr-24">
+                <div className="inline-flex sm:flex-col mdlg:flex-row border-t border-primary/25 gap-8 sm:gap-2 mdlg:gap-8 items-center sm:items-start mdlg:items-center pt-3 pb-5 mt-6 sm:mr-12 mdlg:mr-24">
                     <p className="pb-0 mb-0 text-sm opacity-75">Want to be our next star?</p>
                     <span className="h-[28px] w-[125px]">
                         <GitHubButton
@@ -38,25 +40,25 @@ export const AboutStory = () => {
                 </div>
             </div>
             <aside className="grow-0 shrink-0 lg:basis-[calc(730px-4rem)] relative">
-                <div className="hidden md:flex justify-end">
+                <div className="hidden md:flex justify-end text-primary dark:text-primary-dark">
                     <YCBadge className="w-[95px] h-[63px] md:mr-12 lg:top-0" />
                 </div>
                 <div className="flex justify-end relative">
-                    <StaticImage
-                        src="./images/hn-screenshot.png"
+                    <CloudinaryImage
+                        src="https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/src/components/About/AboutStory/images/hn-screenshot.png"
                         width={620}
                         height={397.5}
                         alt="PostHog launches on HackerNews"
                         objectFit="contain"
                         className="rotate-2 -mb-8 md:-mb-4 md:-right-4 lg:right-0 -mx-4 md:mx-0 box-border md:w-[500px] lg:w-auto md:h-full lg:h-auto"
                     />
-                    <div className="bg-gradient-to-b from-transparent to-tan absolute w-full h-[60%] md:h-full md:top-4em lg:top-[initial] lg:h-[60%] bottom-0" />
+                    <div className="bg-gradient-to-b from-transparent to-tan dark:to-dark absolute w-full h-[60%] md:h-full md:top-12 lg:top-[initial] lg:h-[60%] bottom-0" />
                 </div>
-                <div className="absolute -bottom-8 lg:-bottom-16 left-4 md:-left-8 lg:-left-16">
-                    <StaticImage
+                <div className="absolute -bottom-8 lg:-bottom-16 left-4 md:-left-4 lg:-left-4">
+                    <CloudinaryImage
                         breakpoints={[750, 1080, 1366, 1920]}
-                        src="./images/james.png"
-                        width={385.5}
+                        src="https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/src/components/About/AboutStory/images/james.png"
+                        width={386}
                         height={366}
                         quality={100}
                         alt="James Hawkins, CEO, Co-founder"
@@ -65,18 +67,28 @@ export const AboutStory = () => {
                         className="w-[55vw] md:w-[300px] lg:w-auto"
                     />
                 </div>
-                <div className="absolute bottom-0 lg:-bottom-2 right-4 md:right-4 lg:right-8">
-                    <StaticImage
+                <div className="text-primary dark:text-primary-dark absolute bottom-6 md:bottom-12 lg:bottom-6 left-4 md:-left-16 leading-tight">
+                    <James />
+                    <strong>James Hawkins</strong>
+                    <span className="block text-sm">CEO, Co-founder</span>
+                </div>
+                <div className="absolute bottom-0 lg:-bottom-2 right-0 sm:right-12 lg:right-8">
+                    <CloudinaryImage
                         breakpoints={[750, 1080, 1366, 1920]}
-                        src="./images/tim.png"
-                        width={366}
+                        src="https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/src/components/About/AboutStory/images/tim.png"
+                        width={285}
                         height={320}
                         quality={100}
                         alt="Tim Glaser, CTO, Co-founder"
                         placeholder="none"
                         objectFit="contain"
-                        className="w-[50vw] md:w-[300px] lg:w-auto"
+                        className="w-[40vw] md:w-[230px] lg:w-auto"
                     />
+                </div>
+                <div className="absolute bottom-8 md:bottom-16 lg:bottom-16 -right-4 text-primary dark:text-primary-dark leading-tight">
+                    <Tim />
+                    <strong>Tim Glaser</strong>
+                    <span className="block text-sm">CTO, Co-founder</span>
                 </div>
             </aside>
         </section>

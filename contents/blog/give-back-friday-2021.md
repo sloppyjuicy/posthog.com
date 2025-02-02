@@ -5,10 +5,14 @@ rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-author: ['joe-martin']
-featuredImage: ../images/blog/give-back-friday.png
+author:
+  - joe-martin
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/give-back-friday.png
 featuredImageType: full
-categories: ["Open source"]
+category: PostHog news
+tags:
+  - Open source
 ---
 
 Black Friday is normally an occasion to shop around for a new TV or mobile phone. But we wanted to do something a little different, something to celebrate and support the open source community which we both rely upon and are proud to be part of.  So, we're announcing our Give Back Friday campaign:
@@ -68,10 +72,6 @@ Some other matters of small print:
 That's it. 
 
 > Support the projects that make PostHog possible by [heading to the PostHog repo and starring it today!](https://github.com/PostHog/posthog) We'll donate $5 for every star between now and the end of Cyber Monday!
-
-> PostHog is an open source analytics platform you can host yourself. We help you build better products faster, without user data ever leaving your infrastructure.
-
-<ArrayCTA />
 
 
  

@@ -1,16 +1,18 @@
 ---
 date: 2021-05-28
 title: How to turn your engineers into product people
-featuredImage: ../images/blog/turning-engineers-into-product-people/turning-engineers-into-product-people.png
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/turning-engineers-into-product-people/turning-engineers-into-product-people.png
 featuredImageType: full
 rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-author: ["mo-shehu"]
-categories: ["Startups", "Product analytics"]
+author:
+  - mo-shehu
+category: Startups
 ---
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Kz4aX1NIzUQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Kz4aX1NIzUQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 Great engineers will either get autonomy at your company, or they'll get it somewhere else. Our engineers are encouraged to think about the _what_ and _why_ of what they're building - not just the _how_.
 
@@ -57,3 +59,5 @@ Engineers are becoming increasingly mission-driven creators who want to understa
 ### Further reading
 
 - [The difference between product engineers and software engineers](/blog/product-engineer-vs-software-engineer)
+
+<NewsletterForm />

@@ -1,14 +1,20 @@
 ---
 date: 2021-08-18
-title: How to get the first 10 paying customers for your devtool company (and other customer acquisition tips)
+title: >-
+  How to get the first 10 paying customers for your devtool company (and other
+  customer acquisition tips)
 rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-author: ["mo-shehu"]
-featuredImage: ../images/blog/first-10-customers.png
+author:
+  - mo-shehu
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/first-10-customers.png
 featuredImageType: full
-categories: ["Guides", "Startups"]
+category: Product growth
+tags:
+  - Guides
 ---
 
 Creating a product that people need and are willing to pay for is hard. At PostHog, it took us months to get to 10 paying customers — this after [pivoting](https://posthog.com/blog/story-about-pivots) several times before we finally landed on product analytics. We tried a million things and took some hard knocks, so here are a few shortcuts to get to customer #10 faster.
@@ -92,6 +98,6 @@ Unless you’ve magically built a viral product that sells itself, early user ac
 
 And because we’d be remiss if we didn’t plug our own product, you can track all that user activity, traffic, and revenue using PostHog’s product analytics suite. See the full list of features [here](https://posthog.com/product-features) and sign up for a free trial today.
 
-_Enjoyed this? Subscribe to our [newsletter](/newsletter) to hear more from us twice a month!_
+<NewsletterForm />
 
 

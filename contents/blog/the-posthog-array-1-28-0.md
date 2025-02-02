@@ -5,10 +5,17 @@ rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-categories: ["Release notes", "Product updates"]
-featuredImage: ../images/blog/array/1-28-0.png
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/array/1-28-0.png
 featuredImageType: full
-excerpt: Understand your conversion rates better, PostHog 1.28.0 has launched! Significantly revamped performance for slower queries, advanced engagement cohorts, SAML support, and many more improvements and fixes.
+excerpt: >-
+  Understand your conversion rates better, PostHog 1.28.0 has launched!
+  Significantly revamped performance for slower queries, advanced engagement
+  cohorts, SAML support, and many more improvements and fixes.
+category: PostHog news
+tags:
+  - Product updates
+  - Release notes
 ---
 
 > 💡 This version contains a patch release (1.28.1), [read about it](#posthog-1281-patch) below.
@@ -76,11 +83,10 @@ In our [last release](https://posthog.com/blog/the-posthog-array-1-27-0) we ship
 
 ⚠️ We've dropped support for Python 3.7. You'll now need to use Python 3.8 or 3.9. **We recommend using Python 3.9.**
 
-### Help us improve PostHog
+## Share your feedback
+We'd love to hear anything you have to say about PostHog, good or bad. As a thank you, we'll share some awesome [PostHog merch](https://merch.posthog.com).
 
-We’re working hard to improve the PostHog experience and would love to talk to you! Please join one of our Product, Engineering, or Marketing team members on a quick 30-min call to help us understand how to improve. Schedule directly [on Calendly](https://calendly.com/posthog-feedback).
-
-As a small thank you for your time, we're giving away awesome [PostHog merch](https://merch.posthog.com)!
+Want to get involved? [Email us to schedule a 30 minute call](mailto:hey@posthog.com) with one of our teams to help us make PostHog even better!
 
 ## PostHog News
 
@@ -88,9 +94,9 @@ Welcome all our new team members!
 
 | Name  |        Role         | 🍍 on 🍕 |   Interesting Fact           |
 | :---: | :-----------------: | :-------: | :-------------------------: |
-| [Eli Kinsey](/handbook/company/team#eli-kinsey-front-end-developer) | Frontend Developer |  👍 Pineapple gang represent  |   _"I.... have never had a bloody nose"_
+| [Eli Kinsey](/community/profiles/3) | Frontend Developer |  👍 Pineapple gang represent  |   _"I.... have never had a bloody nose"_
 | Rick Marron | Full Stack Engineer |  👎  |   _"I'm part of the ~1% who can lick their elbow. (Although the ability is slowly going away with age)"_
-| Paul D'Ambra | Full Stack Engineer |  👎 Tasty but forbidden (like drinking in church)  |   _"I was nearly arrested at a pagan wedding"_
+| [Paul D'Ambra](/community/profiles/69) | Full Stack Engineer |  👎 Tasty but forbidden (like drinking in church)  |   _"I was nearly arrested at a pagan wedding"_
 | Guido Laquinti | Site Reliability Engineer |   👎 Can't say it's acceptable without having my passport revoked 🇮🇹  |   _"When I was a kid, my parents asked me to find a name for our new kitten. We called him 'Password' 🔐🐕‍🦺"_
 
 ## Community
@@ -131,6 +137,6 @@ Don't see a role for you? We're always looking for exceptional people, so reach 
 
 <hr/>
 
-_Follow us on [Twitter](https://twitter.com/PostHog) or [LinkedIn](https://linkedin.com/company/posthog), and subscribe to our [newsletter](https://posthog.com/newsletter) for more posts on startups, growth, and analytics._
+_Enjoyed this? Subscribe to our [newsletter](https://newsletter.posthog.com/subscribe) to hear more from us twice a month!_
 
-<ArrayCTA />
+<AcademyCTA />

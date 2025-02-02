@@ -5,10 +5,15 @@ rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-categories: ["Engineering", "Guides"]
-author: ["karl-aksel-puulmann"]
-featuredImage: ../images/blog/blog-generic-2.png
+author:
+  - karl-aksel-puulmann
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/posthog-engineering-blog.png
 featuredImageType: full
+category: Engineering
+tags:
+  - Guides
+  - ClickHouse
 ---
 
 ClickHouse supports speeding up queries using materialized columns to create new columns on the fly from existing data. In this post, I’ll walk through a query optimization example that's well-suited to this rarely-used feature.
@@ -150,5 +155,5 @@ As a product, we're only scratching the surface of what ClickHouse can do to pow
 
 > PostHog is an open source analytics platform you can host yourself. We help you build better products faster, without user data ever leaving your infrastructure.
 
-<ArrayCTA />
+<NewsletterForm />
 

@@ -5,9 +5,13 @@ rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-categories: ["Release notes", "Product updates"]
-featuredImage: ../images/blog/array/default.png
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/array/default.png
 featuredImageType: standard
+category: PostHog news
+tags:
+  - Product updates
+  - Release notes
 ---
 
 
@@ -23,7 +27,7 @@ If you're self-hosting and want to upgrade for a better experience with nicer fe
 
 ### [Insight History](https://github.com/PostHog/posthog/pull/1379)
 
-![Insight History Screenshot](../images/insight-history.png)
+![Insight History Screenshot](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/insight-history.png)
 
 Eric really killed this one with a massive pull request where 55 files were modified. 
 
@@ -33,7 +37,7 @@ Experiment with insights all you want, now without the fear of losing your work.
 
 ### [Personal API Keys](https://github.com/PostHog/posthog/pull/1281)
 
-![API Key Screenshot](../images/personal-api.png)
+![API Key Screenshot](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/personal-api.png)
 
 We also merged another huge PR (58 files changed!) from Michael that's been a long time in the making because we wanted to get this just right. 
 
@@ -43,7 +47,7 @@ Lastly, because of this change, we have deprecated authentication with username 
 
 ### [Public Roadmap](https://github.com/orgs/PostHog/projects/1)
 
-![Public Roadmap](../images/public-roadmap.png)
+![Public Roadmap](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/public-roadmap.png)
 
 At PostHog, one of our core values is transparency. As a result, we try to make as much information public as we can, from what we're working on to how we operate. 
 
@@ -61,7 +65,7 @@ Thus, after a lot of brainstorming and [calls with the likes of Sid Sijbrandij](
 
 This led to the creation of two key things: an `ee` subdirectory on our [main repo](https://github.com/PostHog/posthog), and a new repository called [posthog-foss](https://github.com/PostHog/posthog-foss). We'll be explaining these in more detail in the future, but, for now, you should know that to run fully MIT-licensed software, you can either clone the main repo and delete the `ee` subdirectory (without any consequences), or clone our posthog-foss repo, which is a mirror of the main repository without proprietary code.
 
-In addition, if you're an enterprise customer looking for added functionality and improved performance, contact us at _[sales@posthog.com](mailto:sales@posthog.com)_ or via [this form](https://share.hsforms.com/1-IVCY9gNRvaZBajMt_UPIg4559u) to discuss the license for using our proprietary features. 
+In addition, if you're an enterprise customer looking for added functionality and improved performance, [contact us](/talk-to-a-human) to discuss the license for using our proprietary features. 
 
 ### [Secret Key Requirement](https://github.com/PostHog/posthog/pull/1426)
 
@@ -71,7 +75,7 @@ Prior to this version, we denoted the importance of this in our Docs, but did no
 
 Many of our deployments generate and set this key by default, so that you will not need to worry about it. This is the case with our [Heroku One-Click deployment](/docs/self-host/deploy/heroku), for example. However, other methods may not automatically do this (we're working on it!). As such, if you run into any issues when updating PostHog, make sure you have a unique `SECRET_KEY` set. 
 
-You can find more information about this on our ['Securing PostHog' page](/docs/self-host/configure/securing-posthog#secret-key) and should always feel welcome to ask any questions on our [community Slack group](https://join.slack.com/t/posthogusers/shared_invite/zt-1ghutt7jr-jRj0_iYDRS7R~uKeZLIbdQ).
+You can find more information about this on our ['Securing PostHog' page](/docs/self-host/configure/securing-posthog#secret-key) and should always feel welcome to ask any questions on our [our community page](/posts).
 
 
 ## Bug Fixes and Performance Improvements

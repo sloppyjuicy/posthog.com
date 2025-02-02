@@ -1,0 +1,19 @@
+[
+    {
+        "name": "Amazon Web Services, Inc.",
+        "contact": "410 Terry Avenue North <br />Seattle, WA 98109-5210, USA<br />aws-EU-privacy@amazon.com",
+        "subject": "Personal data of users of the Controller’s web product(s)",
+        "duration": "Duration of the agreement",
+        "reason": "Cloud storage of PostHog Cloud data",
+        "location": "USA (PostHog US Cloud) or Germany (PostHog EU Cloud)",
+        "type": {
+            "Identifying": ["Name", "Username"],
+            "Computer device": ["IP Address", "MAC Address", "Browser Footprint"],
+            "Contact": ["Email Address"],
+            "Location": ["Country", "Territory", "City"],
+            "Behavioral": ["Product Usage (Page Views, Clicks, Browsing Behavior)"]
+        },
+        "categories": "Customer's end users",
+        "details": "https://aws.amazon.com/compliance/sub-processors/"
+    }
+]

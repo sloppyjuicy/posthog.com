@@ -5,10 +5,15 @@ rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-author: [marcus-hyett]
-featuredImage: ../images/blog/product-people.png
+author:
+  - marcus-hyett
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/product-people.png
 featuredImageType: full
-categories: ["Guides", "Product analytics", "PostHog Academy"]
+category: Product growth
+tags:
+  - Guides
+  - Product metrics
 ---
 
 User segmentation is a term which is thrown around a lot within product-led teams, but what does it mean? In this article we'll explain what user segmentation is, why it's important and give examples of how segmenting your userbase can uncover important customer insights.
@@ -33,7 +38,7 @@ For example, a global ecommerce company such as Amazon might have user segments 
 
 By understanding how these segments differ, Amazon would then be able to build products which better meet their individual needs.
 
-> This article is part of our [PostHog Academy series](/blog/categories/posthog-academy) where we explain the fundamentals of product analytics. Marcus Hyett is VP of Product at PostHog. Prior to PostHog, he was a Senior Product Manager at Meta working on ecommerce experiences across Instagram and its family of apps. 
+> This article is part of our [PostHog Academy series](/tracks) where we explain the fundamentals of product analytics. Marcus Hyett is VP of Product at PostHog. Prior to PostHog, he was a Senior Product Manager at Meta working on ecommerce experiences across Instagram and its family of apps. 
 
 ## Why is user segmentation important?
 
@@ -75,16 +80,12 @@ There are a variety tools available to help you segment users or use the segment
 
 PostHog is a powerful tool for user segmentation because you can explore segmented users using tools such as [funnels](/product/funnels), [trends](/product/trends), [paths](/product/user-paths) and more. 
 
-Read our tutorial about [how to segment users in PostHog](/docs/tutorials/how-to-segment-users) to learn more about using PostHog.
-
 ## Further reading
 
-- [How to achieve B2B product market fit](/blog/how-to-product-market-fit): How to approach finding market fit for a B2B product
+- [How to achieve B2B product market fit](/blog/product-market-fit-game): How to approach finding market fit for a B2B product
 
 - [What is user segmentation?](/blog/how-to-do-user-segmentation): A quick guide to use segmentation and how to apply if to your business
 
 - [How to measure product engagement](/blog/how-to-measure-product-engagement): How to define engagement for your platform, and how to use analytics tools to measure and build on the results
 
-> PostHog is an open-source analytics platform you can host yourself. We help you build better products faster, without user data ever leaving your infrastructure.
-
-<ArrayCTA />
+<NewsletterForm />

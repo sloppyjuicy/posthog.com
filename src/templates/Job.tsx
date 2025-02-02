@@ -10,14 +10,16 @@ import Apply from 'components/Job/Apply'
 import Sidebar from 'components/Job/Sidebar'
 import { sfBenchmark } from 'components/CompensationCalculator/compensation_data/sf_benchmark'
 import { benefits } from 'components/Careers/Benefits'
-import NotProductIcons from 'components/NotProductIcons'
+import { Department, Location, Timezone } from 'components/NotProductIcons'
 import { MDXProvider } from '@mdx-js/react'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
+import { companyMenu } from '../navs'
+import groupBy from 'lodash.groupby'
 
 const Detail = ({ icon, title, value }: { icon: React.ReactNode; title: string; value: string }) => {
     return (
         <li className="flex space-x-2">
-            <span className="w-6 h-6 text-black dark:text-white">{icon}</span>
+            <span className="w-6 h-6 text-black dark:text-white flex-shrink-0">{icon}</span>
             <span className="grid">
                 <h4 className="text-sm m-0 font-normal leading-none pt-1">
                     <span>{title}</span>
@@ -43,9 +45,7 @@ const Accordion = ({ title, children, id }: { title: string; children: React.Rea
 
 export default function Job({
     data: {
-        team,
-        teamLead,
-        teamInfo,
+        teams,
         objectives,
         mission,
         allJobPostings,
@@ -53,16 +53,36 @@ export default function Job({
             departmentName,
             info,
             id,
-            locationName,
             parent,
-            fields: { tableOfContents, html, title, slug },
+            fields: { tableOfContents, html, title, slug, locations },
         },
     },
-    pageContext: { teamName, gitHubIssues },
+    pageContext: { gitHubIssues },
 }) {
     const timezone = parent?.customFields?.find(({ title }) => title === 'Timezone(s)')?.value
     const salaryRole = parent?.customFields?.find(({ title }) => title === 'Salary')?.value || title
+    const missionAndObjectives = parent?.customFields?.find(({ title }) => title === 'Mission & objectives')?.value
+    const showObjectives = missionAndObjectives !== 'false'
+    const availableTeams = groupBy(allJobPostings.nodes, ({ parent, departmentName }) => {
+        const teams = JSON.parse(parent?.customFields?.find(({ title }) => title === 'Teams')?.value || '[]')
+        const speculative = departmentName?.toLowerCase() === 'speculative'
+        return speculative ? 'Speculative' : teams.length > 1 ? 'Multiple teams' : `Team ${teams[0]}`
+    })
+    const multipleTeams = teams?.nodes?.length > 1
+    const teamName = multipleTeams ? 'Multiple teams' : teams?.nodes?.[0]?.name ? `Team ${teams?.nodes?.[0]?.name}` : ''
 
+    const openRolesMenu = []
+    Object.keys(availableTeams)
+        .sort()
+        .forEach((team) => {
+            openRolesMenu.push({ name: team })
+            availableTeams[team]?.forEach(({ fields: { title, slug } }) => {
+                openRolesMenu.push({
+                    name: title.split(' - ')[0],
+                    url: slug,
+                })
+            })
+        })
     const menu = [
         {
             name: 'Work at PostHog',
@@ -82,19 +102,23 @@ export default function Job({
         {
             name: 'Open roles',
             url: '',
-            children: allJobPostings.nodes.map(({ fields: { title, slug } }) => {
-                return {
-                    name: title,
-                    url: slug,
-                }
-            }),
+            children: openRolesMenu,
         },
     ]
 
+    const [jobTitle] = title.split(' - ')
+
     return (
-        <Layout>
-            <SEO title={`${title} - PostHog`} image={`/og-images/${slug.replace(/\//g, '')}.jpeg`} />
-            <div className="border-t border-dashed border-gray-accent-light dark:border-gray-accent-dark">
+        <Layout
+            parent={companyMenu}
+            activeInternalMenu={companyMenu.children.find(({ name }) => name.toLowerCase() === 'careers')}
+        >
+            <SEO
+                title={`${title} - PostHog`}
+                image={`${process.env.GATSBY_CLOUDFRONT_OG_URL}/${slug.replace(/\//g, '')}.jpeg`}
+                imageType="absolute"
+            />
+            <div className="">
                 <PostLayout
                     tableOfContents={[
                         ...tableOfContents,
@@ -106,7 +130,7 @@ export default function Job({
                                 : {}),
                         },
                         {
-                            ...(objectives
+                            ...(!multipleTeams && showObjectives && objectives
                                 ? { value: "Your team's mission and objectives", url: 'mission-objectives', depth: 0 }
                                 : {}),
                         },
@@ -115,26 +139,24 @@ export default function Job({
                     ]}
                     hideSearch
                     hideSurvey
-                    sidebar={
-                        <Sidebar
-                            teamSlug={teamInfo?.fields?.slug}
-                            teamName={teamName}
-                            team={team?.nodes}
-                            teamLead={teamLead}
-                        />
-                    }
-                    title="careers"
+                    sidebar={<Sidebar teams={teams?.nodes} />}
+                    title="Careers"
                     menu={menu}
                 >
-                    <div className="mb-8 relative mt-8 lg:mt-0">
+                    <div className="relative">
                         <div>
-                            <h1 className="m-0 text-5xl">{title}</h1>
+                            {teamName && <p className="m-0 opacity-60 pb-2">{teamName}</p>}
+                            <h1 className="m-0 text-5xl">{jobTitle}</h1>
                             <ul className="list-none m-0 p-0 md:items-center text-black/50 dark:text-white/50 mt-6 flex md:flex-row flex-col md:space-x-12 md:space-y-0 space-y-6">
-                                <Detail title="Department" value={departmentName} icon={NotProductIcons.department} />
-                                <Detail title="Location" value={locationName} icon={NotProductIcons.location} />
-                                {timezone && (
-                                    <Detail title="Timezone(s)" value={timezone} icon={NotProductIcons.timezone} />
+                                {departmentName?.toLowerCase() !== 'speculative' && (
+                                    <Detail title="Department" value={departmentName} icon={<Department />} />
                                 )}
+                                <Detail
+                                    title="Location"
+                                    value={`Remote${locations?.length > 0 ? ` (${locations.join(', ')})` : ''}`}
+                                    icon={<Location />}
+                                />
+                                {timezone && <Detail title="Timezone(s)" value={timezone} icon={<Timezone />} />}
                             </ul>
                             <div className="job-content mt-12 w-full flex-shrink-0 transition-all">
                                 <div
@@ -154,16 +176,7 @@ export default function Job({
                                             </Link>
                                         </p>
                                         <div className="mb-6">
-                                            <CompensationCalculator
-                                                descriptions={{
-                                                    step: `We hire into the Established step by default and believe there's a place to have incremental steps to allow for more flexibility.`,
-                                                    location: `The benchmark for each role we are hiring for is based on the market rate in San Francisco.`,
-                                                    level: `We pay more experienced team members a greater amount since it is reasonable to expect this correlates with an increase in skill`,
-                                                }}
-                                                hideFormula
-                                                hideRole
-                                                initialJob={salaryRole}
-                                            />
+                                            <CompensationCalculator hideRole initialJob={salaryRole} />
                                         </div>
                                     </Accordion>
                                 )}
@@ -173,7 +186,7 @@ export default function Job({
                                             return (
                                                 <li
                                                     key={title}
-                                                    className="flex space-x-4 items-center font-medium leading-tight text-[15px]"
+                                                    className="flex space-x-3 items-center font-medium leading-tight text-[15px]"
                                                 >
                                                     <img className="max-w-[30px]" alt={title} src={image} />
                                                     <span>{title}</span>
@@ -193,10 +206,7 @@ export default function Job({
                                             <ul className="list-none !m-0 p-0 grid gap-y-4">
                                                 {gitHubIssues.map(({ url, number, title, labels }) => {
                                                     return (
-                                                        <li
-                                                            key={title}
-                                                            className="flex flex-col md:flex-row md:items-center"
-                                                        >
+                                                        <li key={title} className="flex flex-col ">
                                                             <div className="flex space-x-2">
                                                                 <Link to={url} className="block w-[60px] md:w-auto">
                                                                     <span className="font-semibold text-sm text-black/50 hover:text-black/75 dark:text-white/50 dark:hover:text-white/75 font-code">
@@ -206,7 +216,7 @@ export default function Job({
                                                                 <Link to={url}>{title}</Link>
                                                             </div>
                                                             {labels && labels.length > 0 && (
-                                                                <ul className="list-none !ml-[calc(60px+.25rem)] md:!ml-2 !mt-0 !mb-0 p-0 flex items-center space-x-1">
+                                                                <ul className="list-none !ml-[calc(60px+.25rem)] md:!ml-14 !mt-0 !mb-0 p-0 flex items-center space-x-1">
                                                                     {labels.map(({ name, url }, index) => {
                                                                         return (
                                                                             <li key={name + index}>
@@ -228,12 +238,14 @@ export default function Job({
                                         </div>
                                     </Accordion>
                                 )}
-                                {objectives && (
+                                {!multipleTeams && showObjectives && objectives && (
                                     <Accordion title="Your team's mission and objectives" id="mission-objectives">
                                         <div className="mb-6">
-                                            <MDXProvider components={{ HideFromJobPosting: () => null }}>
-                                                <MDXRenderer>{mission.body}</MDXRenderer>
-                                            </MDXProvider>
+                                            {mission?.body && (
+                                                <MDXProvider components={{ HideFromJobPosting: () => null }}>
+                                                    <MDXRenderer>{mission.body}</MDXRenderer>
+                                                </MDXProvider>
+                                            )}
                                             <MDXProvider components={{ HideFromJobPosting: () => null }}>
                                                 <MDXRenderer>{objectives.body}</MDXRenderer>
                                             </MDXProvider>
@@ -242,7 +254,11 @@ export default function Job({
                                 )}
                                 <Accordion title="Interview process" id="interview-process">
                                     <div className="mb-6">
-                                        <InterviewProcess role={title} />
+                                        <p>
+                                            We do 2-3 short interviews, then pay you to do some real-life (or close to
+                                            real-life) work.
+                                        </p>
+                                        <InterviewProcess role={title} inApplicationProcess />
                                     </div>
                                 </Accordion>
                                 <Accordion title="Apply" id="apply">
@@ -260,42 +276,10 @@ export default function Job({
 }
 
 export const query = graphql`
-    query JobQuery($id: String!, $teamName: String!, $teamNameInfo: String!, $objectives: String!, $mission: String!) {
-        teamLead: mdx(frontmatter: { team: { in: [$teamName] }, teamLead: { eq: true } }) {
-            id
-            frontmatter {
-                name
-                country
-                jobTitle
-                headshot {
-                    id
-                    childImageSharp {
-                        gatsbyImageData
-                    }
-                }
-            }
-        }
-        team: allMdx(filter: { frontmatter: { team: { in: [$teamName] } } }) {
-            nodes {
-                id
-                frontmatter {
-                    name
-                    country
-                    jobTitle
-                    pineappleOnPizza
-                    headshot {
-                        id
-                        childImageSharp {
-                            gatsbyImageData
-                        }
-                    }
-                }
-            }
-        }
+    query JobQuery($id: String!, $objectives: String!, $mission: String!, $teams: [String]) {
         ashbyJobPosting(id: { eq: $id }) {
             id
             departmentName
-            locationName
             fields {
                 tableOfContents {
                     value
@@ -305,6 +289,7 @@ export const query = graphql`
                 html
                 title
                 slug
+                locations
             }
             parent {
                 ... on AshbyJob {
@@ -338,15 +323,19 @@ export const query = graphql`
         }
         allJobPostings: allAshbyJobPosting {
             nodes {
+                departmentName
                 fields {
                     title
                     slug
                 }
-            }
-        }
-        teamInfo: mdx(frontmatter: { title: { eq: $teamNameInfo } }) {
-            fields {
-                slug
+                parent {
+                    ... on AshbyJob {
+                        customFields {
+                            value
+                            title
+                        }
+                    }
+                }
             }
         }
         objectives: mdx(fields: { slug: { eq: $objectives } }) {
@@ -354,6 +343,42 @@ export const query = graphql`
         }
         mission: mdx(fields: { slug: { eq: $mission } }) {
             body
+        }
+        teams: allSqueakTeam(filter: { name: { in: $teams } }) {
+            nodes {
+                id
+                name
+                leadProfiles {
+                    data {
+                        id
+                    }
+                }
+                profiles {
+                    data {
+                        id
+                        attributes {
+                            country
+                            firstName
+                            lastName
+                            pineappleOnPizza
+                            leadTeams {
+                                data {
+                                    attributes {
+                                        name
+                                    }
+                                }
+                            }
+                            avatar {
+                                data {
+                                    attributes {
+                                        url
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 `

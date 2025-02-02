@@ -1,87 +1,106 @@
 ---
-title: Calculating average session duration, time on site, and other session-based metrics
+title: >-
+  Calculating average session duration, time on site, and other session-based
+  metrics
 sidebar: Docs
 showTitle: true
-author: ['ian-vanagas']
-date: 2022-09-26
-featuredImage: ../images/tutorials/banners/session-metrics.png
-topics: ['trends', 'sessions']
+author:
+  - ian-vanagas
+date: 2024-11-26
+featuredVideo: 'https://www.youtube-nocookie.com/embed/CVu6ObmOR8Q'
+tags:
+  - trends
+  - sessions
+  - product analytics
 ---
 
-- **Level:** Easy 🦔
-- **Estimated reading time:** 5 minutes ☕️
+A session is a set of events grouped to capture a "single use" of your product. If you use the [snippet](/docs/getting-started/install?tab=snippet), [JavaScript Web SDK](/docs/libraries/js), or [mobile SDKs](/docs/libraries/ios), PostHog automatically groups events into sessions. We then provide multiple ways to analyze these sessions to get a fuller picture of how users are using your product, where they are spending their time, and more.
 
-Analyzing where users spend their time in your product is vital for understanding which features they value most. There are numerous ways to do this, but one of the most common is to track metrics like time on site, time on page, average session duration, and pages per session. 
+## Analyzing sessions with web analytics
 
-These metrics can be calculated and visualized in PostHog by making use of sessions and their durations. We define a session as a set of events grouped to try to capture a single "use" of your product. Each session includes a duration between the first and last event, which we will rely on heavily. For more basic information about session data, see our [product manual](/manual/sessions). 
+The easiest way to analyze session metrics is with [web analytics](https://us.posthog.com/web). The [web analytics dashboard](/docs/web-analytics/dashboard) shows you session metrics like:
 
-In this tutorial, we will use sessions to calculate and visualize a variety of session and time-based metrics like time on site and average session duration.
+- Unique session count
+- Average session duration
+- Bounce rate
 
-## Prerequisites
+You can use filters to get metrics for sessions that match the filters. For example, sessions that visit a specific page or come from a specific referrer.
 
-To follow this tutorial along, you need to have:
+## Analyzing sessions with product analytics
 
-1. **[Deployed PostHog](/docs/getting-started/cloud)**.
-2. Installed **[posthog-js](/docs/integrate/client/js)** or added the **[PostHog snippet](/docs/integrate/client/js)** to your site.
+Beyond the overview web analytics provides, PostHog's [product analytics](/docs/product-analytics/trends/overview) gives you more flexibility to calculate and visualize session metrics. PostHog includes many session properties you might find useful in your analysis like entry and exit URLs, UTMs, pageview count, autocapture count, screen count, web vital LCP score, and more.
 
-## Time on site
+### Time on site
 
-To start calculating time-based insights you first must go to insights and create a new insight. Once in, choose pageview as your event, and aggregate the sum of session duration.
+Time on site is another name for session duration. Although you can get this web analytics, you can visualize it in a [trend](/docs/product-analytics/trends/overview).
 
-![Session duration sum](../images/tutorials/session-metrics/session-duration-sum.png)
+To do this, first, [create a new insight](https://us.posthog.com/insights/new). Once created, choose pageview as your event, aggregate by property value average of session duration.
 
-Once you modify the graph to your liking, by choosing a date range and setting the Y-axis unit to `Duration (s)`, you have a nice graph of the sum of time on site over time.
+<ProductScreenshot
+    imageLight = "https://res.cloudinary.com/dmukukwp6/image/upload/Clean_Shot_2024_11_26_at_11_21_06_2x_eb4a013399.png"
+    imageDark = "https://res.cloudinary.com/dmukukwp6/image/upload/Clean_Shot_2024_11_26_at_11_21_20_2x_90e1bd3357.png"
+    alt="Time on site" 
+    classes="rounded"
+/>
 
-![Session duration sum graph](../images/tutorials/session-metrics/session-duration-sum-graph.png)
+To create a trend of average session duration over time, choose your date range and set the Y-axis unit to `Duration (s)`.
 
-This might be useful for getting a rough idea of the usage of our whole product over time but becomes more useful as you break it down. You can do this by filtering the data. For example, you can filter for sessions by section of your product or site such as pricing or signup.
+<ProductScreenshot
+    imageLight = "https://res.cloudinary.com/dmukukwp6/image/upload/Clean_Shot_2024_11_26_at_11_26_55_2x_fab4ab06b6.png"
+    imageDark = "https://res.cloudinary.com/dmukukwp6/image/upload/Clean_Shot_2024_11_26_at_11_26_35_2x_1f5e69c603.png"
+    alt="Time on site trend" 
+    classes="rounded"
+/>
 
-## Time in sections
+> **Calculating time on page**: Calculating time on page is similar to calculating time on site, but it uses the **previous pageview duration** and **previous pageview pathname** properties. You can learn about this in our [how to calculate time on page](/tutorials/time-on-page) tutorial.
 
-To visualize time in sections, add a filter where the `Current URL` contains the section URL you want. In this case, it will be pricing and signup. Once one is set up, use the copy button and then change the `Current URL` value. This makes it quick to add multiple sections to the graph.
+### Average pages per session
 
-> **Tip:** Filter out pages you don’t want to be included, such as your main application on queries related to you marketing site.
+Another metric we can calculate with product analytics is the average number of pages per session.
 
-![Session duration filters](../images/tutorials/session-metrics/session-duration-filters.png)
-
-Once done, you’ll have a graph of session duration for the signup and pricing sections. Looks like people are spending a lot more time on pricing pages than signup, but remember that this is the *sum of session duration*, averages will be different.
-
-![Pricing vs signup session durations](../images/tutorials/session-metrics/pricing-vs-signup.png)
-
-## Time on pages
-
-If you want to know exactly what pages people are spending the most time in, you can *breakdown by* `Current URL` . Resetting the filters and switching the chart type to `Value` gives you a visual that looks like this:
-
-![Current URL values](../images/tutorials/session-metrics/current-url-values.png)
-
-These insights and visualization might help you reprioritize pages and sections people are spending more time on. Depending on the context, high time on a page could mean the page is important, confusing, or not optimized. [Session recordings](/product/session-recording) can help you find out if you don’t know.
-
-## Average session duration
-
-Now that you visualized time on site, time in sections, and time on page, we can visualize some session-based metrics based on averages. Averages provide better insight into how individual users spend their time compared to the sum of time spent metrics calculated and visualized in the last section.
-
-We’ll start with the average session duration. It can be calculated by again choosing pageview, but now aggregating by average session duration. Ensuring Y-axis is set to `Duration (s)` creates a graph of average session duration. 
-
-![Average session duration](../images/tutorials/session-metrics/average-session-duration.png)
-
-In many ways, average session duration is more useful than the sum or total time spent on site. A large number of sessions can increase total time on site, which is driven by brand, marketing, and distribution. Average session duration is more driven by the quality and content of the pages and application, which engineers and product managers have more control over. 
-
-Once you calculate average session duration, you can filter the series to get information based on source or referring domain, device type, active feature flags, cohorts, and more. All of these filters help you get closer to the actual user behavior you are trying to understand.
-
-## Pages per session
-
-Another useful average to visualize is the average number of pages per session. To do this set up two graph series, one for total pageview count and a second for pageview unique sessions. You can then use the `A/B` formula to calculate the number of pages per session. 
+To do this, set up two trend series, one for total pageview count and a second for pageview unique sessions. You can then use the `A/B` formula to calculate the number of pages per session.
 
 > **Tip:** Be sure to set the Y-axis unit in your chart back to `None`.
 
-![Pages per session](../images/tutorials/session-metrics/pages-per-session.png)
+<ProductScreenshot
+    imageLight = "https://res.cloudinary.com/dmukukwp6/image/upload/Clean_Shot_2024_11_26_at_11_35_08_2x_20bea3290f.png"
+    imageDark = "https://res.cloudinary.com/dmukukwp6/image/upload/Clean_Shot_2024_11_26_at_11_35_47_2x_8f91b16f3c.png"
+    alt="Pages per session" 
+    classes="rounded"
+/>
 
-Again, you can filter these series to better identify the types of users you want, or to provide details on sections and funnels on our site. Clicking on the charts will provide a list of the users included in that data. If there is a [session recording](/manual/recordings) available for that user session, there will be a link for you to go directly watch it.
+You can filter these series to provide details on sections and funnels on your site. Clicking on the charts will provide a list of the users included in that data. If there is a [session replay](/docs/session-replay) available for that user session, there will be a link for you to go watch it.
 
-### Understanding how users spend their time
+## Analyzing sessions with SQL
 
-These metrics should give you a better understanding of how users are spending their time in your product and site. Time on site, time in sections, average session time, and pages per session all provide insight into the experience of your product or the quality of your content. Making improvements to product or content quality helps improves these metrics.
+If trends don't give you the details you need, you can access the raw session data with SQL. It is located in the `sessions` table.
 
-To dive deeper into these insights, you can use [session recordings](/product/session-recording) to watch exactly how users are interacting with your product or the toolbar to use [heatmaps](/product/heatmaps) to understand popular areas on pages.
+For example, to get the average number of unique URLs per session, you can create a new SQL insight and run the following query:
 
-<NewsletterTutorial compact/>
+```sql
+select avg($num_uniq_urls) from sessions
+```
+
+### Connecting sessions to other data
+
+A big use case for this is combining session data with other event data. Because events have `$session_id` property, we can use a `JOIN` to combine session data with event data.
+
+For example, to get the non-pageview events for sessions with over 5 pageviews, you can run the following query:
+
+```sql
+SELECT 
+    e.event,
+    e.properties.$session_id,
+    s.$pageview_count
+FROM 
+    events e
+JOIN 
+    sessions s
+ON 
+    e.properties.$session_id = s.session_id
+WHERE 
+    s.$pageview_count > 5
+    AND e.event != '$pageview'
+```
+
+<NewsletterForm />

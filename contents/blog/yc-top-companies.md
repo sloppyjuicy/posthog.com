@@ -5,9 +5,13 @@ rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-author: ["mo-shehu"]
-featuredImage: ../images/blog/yc-top-companies/yc-top-companies.png
-categories: ["Inside PostHog"]
+author:
+  - mo-shehu
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/yc-top-companies/yc-top-companies.png
+category: PostHog news
+tags:
+  - Y Combinator
 ---
 
 Y Combinator has [listed](https://www.ycombinator.com/topcompanies) PostHog as number 157 out of its top 159 companies by valuations and exits as of July 2021.

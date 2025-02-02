@@ -1,4 +1,5 @@
-import { button, CallToAction, TrackedCTA } from 'components/CallToAction'
+import CloudinaryImage from 'components/CloudinaryImage'
+import { button, CallToAction, child, container, TrackedCTA } from 'components/CallToAction'
 import { Check2 } from 'components/Icons/Icons'
 import Link from 'components/Link'
 import Modal from 'components/Modal'
@@ -8,9 +9,10 @@ import React, { useRef, useState } from 'react'
 import Confetti from 'react-confetti'
 import GitHubButton from 'react-github-btn'
 import { NewsletterForm } from 'components/NewsletterForm'
-import NotProductIcons from 'components/NotProductIcons'
+import { Close } from 'components/NotProductIcons'
 import usePostHog from '../../hooks/usePostHog'
 import { RenderInClient } from 'components/RenderInClient'
+import { IconExternal } from '@posthog/icons'
 const allowedFileTypes = ['application/pdf']
 
 interface IResumeComponentProps {
@@ -45,7 +47,7 @@ const components = {
             data-path={path}
             required={required}
             className="flex-grow w-full block !bg-white dark:!bg-white/10 box-border px-3 py-2 rounded-sm focus:shadow-xl border border-black/20 text-[17px] font-medium dark:bg-white box-border/10 dark:text-white"
-            placeholder={placeholder || title}
+            placeholder={typeof placeholder === 'string' ? placeholder : title}
             name={title}
         />
     ),
@@ -78,7 +80,23 @@ const components = {
         }
 
         return (
-            <div className="relative h-24 w-full border border-gray-accent-light dark:border-gray-accent-dark border-dashed rounded-md flex justify-center items-center text-black/50 dark:text-white/50">
+            <div className="relative h-24 w-full border border-light dark:border-dark bg-accent dark:bg-accent-dark rounded-md flex justify-center items-center text-black/50 dark:text-white/50">
+                <div className="absolute">
+                    {fileName ? (
+                        <p className="!m-0">{fileName}</p>
+                    ) : (
+                        <p className="flex space-x-3 items-center !m-0">
+                            <button
+                                onClick={() => inputRef?.current.click()}
+                                type="button"
+                                className={container('primary', 'sm')}
+                            >
+                                <span className={child('primary', undefined, undefined, 'sm')}>Upload file</span>
+                            </button>
+                            <span className="text-sm">or drag and drop here</span>
+                        </p>
+                    )}
+                </div>
                 <input
                     ref={inputRef}
                     onChange={handleDrop}
@@ -90,22 +108,6 @@ const components = {
                     type="file"
                     accept={allowedFileTypes.join(',')}
                 />
-                <div className="absolute">
-                    {fileName ? (
-                        <p className="m-0">{fileName}</p>
-                    ) : (
-                        <p className="flex space-x-3 items-center !m-0">
-                            <button
-                                onClick={() => inputRef?.current.click()}
-                                type="button"
-                                className={button('primary', undefined, 'cursor-pointer', 'sm')}
-                            >
-                                Upload file
-                            </button>
-                            <span className="text-sm">or drag and drop here</span>
-                        </p>
-                    )}
-                </div>
             </div>
         )
     },
@@ -186,7 +188,9 @@ const Form = ({ setSubmitted, info, id }) => {
                     })}
                 </div>
                 {error && <p className="font-bold text-red m-0 mt-4">{error}</p>}
-                <button className={`${button()} mt-6 shadow-none !w-full box-border`}>Submit</button>
+                <button className={`${container()} mt-6 shadow-none !w-full box-border`}>
+                    <span className={child()}>Submit</span>
+                </button>
             </form>
         </div>
     )
@@ -220,7 +224,7 @@ export default function Apply({ id, info }) {
                 </div>
                 <div onClick={() => setModalOpen(false)} className="flex flex-start justify-center absolute w-full p-4">
                     <div
-                        className="max-w-xl bg-white dark:bg-black rounded-md relative"
+                        className="max-w-xl bg-white dark:bg-dark rounded-md relative"
                         onClick={(e) => e.stopPropagation()}
                     >
                         <button
@@ -228,16 +232,16 @@ export default function Apply({ id, info }) {
                             className="absolute right-4 top-4 bg-tan rounded-full w-8 h-8 text-black flex items-center justify-center group active:scale-[.90] focus:ring-0"
                         >
                             <span className="inline-block w-4 h-4 opacity-30 group-hover:opacity-50">
-                                {NotProductIcons.close}
+                                <Close />
                             </span>
                         </button>
                         <div className="px-8 text-center">
-                            <StaticImage
+                            <CloudinaryImage
                                 className=""
                                 objectFit="contain"
                                 placeholder="blurred"
                                 width={296}
-                                src="./images/newsletter-signup.png"
+                                src="https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/src/components/Job/images/newsletter-signup.png"
                             />
                         </div>
                         <div className="bg-blue/10 py-8 px-6 md:px-12 mb-8">
@@ -266,13 +270,17 @@ export default function Apply({ id, info }) {
                         </div>
 
                         <div className="px-6 md:px-12 mb-8">
-                            <StaticImage src="./images/sticker.png" width={140} className="float-right ml-4" />
+                            <CloudinaryImage
+                                src="https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/src/components/Job/images/sticker.png"
+                                width={140}
+                                className="float-right ml-4"
+                            />
 
                             <h3 className="m-0 text-base">Here's a laptop sticker, on us!</h3>
                             <p className="m-0 mb-3 text-sm">
                                 This code is our token of appreciation for taking the time to apply.
                             </p>
-                            <div className="rounded-md bg-tan dark:bg-primary border border-dashed border-gray-accent-light py-2 px-3 flex justify-between items-center mb-4 md:max-w-[210px] w-full">
+                            <div className="rounded-md bg-tan dark:bg-accent-dark border border-light dark:border-dark  py-2 px-3 flex justify-between items-center mb-4 md:max-w-[210px] w-full">
                                 <p className="font-semibold font-code m-0">{code}</p>
                                 <button
                                     disabled={copied}
@@ -301,7 +309,7 @@ export default function Apply({ id, info }) {
                                         )}
                                     </AnimatePresence>
                                     {copied ? (
-                                        <Check2 className="w-[18px] h-[18px[ text-green" />
+                                        <Check2 className="w-[18px] h-[18px] text-green" />
                                     ) : (
                                         <svg
                                             width="18"
@@ -319,16 +327,17 @@ export default function Apply({ id, info }) {
                                 </button>
                             </div>
                             <CallToAction
-                                external
-                                to="https://merch.posthog.com/discount/X7DABDB33723?redirect=%2Fproducts%2Fposthog-sticker"
+                                externalNoIcon
+                                to="/merch?product=posthog-sticker"
                                 size="sm"
                                 className="!w-full"
                             >
-                                Visit merch store
+                                <span>Visit merch store</span>
+                                <IconExternal className="w-5 h-5 inline-block ml-1" />
                             </CallToAction>
                         </div>
 
-                        <div className="mx-6 md:mx-12 py-6 border-t border-dashed border-gray-accent-light">
+                        <div className="mx-6 md:mx-12 py-2 ">
                             <h4 className="mb-0">Be our next star?</h4>
                             <aside className="float-right h-[28px] w-[125px] ml-8">
                                 <GitHubButton href="https://github.com/PostHog/posthog" />
@@ -338,64 +347,59 @@ export default function Apply({ id, info }) {
                             </p>
                         </div>
 
-                        <div className="mx-6 md:mx-12 py-6 border-t border-dashed border-gray-accent-light">
-                            <h4 className="mb-0">Join our mailing list</h4>
-                            <p className="text-sm mb-0">The best of PostHog. Delivered twice a month.</p>
-                            <NewsletterForm subcompact className="px-0" />
+                        <div className="mx-6 md:mx-12 pt-6 pb-2 border-t border-light dark:border-dark">
+                            <h4 className="mb-0">More cool tech jobs</h4>
+                            <p className="text-sm mb-4">
+                                While you're waiting to hear back, you might also be interested in exploring our{' '}
+                                <Link href="/cool-tech-jobs" className="text-red dark:text-yellow font-semibold">
+                                    cool tech job board
+                                </Link>{' '}
+                                – it's where we highlight other companies with similar vibes to PostHog.
+                            </p>
+
+                            <CallToAction externalNoIcon to="/cool-tech-jobs" size="sm" className="">
+                                <span>Browse cool tech jobs</span>
+                                <IconExternal className="w-5 h-5 inline-block ml-1" />
+                            </CallToAction>
                         </div>
 
-                        <div className="mx-6 md:mx-12 py-6 border-t border-dashed border-gray-accent-light">
+                        <div className="mx-6 md:mx-12 py-2 ">
+                            <NewsletterForm className="!py-0 !pt-6" />
+                        </div>
+
+                        <div className="mx-6 md:mx-12 py-2 ">
                             <h4 className="mb-0">Install PostHog on a side project</h4>
-                            <p className="text-sm">
+                            <p className="text-[15px] mb-3">
                                 Feel free to give PostHog a whirl - we’d love to hear your feedback!
                             </p>
-                            <div className="grid md:grid-cols-2 gap-8">
-                                <div>
-                                    <h5 className="text-base mb-0">Try PostHog Cloud</h5>
-                                    <p className="text-sm opacity-60 mb-2">Easiest, fastest, cheapest</p>
-                                    <RenderInClient
-                                        placeholder={
-                                            <TrackedCTA
-                                                className="mt-auto"
-                                                html={`https://app.posthog.com/signup`}
-                                                size="sm"
-                                                event={{ name: `clicked Continue`, type: 'cloud' }}
-                                            >
-                                                Get started - free
-                                            </TrackedCTA>
-                                        }
-                                    >
-                                        <TrackedCTA
-                                            className="mt-auto"
-                                            html={`https://${
-                                                posthog?.isFeatureEnabled &&
-                                                posthog?.isFeatureEnabled('direct-to-eu-cloud')
-                                                    ? 'eu'
-                                                    : 'app'
-                                            }.posthog.com/signup`}
-                                            size="sm"
-                                            event={{ name: `clicked Continue`, type: 'cloud' }}
-                                        >
-                                            Get started - free
-                                        </TrackedCTA>
-                                    </RenderInClient>
-                                </div>
-                                <div>
-                                    <h5 className="text-base mb-0">Self-hosted</h5>
-                                    <p className="text-sm opacity-60 mb-2">Install on your private cloud</p>
+                            <RenderInClient
+                                placeholder={
                                     <TrackedCTA
-                                        to="/signup/self-host"
                                         className="mt-auto"
+                                        to={`https://us.posthog.com/signup`}
                                         size="sm"
-                                        event={{ name: `clicked Continue`, type: 'self-hosted' }}
+                                        event={{ name: `clicked Continue`, type: 'cloud' }}
                                     >
                                         Get started - free
                                     </TrackedCTA>
-                                </div>
-                            </div>
+                                }
+                                render={() => (
+                                    <TrackedCTA
+                                        className="mt-auto"
+                                        to={`https://${
+                                            posthog?.isFeatureEnabled && posthog?.isFeatureEnabled('direct-to-eu-cloud')
+                                                ? 'eu'
+                                                : 'us'
+                                        }.posthog.com/signup`}
+                                        event={{ name: `clicked Continue`, type: 'cloud' }}
+                                    >
+                                        Get started - free
+                                    </TrackedCTA>
+                                )}
+                            />
                         </div>
 
-                        <div className="mx-6 md:mx-12 pt-2 pb-6 border-t border-dashed border-gray-accent-light text-center">
+                        <div className="mx-6 md:mx-12 pt-2 pb-6  text-center">
                             <Link to="/" className="font-bold text-red hover:bg-tan/50 w-full block px-4 py-2 rounded">
                                 Go back to PostHog.com
                             </Link>

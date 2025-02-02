@@ -1,14 +1,19 @@
 ---
 date: 2022-12-01
-title: "What is a product engineer (and why they're awesome)"
+title: What is a product engineer (and why they're awesome)
 rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-author: ["ian-vanagas"]
-featuredImage: ../images/blog/posthog-engineering-blog.png
+author:
+  - ian-vanagas
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/posthog-engineering-blog.png
 featuredImageType: full
-categories: ["Startups", "Guides"]
+category: Engineering
+tags:
+  - Explainers
+  - Product engineers
 ---
 
 Startups see their path to success as building a product many people want and pay for. Out of this need came the role of product engineer. They are a core part of many teams building the next generation of great products. More startups are hiring product engineers, and more people are building the skills needed to be one.
@@ -47,7 +52,7 @@ With a basic idea of what a product engineer is, we can dive deeper into the cha
 
 One characteristic that distinguishes product engineers is their “customer obsession.” They care a lot about the people and organizations using their product and want to build a better solution for them.
 
-Customer obsession manifests in a couple of ways. First is that they talk to users. Talking to users isn’t only a job for product managers and salespeople. Product engineers must do this too. They must understand the real problems users are having and figure out solutions for them. This might entail working with a product manager or designer, but it is the ultimate responsibility of the product engineer to make it happen. [incident.io](http://incident.io) is looking for this in their job post:
+Customer obsession manifests in a couple of ways. First is that they [talk to users](/newsletter/talk-to-users). Talking to users isn’t only a job for product managers and salespeople. Product engineers must do this too. They must understand the real problems users are having and figure out solutions for them. This might entail working with a product manager or designer, but it is the ultimate responsibility of the product engineer to make it happen. [incident.io](http://incident.io) is looking for this in their job post:
 
 > "Enjoy speaking directly with customers and understanding their problems”
 
@@ -75,7 +80,9 @@ All of this helps them create insights that help them build better products. Pro
 
 The end goal of a product engineer is to ship a great product. Briefs, mockups, written reports, and presentations are not a great product. Prototyping, shipping, and experimenting are closer, and that is what product engineers focus on.
 
-Product engineers ideate new ways to make the product better. They then iterate on these ideas for improving the product and do it fast. This means a lot of experiments and tests. Tools like A/B tests and feature flags help with this.
+Product engineers ideate new ways to make the product better. They then iterate on these ideas for improving the product and do it fast. This means a lot of experiments and tests. Tools like [A/B tests](/product-engineers/how-to-do-ab-testing) and feature flags help with this.
+
+> **Product engineers vs growth engineers:** Product engineers experiment to improve a specific product they own. Growth engineers experiment at a higher level, focusing on increasing growth metrics like signups, subscriptions, and revenue across products. Read our [guide to growth engineers](/blog/what-is-a-growth-engineer) and why they're awesome to learn more.
 
 Because they build prototypes and are self-reliant, product engineers often have a history of doing just that. They are more likely to have side projects they’ve built themselves. Some might be former founders or have unorthodox, self-taught backgrounds. They make great teammates in hackathons. [Ghost](https://ghost.org/) looks for these people:
 
@@ -118,5 +125,7 @@ As long as building great products is an important goal for many companies, prod
 ## Further reading
 
 - [Product engineer vs software engineer: what's the difference?](/blog/product-engineer-vs-software-engineer)
-- [How to harness the awesome power of growth loops](/blog/growth-loops)
-- [22 ways PostHog makes it easier to build great products](/blog/using-posting)
+- [How to harness the awesome power of growth loops](/product-engineers/growth-loops)
+- [22 ways PostHog makes it easier to build great products](/blog/using-posthog)
+
+<NewsletterForm />

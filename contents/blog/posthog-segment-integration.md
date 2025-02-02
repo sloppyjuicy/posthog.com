@@ -5,7 +5,9 @@ rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-categories: ["Product updates"]
+category: PostHog news
+tags:
+  - Product updates
 ---
 
 
@@ -13,7 +15,7 @@ We're happy to announce that PostHog is now available as a destination on Segmen
 
 Segment is a platform that works as an integrated data pipeline to facilitate the entire data collection and analysis process for your product.
 
-| ![Segment Banner](../images/segment-banner.png) |
+| ![Segment Banner](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/segment-banner.png) |
 | :---------------------------------------------: |
 | <center> "Segment is a customer data platform that makes good data accessible for all teams." (Image from Segment Docs)</center>    | 
 
@@ -23,7 +25,7 @@ For example, if you have both an app and a website and your Marketing and Engine
 
 Instead of integrating each data collection platform (source) with product analytics tool (destination), you just set up Segment and it does the rest, delivering the appropriate data collected from each source to the right destination.
 
-| ![Segment Pipeline](../images/segment-pipeline.png)                              |
+| ![Segment Pipeline](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/segment-pipeline.png)                              |
 | :------------------------------------------------------------------------------: |
 | <center> Sources → Segment → Destinations (Image from Segment.com)</center>      | 
 
@@ -35,8 +37,9 @@ Also, if you eventually decide that you want to do all your analytics on a platf
 
 Are you convinced yet? Ready to start your journey with a self-hosted open source platform?
 
-If so, check out our [new Docs page about integrating PostHog with Segment](/docs/integrate/third-party/segment).
+If so, check out our [new Docs page about integrating PostHog with Segment](/docs/libraries/segment).
 
-_Enjoyed this? Subscribe to our [newsletter](/newsletter) to hear more from us twice a month!_
+<NewsletterForm />
+
 
 

@@ -5,10 +5,14 @@ rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-author: ["joe-martin"]
-featuredImage: ../images/blog/posthog-engineering-blog.png
+author:
+  - joe-martin
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/posthog-engineering-blog.png
 featuredImageType: full
-categories: ["Product updates"]
+category: PostHog news
+tags:
+  - Product updates
 ---
 
 That’s right, we’re [teaming up with Altinity](https://altinity.com/blog/announcing-the-new-altinity-posthog-partnership). It’s an exciting new partnership that also marks the launch of the [PostHog Marketplace](/marketplace). Double announcement!
@@ -27,7 +31,7 @@ In addition to providing training and support, Altinity can also offer [Altinity
 
 We think this partnership with Altinity is exciting because, while self-hosted deployments offer many unique benefits — such as better data capture and [data control](/customers/vendasta) — they can also be challenging to set up and maintain. Altinity is the ideal middle ground, enabling you to retain full control over your data while experts manage your ClickHouse for you!
 
-You can find out more about our partnership with Altinity in the PostHog marketplace, where we’ll soon add even more exciting partners to help you get even more from your PostHog deployment. Until then, we’d love to hear your feedback in [the community Slack channel!](/slack)
+You can find out more about our partnership with Altinity in the PostHog marketplace, where we’ll soon add even more exciting partners to help you get even more from your PostHog deployment. Until then, we’d love to hear your feedback in [our community page](/posts).
 
 > PostHog is an open source analytics platform you can host yourself. We help you build better products faster, without user data ever leaving your infrastructure.
 

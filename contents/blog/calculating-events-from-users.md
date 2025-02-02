@@ -1,14 +1,18 @@
 ---
 date: 2022-06-21
-title: "The two ways to estimate your monthly event usage"
+title: The two ways to estimate your monthly event usage
 rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-featuredImage: ../images/blog/data-management-feature/posthog-data-management.png
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/data-management-feature/posthog-data-management.png
 featuredImageType: full
-categories: ["Guides", "Product analytics"]
-author: ["simon-fisher"]
+author:
+  - simon-fisher
+category: Using PostHog
+tags:
+  - Guides
 ---
 
 When talking through our editions and pricing options with potential customers I'm often asked "How can I estimate my event count?"
@@ -19,7 +23,7 @@ This guide explains why we price by event and offers some tips for estimating yo
 
 ## Why we price based on events
 
-Pricing software is hard. It's a delicate balance between being affordable for your ideal customer profile, competitive in the marketplace, while still allowing you to grow and fund further development in the product.
+Pricing software is hard. It's a delicate balance between being affordable for your [ideal customer profile](/newsletter/ideal-customer-profile-framework), competitive in the marketplace, while still allowing you to grow and fund further development in the product.
 
 We settled on event-based pricing for two main reasons:
 
@@ -67,7 +71,7 @@ As a rule of thumb, most fell within the range of 50-100 tracked events per MAU 
 
 We then did a deeper analysis of the different types of customers and came up with the following list of product types and expected monthly events per MAU.
 
-<div className="overflow-x-auto -mx-5 px-5">
+<OverflowXSection>
 <table className="w-full mt-4" style="min-width: 600px;">
 	<thead>
     	<tr>
@@ -143,7 +147,7 @@ We then did a deeper analysis of the different types of customers and came up wi
     	</tr>	
 	</tbody>
 </table>
-</div>
+</OverflowXSection>
 
 As you can see, event counts vary wildly across different types of products, but this should help you get closer to an estimated event count
 based on your product and MAU count.

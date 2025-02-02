@@ -1,4 +1,6 @@
+import { SearchResultType } from 'components/Search/SearchContext'
 import { IGatsbyImageData } from 'gatsby-plugin-image'
+import React from 'react'
 
 export interface ITopic {
     name: string
@@ -11,16 +13,37 @@ export interface IContributor {
     name: string
     url?: string
     state?: any
+    role?: string
 }
 
 export interface IMenu {
+    icon?: string | React.ReactNode
     name: string
     url?: string
     children?: IMenu[]
     className?: string
-    handleLinkClick?: () => void
+    handleLinkClick?: ({
+        name,
+        url,
+        topLevel,
+        tag,
+    }: {
+        name: string
+        url?: string
+        topLevel?: boolean
+        tag?: string
+    }) => void
+    onClick?: ({ name, url }: { name: string; url?: string }) => void
     topLevel?: boolean
     menuType?: 'scroll' | 'standard'
+    badge?: {
+        title: string
+        className?: string
+    }
+    color?: string
+    hidden?: boolean
+    tag?: string
+    active?: boolean
 }
 
 export interface ICrumb {
@@ -48,18 +71,18 @@ export interface INextPost {
     }
 }
 
+export interface TableOfContents {
+    url: string
+    value: string
+    depth: number
+}
+
 export interface IProps {
-    tableOfContents?: {
-        url: string
-        value: string
-        depth: number
-    }[]
-    children: React.ReactNode
+    tableOfContents?: TableOfContents[]
     sidebar?: React.ReactNode
     contentWidth?: number | string
     questions?: React.ReactNode
     menu?: IMenu[]
-    article?: boolean
     title: string
     filePath?: string
     breadcrumb?: ICrumb[]
@@ -69,6 +92,19 @@ export interface IProps {
     hideSearch?: boolean
     contentContainerClassName?: string
     menuType?: 'scroll' | 'standard'
-    menuWidth?: number
-    searchFilter?: string
+    menuWidth?: {
+        left?: number
+        right?: number
+    }
+    searchFilter?: SearchResultType
+    mobileMenu?: boolean
+    darkMode?: boolean
+    fullWidthContent?: boolean
+    setFullWidthContent?: (fullWidth: boolean) => void
+    contentContainerClasses?: string
+    stickySidebar?: boolean
+    hideWidthToggle?: boolean
+    isMenuItemActive?: ({ name, url }: { name: string; url?: string }) => boolean
+    isMenuItemOpen?: ({ name, url }: { name: string; url?: string }) => boolean | undefined
+    askMax?: boolean
 }

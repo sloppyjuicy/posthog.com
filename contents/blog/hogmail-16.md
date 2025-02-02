@@ -1,17 +1,19 @@
 ---
 date: 2022-11-08
-title: "HogMail #16"
+title: 'HogMail #16'
 rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-author: ["andy-vandervell"]
-featuredImage: ../images/blog/hogmail.png
+author:
+  - andy-vandervell
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/hogmail.png
 featuredImageType: full
-categories: ["HogMail"]
+category: General
 ---
 
-> Welcome to HogMail, our newsletter featuring the best of the PostHog blog, tutorials, product guides, and curated articles on building great products and companies. We send it every two weeks. [Signup here](/newsletter) so you don't miss it.
+> Welcome to HogMail, our newsletter featuring the best of the PostHog blog, tutorials, product guides, and curated articles on building great products and companies. We send it every two weeks. [Signup here](https://newsletter.posthog.com/subscribe) so you don't miss it.
 
 ## #posthog-blog
 
@@ -76,4 +78,4 @@ All the ways you can use filters to find useful session recordings.
 - [How Discord supercharges network disks for extreme low latency](https://discord.com/blog/how-discord-supercharges-network-disks-for-extreme-low-latency)
 - [Exploring massive, real-world data sets: 100+ Years of Weather Records in ClickHouse](https://clickhouse.com/blog/real-world-data-noaa-climate-data)
 
-> We send HogMail every two weeks. [Signup here](/newsletter) so you don't miss it.
+<NewsletterForm />

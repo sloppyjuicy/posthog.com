@@ -2,23 +2,28 @@ import React from 'react'
 import { initKea, wrapElement } from './kea'
 import './src/styles/global.css'
 import HandbookLayout from './src/templates/Handbook'
-import Product from './src/templates/Product'
-import SqueakTopic from './src/templates/SqueakTopic'
 import Job from './src/templates/Job'
+import Posts from './src/components/Edition/Posts'
 import { Provider as ToastProvider } from './src/context/toast'
 import { RouteUpdateArgs } from 'gatsby'
+import { UserProvider } from './src/hooks/useUser'
+import { ChatProvider } from './src/hooks/useChat'
 
 initKea(false)
 
-export const wrapRootElement = ({ element }) => <ToastProvider>{wrapElement({ element })}</ToastProvider>
+export const wrapRootElement = ({ element }) => (
+    <UserProvider>
+        <ToastProvider>
+            <ChatProvider>{wrapElement({ element })}</ChatProvider>
+        </ToastProvider>
+    </UserProvider>
+)
 export const onRouteUpdate = ({ location, prevLocation }: RouteUpdateArgs) => {
     // This is checked and set on initial load in the body script set in gatsby-ssr.js
     // Checking for prevLocation prevents this from happening twice
     if (typeof window !== 'undefined' && prevLocation) {
-        var slug = location.pathname.substring(1)
-        var theme = /^handbook|^docs|^blog|^integrations|^tutorials|^questions|^manual|^using-posthog/.test(slug)
-            ? (window as any).__theme
-            : 'light'
+        var theme = (window as any).__theme
+
         document.body.className = theme
     }
 
@@ -36,15 +41,25 @@ export const onRouteUpdate = ({ location, prevLocation }: RouteUpdateArgs) => {
 }
 export const wrapPageElement = ({ element, props }) => {
     const slug = props.location.pathname.substring(1)
-    return props.custom404 || !props.data ? (
+    return !/^posts\/new|^posts\/(.*)\/edit/.test(slug) &&
+        (props.pageContext.post || /^posts|^changelog\/(.*?)\//.test(slug)) ? (
+        <Posts {...props}>{element}</Posts>
+    ) : props.custom404 || !props.data || props.pageContext.ignoreWrapper ? (
         element
     ) : /^handbook|^docs\/(?!api)|^manual/.test(slug) &&
-      !['docs/api/post-only-endpoints', 'docs/api/user'].includes(slug) ? (
+      ![
+          'docs/api/post-only-endpoints',
+          'docs/api/user',
+          'docs/integrations',
+          'docs/product-analytics',
+          'docs/session-replay',
+          'docs/feature-flags',
+          'docs/experiments',
+          'docs/data',
+      ].includes(slug) ? (
         <HandbookLayout {...props} />
-    ) : /^product\//.test(slug) ? (
+    ) : /^session-replay|^product-analytics|^feature-flags|^experiments|^product-os/.test(slug) ? (
         <Product {...props} />
-    ) : /^questions\//.test(slug) ? (
-        <SqueakTopic {...props} />
     ) : /^careers\//.test(slug) ? (
         <Job {...props} />
     ) : (

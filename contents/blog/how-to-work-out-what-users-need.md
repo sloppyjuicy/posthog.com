@@ -5,10 +5,14 @@ rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-author: ["marcus-hyett"]
-featuredImage: ../images/blog/posthog-blog-image.png
+author:
+  - marcus-hyett
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/posthog-blog-image.png
 featuredImageType: full
-categories: ["Guides", "Product analytics", "PostHog Academy"]
+category: Product growth
+tags:
+  - Guides
 ---
 
 Understanding the needs of your users better than anyone else is critical for the success of any product.
@@ -19,7 +23,7 @@ However, Uber, Lyft, and co. came along and disrupted this market by understandi
 
 When building a product, your users don’t always know what they need; and when they do, they might not be able to express it clearly. The role of a Product Manager is to piece together multiple pieces of information to identify actual user needs and empower a team to solve them. Below are a few ways you can gather this information.
 
-> This article is part of our [PostHog Academy series](/blog/categories/posthog-academy) where we explain the fundamentals of product analytics. Marcus Hyett is VP of Product at PostHog. Prior to PostHog, he was a Senior Product Manager at Meta working on ecommerce experiences across Instagram and its family of apps.
+> This article is part of our [PostHog Academy series](/tracks) where we explain the fundamentals of product analytics. Marcus Hyett is VP of Product at PostHog. Prior to PostHog, he was a Senior Product Manager at Meta working on ecommerce experiences across Instagram and its family of apps.
 
 ## Interviews
 Speaking 1:1 with customers is a great way to immerse yourself in their experience and the daily problems they encounter. It’s key when interviewing customers that you avoid biased or leading questions. To get unfiltered answers, ask open questions such as “Can you talk me through how you would travel home from an airport?” rather than “Can you tell me about the last time you took a taxi?” or “Did you take a taxi in the last 7 days?”.
@@ -51,7 +55,7 @@ Another option to a scaled survey is to hold a focus group - a cross between the
 ### How does PostHog do this?
 In addition to collecting user feedback through direct conversations, we occasionally run surveys via our Slack community to find out how we're doing. We use this primarily as a tool for collecting ideas on topics outside of our core product, such as new community or marketing iniatives. 
 
-Want to find out more about our community? You can [join the PostHog Slack group](/slack) today!
+Want to find out more about our community? You can join [our community page](/posts) today!
 
 ## Metrics
 Monitor how people are using your product,  as they may be getting stuck when trying to accomplish something. You can piece together key pieces of information from success metrics to see what differs between users who are successful and those who are not, to shed light on unmet user needs.
@@ -89,6 +93,4 @@ There's no shortcut here; research takes time to do and has to be done thoroughl
 
 - [How to achieve B2B product market fit](/blog/how-to-product-market-fit): How to approach finding market fit for a B2B product
 
-> PostHog is an open-source analytics platform you can host yourself. We help you build better products faster, without user data ever leaving your infrastructure.
-
-<ArrayCTA />
+<NewsletterForm />

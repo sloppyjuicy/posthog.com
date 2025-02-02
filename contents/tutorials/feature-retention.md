@@ -2,13 +2,17 @@
 title: How to discover features that drive user retention
 sidebar: Docs
 showTitle: true
-author: ['ian-vanagas']
+author:
+  - ian-vanagas
 date: 2022-11-22
-featuredImage: ../images/tutorials/banners/feature-retention.png
-topics: ["stickiness", "dashboards", "retention"]
+tags:
+  - stickiness
+  - dashboards
+  - retention
+  - product analytics
 ---
 
-Every company wants to build a product that keeps users coming back. Returning and reoccurring users are often your best ones. Many teams focus on improving user retention metrics, like weekly active users or customer retention.
+Every company wants to build a product that keeps users coming back. Returning and reoccurring users are often your best ones. Many teams focus on improving user retention metrics, like weekly active users or customer retention. Retention is also an excellent way to [measure your product-market fit](/blog/measure-product-market-fit).
 
 This tutorial will help you discover the features that drive retention and keep users coming back. Specifically, we’ll build a dashboard to track metrics related to a feature’s retention and compare those metrics across your features.
 
@@ -16,7 +20,7 @@ This tutorial will help you discover the features that drive retention and keep 
 
 The first step in understanding feature retention is knowing what data you have. You need data from your product’s features to know anything about their retention. There are two ways to do this:
 
-1. Add the [snippet](/docs/integrate/client/snippet-installation) or install the [JavaScript library](/docs/integrate/client/js) to enable [autocapture](/docs/integrate/client/js#autocapture). Find autocaptured events related to the feature (views, button presses, inputs). Create an [action](/manual/actions) (a combination of events) using the toolbar or under “Data Management” in the sidebar to represent that feature’s usage.
+1. Add the [snippet](/docs/integrate) or install the [JavaScript library](/docs/integrate/client/js) to enable [autocapture](/docs/data/autocapture). Find autocaptured events related to the feature (views, button presses, inputs). Create an [action](/manual/actions) (a combination of events) using the toolbar or under “Data Management” in the sidebar to represent that feature’s usage.
 
 2. Add event capture calls manually into the code that encompasses the feature usage. Use functions, methods, hooks, or other structures in your code to represent a feature’s usage.
 
@@ -32,11 +36,11 @@ To create a new dashboard, click “Dashboards” in the sidebar, then click the
 
 From the dashboard, we can start by adding a basic active user trend for each of our features. Click “Add insight,” and on the insight screen, stay on the “Trends” tab. Here, we can add a series for each of the feature events we set up. Instead of “Total count,” we’ll want to choose weekly or monthly active users as our count.
 
-![Feature WAU](../images/tutorials/feature-retention/key-feature-wau.png)
+![Feature WAU](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/tutorials/feature-retention/key-feature-wau.png)
 
 Once we click “Save & add to dashboard,” below is how our retention dashboard will look. It is thin right now, but we’re going to change that.
 
-![Feature retention dashboard](../images/tutorials/feature-retention/dashboard.png)
+![Feature retention dashboard](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/tutorials/feature-retention/dashboard.png)
 
 This insight gives us a basic understanding of the features weekly or monthly active users are using. It gives us a first glance at what the most important features for retention might be.
 
@@ -46,7 +50,7 @@ Next, we'll add some retention charts. Either from your dashboard or “Insights
 
 Choose one of your feature events for both “performed” and “came back to perform” options. If you have a large number of users, you can use “for the first time.” If you have fewer, use “recurringly.” Choose a relevant time scale, likely weekly rather than daily. Once done, you can click save or add to the dashboard and repeat for the rest of your features.
 
-![Retention chart](../images/tutorials/feature-retention/retention.png)
+![Retention chart](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/tutorials/feature-retention/retention.png)
 
 Once completed, go to your dashboard and do some organization. Click the three dots next to share (or press “E”) to resize and rearrange your insights on your dashboard.
 
@@ -58,7 +62,7 @@ You can also use feature event data to create a stickiness chart. A stickiness c
 
 To create one, follow a similar process to the recurring feature usage active user chart. Create a new insight, and select the stickiness tab. Add a graph series for each of your features, and you can start to compare them. 
 
-![Stickiness chart](../images/tutorials/feature-retention/stickiness.png)
+![Stickiness chart](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/tutorials/feature-retention/stickiness.png)
 
 Be wary that stickiness might drop off significantly faster than you expect. Also, keep in mind the numbers you start with. If a graph series starts lower on the Y axis, but overlaps other lines, that means it is stickier than other features (a good sign).
 
@@ -76,5 +80,7 @@ Now you have a better idea of the features that drive user retention and keep th
 
 ## Further reading
 
-- [How to calculate and lower churn rate with PostHog](/tutorials/churn-rate)
-- [Measuring retention and tracking churn](/tutorials/retention)
+- [How to calculate and lower churn rate](/tutorials/churn-rate)
+- [Our complete guide to churn analysis](/blog/customer-churn-analysis-guide)
+
+<NewsletterForm />

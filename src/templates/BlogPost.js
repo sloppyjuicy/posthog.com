@@ -1,154 +1,287 @@
 import { MDXProvider } from '@mdx-js/react'
 import { Blockquote } from 'components/BlockQuote'
-import Breadcrumbs, { Crumb } from 'components/Breadcrumbs'
-import { Calendar, Edit, Issue } from 'components/Icons/Icons'
 import { InlineCode } from 'components/InlineCode'
-import Layout from 'components/Layout'
 import Link from 'components/Link'
-import { H1, H2, H3, H4, H5, H6 } from 'components/MdxAnchorHeaders'
-import PostLayout, { Contributors, ShareLinks, SidebarSection, Text, Topics } from 'components/PostLayout'
+import { Contributor } from 'components/PostLayout/Contributors'
 import { SEO } from 'components/seo'
 import { ZoomImage } from 'components/ZoomImage'
-import { graphql } from 'gatsby'
+import { graphql, useStaticQuery } from 'gatsby'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { MdxCodeBlock } from '../components/CodeBlock'
 import { shortcodes } from '../mdxGlobalComponents'
+import { Heading } from 'components/Heading'
+import TutorialsSlider from 'components/TutorialsSlider'
+import MobileSidebar from 'components/Docs/MobileSidebar'
+import { useLayoutData } from 'components/Layout/hooks'
+import Title from 'components/Edition/Title'
+import Upvote from 'components/Edition/Upvote'
+import LikeButton from 'components/Edition/LikeButton'
+import { Questions } from 'components/Squeak'
+import { useLocation } from '@reach/router'
+import qs from 'qs'
+import Breadcrumbs from 'components/Edition/Breadcrumbs'
+import { CallToAction } from 'components/CallToAction'
+import { IconMap, IconOpenSidebar } from '@posthog/icons'
 import { NewsletterForm } from 'components/NewsletterForm'
+import BuiltBy from '../components/BuiltBy'
+import TeamMember from 'components/TeamMember'
+import CloudinaryImage from 'components/CloudinaryImage'
+import AskMax from 'components/AskMax'
 
 const A = (props) => <Link {...props} className="text-red hover:text-red font-semibold" />
 
-const Title = ({ children, className = '' }) => {
-    return <h1 className={`text-3xl md:text-4xl lg:text-4xl mt-3 mb-0 lg:mb-5 lg:mt-0 ${className}`}>{children}</h1>
-}
-
-const Intro = ({ featuredImage, title, featuredImageType, contributors }) => {
+export const Intro = ({
+    featuredImage,
+    featuredVideo,
+    title,
+    featuredImageType,
+    titlePosition = 'bottom',
+    date,
+    tags,
+    imageURL,
+}) => {
     return (
-        <div className="mt-4 lg:mb-7 mb-4 overflow-hidden">
-            {featuredImage && (
-                <div className="relative">
-                    <GatsbyImage
-                        className={`rounded-md z-0 relative ${
-                            featuredImageType === 'full'
-                                ? 'before:h-1/2 before:left-0 before:right-0 before:bottom-0 before:z-[1] before:absolute before:bg-gradient-to-t before:from-black/75'
-                                : ''
-                        }`}
-                        image={getImage(featuredImage)}
-                    />
-                    {featuredImageType === 'full' && (
-                        <Title className="lg:absolute bottom-0 lg:text-white text-primary lg:px-8">{title}</Title>
-                    )}
-                </div>
-            )}
-            {featuredImageType !== 'full' && <Title className="lg:mt-7 mt-4">{title}</Title>}
-            {contributors && (
-                <Contributors
-                    contributors={contributors}
-                    className="flex lg:hidden flex-row space-y-0 space-x-4 my-3"
+        <div className="mb-6">
+            <div>
+                <Title className="text-primary dark:text-primary-dark">{title}</Title>
+                <p className="mb-1 opacity-70">{date}</p>
+            </div>
+
+            {featuredVideo && <iframe src={featuredVideo} />}
+            {!featuredVideo && featuredImage && (
+                <GatsbyImage
+                    className={`rounded-sm z-0 bg-accent dark:bg-accent-dark rounded`}
+                    image={getImage(featuredImage)}
                 />
             )}
         </div>
     )
 }
 
-const BlogPostSidebar = ({ contributors, date, filePath, title, categories, location }) => {
-    return (
+export const Contributors = ({ contributors }) => {
+    return contributors?.[0] ? (
         <>
-            {contributors && (
-                <SidebarSection className="lg:block hidden" title={`Author${contributors?.length > 1 ? 's' : ''}`}>
-                    <Contributors className="flex flex-col space-y-2" contributors={contributors} />
-                </SidebarSection>
-            )}
-            <SidebarSection title="Share">
-                <ShareLinks title={title} href={location.href} />
-            </SidebarSection>
-            {categories?.length > 0 && (
-                <SidebarSection title="Topic(s)">
-                    <Topics topics={categories} />
-                </SidebarSection>
-            )}
-            <SidebarSection>
-                <Text>
-                    <Calendar className="h-[20px] w-[20px]" /> <time>{date}</time>
-                </Text>
-            </SidebarSection>
-            <SidebarSection>
-                <div className="bg-gray-accent-light dark:bg-gray-accent-dark rounded max-w-xs">
-                    <NewsletterForm sidebar />
-                </div>
-            </SidebarSection>
+            <div className="text-sm opacity-50 px-4 mb-2">Posted by</div>
+            <div className={`mb-4 flex flex-col gap-4`}>
+                {contributors.map(({ profile_id, image, name, role, profile }) => {
+                    return (
+                        <Contributor
+                            url={profile_id && `/community/profiles/${profile_id}`}
+                            image={profile?.avatar?.url || image}
+                            name={profile ? [profile.firstName, profile.lastName].filter(Boolean).join(' ') : name}
+                            key={name}
+                            role={profile?.companyRole || role}
+                            text
+                        />
+                    )
+                })}
+            </div>
         </>
-    )
+    ) : null
 }
 
-export default function BlogPost({ data, pageContext, location }) {
+const ContributorsSmall = ({ contributors }) => {
+    return contributors?.[0] ? (
+        <div className="flex space-x-2 items-center mb-4">
+            <div className="text-sm opacity-50">Posted by</div>
+
+            <div>
+                <ul className="flex list-none !m-0 !p-0 space-x-2">
+                    {contributors.map(({ profile_id, name, profile, ...other }) => {
+                        const image = profile?.avatar?.url || other?.image
+                        const url = profile_id && `/community/profiles/${profile_id}`
+                        const Container = url ? Link : 'div'
+                        const gatsbyImage = image && getImage(image)
+                        return (
+                            <li className="!mb-0" key={name}>
+                                <Container className="flex space-x-2 items-center" {...(url ? { to: url } : {})}>
+                                    <span>
+                                        {typeof image === 'string' ? (
+                                            <CloudinaryImage
+                                                width={50}
+                                                className="w-6 h-6 border-border border dark:border-dark rounded-full"
+                                                src={image}
+                                            />
+                                        ) : gatsbyImage ? (
+                                            <GatsbyImage
+                                                image={gatsbyImage}
+                                                alt={name}
+                                                className="w-6 h-6 border-border border dark:border-dark rounded-full"
+                                            />
+                                        ) : (
+                                            ''
+                                        )}
+                                    </span>
+                                    <span>{name}</span>
+                                </Container>
+                            </li>
+                        )
+                    })}
+                </ul>
+            </div>
+        </div>
+    ) : null
+}
+
+export default function BlogPost({ data, pageContext, location, mobile = false }) {
     const { postData } = data
     const { body, excerpt, fields } = postData
-    const { date, title, featuredImage, featuredImageType, contributors, description } = postData?.frontmatter
+    const { date, title, featuredImage, featuredVideo, featuredImageType, contributors, tags, seo } =
+        postData?.frontmatter
     const lastUpdated = postData?.parent?.fields?.gitLogLatestDate
     const filePath = postData?.parent?.relativePath
+    const category = postData?.parent?.category
     const components = {
-        h1: H1,
-        h2: H2,
-        h3: H3,
-        h4: H4,
-        h5: H5,
-        h6: H6,
-        pre: MdxCodeBlock,
+        h1: (props) => Heading({ as: 'h1', ...props }),
+        h2: (props) => Heading({ as: 'h2', ...props }),
+        h3: (props) => Heading({ as: 'h3', ...props }),
+        h4: (props) => Heading({ as: 'h4', ...props }),
+        h5: (props) => Heading({ as: 'h5', ...props }),
+        h6: (props) => Heading({ as: 'h6', ...props }),
         inlineCode: InlineCode,
         blockquote: Blockquote,
+        pre: MdxCodeBlock,
+        MultiLanguage: MdxCodeBlock,
         img: ZoomImage,
+        video: (props) => (
+            <ZoomImage>
+                <video {...props} />
+            </ZoomImage>
+        ),
         a: A,
+        TutorialsSlider,
+        NewsletterForm,
+        BuiltBy,
+        TeamMember,
         ...shortcodes,
     }
-    const { categories, tableOfContents } = pageContext
+    const { tableOfContents, askMax } = pageContext
+    const { fullWidthContent, theoMode } = useLayoutData()
+    const { pathname } = useLocation()
+    const [postID, setPostID] = useState()
+    const [posthogInstance, setPosthogInstance] = useState()
+
+    useEffect(() => {
+        if (window) {
+            const instanceCookie = document.cookie
+                .split('; ')
+                ?.filter((row) => row.startsWith('ph_current_instance='))
+                ?.map((c) => c.split('=')?.[1])?.[0]
+            if (instanceCookie) {
+                setPosthogInstance(instanceCookie)
+            }
+        }
+    }, [])
+
+    useEffect(() => {
+        fetch(
+            `${process.env.GATSBY_SQUEAK_API_HOST}/api/posts?${qs.stringify(
+                {
+                    fields: ['id'],
+                    filters: {
+                        slug: {
+                            $eq: pathname,
+                        },
+                    },
+                },
+                { encodeValuesOnly: true }
+            )}`
+        )
+            .then((res) => res.json())
+            .then((posts) => {
+                if (posts?.data?.length > 0) {
+                    setPostID(posts.data[0].id)
+                }
+            })
+    }, [pathname])
 
     return (
-        <Layout>
+        <article className="@container">
             <SEO
-                title={title + ' - PostHog'}
-                description={description || excerpt}
+                title={seo?.metaTitle || title + ' - PostHog'}
+                description={seo?.metaDescription || excerpt}
                 article
-                image={
-                    featuredImageType === 'full'
-                        ? `/og-images/${fields.slug.replace(/\//g, '')}.jpeg`
-                        : featuredImage?.publicURL
-                }
+                image={`${process.env.GATSBY_CLOUDFRONT_OG_URL}/${fields.slug.replace(/\//g, '')}.jpeg`}
+                imageType="absolute"
             />
-            <PostLayout
-                title={title}
-                contentWidth={790}
-                filePath={filePath}
-                tableOfContents={tableOfContents}
-                breadcrumb={[{ name: 'Blog', url: '/blog' }, ...categories]}
-                hideSurvey
-                sidebar={
-                    <BlogPostSidebar
-                        categories={categories}
-                        contributors={contributors}
-                        date={date}
-                        filePath={filePath}
-                        title={title}
-                        location={location}
-                    />
-                }
-            >
-                <Intro
-                    title={title}
-                    featuredImage={featuredImage}
-                    featuredImageType={featuredImageType}
-                    contributors={contributors}
-                />
-                <div className="article-content">
-                    <MDXProvider components={components}>
-                        <MDXRenderer>{body}</MDXRenderer>
-                    </MDXProvider>
+
+            <div className="flex flex-col-reverse @3xl:flex-row">
+                <div className={`article-content flex-1 transition-all md:pt-8 w-full overflow-auto`}>
+                    <div
+                        className={`mx-auto transition-all ${
+                            fullWidthContent ? 'max-w-full' : 'max-w-3xl'
+                        }  md:px-8 2xl:px-12`}
+                    >
+                        <Breadcrumbs category={category} tags={tags} />
+                        <Intro
+                            title={title}
+                            featuredImage={featuredImage}
+                            featuredVideo={featuredVideo}
+                            featuredImageType={featuredImageType}
+                            date={date}
+                            tags={tags}
+                        />
+                        <div className="xl:hidden">
+                            <ContributorsSmall contributors={contributors} />
+                            <MobileSidebar tableOfContents={tableOfContents} />
+                        </div>
+
+                        <MDXProvider components={components}>
+                            <MDXRenderer>{body}</MDXRenderer>
+                        </MDXProvider>
+                        <Upvote className="mt-6" />
+                        {askMax && <AskMax />}
+                        <div className={`mt-8 mx-auto pb-20 ${fullWidthContent ? 'max-w-full' : 'max-w-4xl'}`}>
+                            <h3>Comments</h3>
+                            <Questions
+                                disclaimer={false}
+                                subject={false}
+                                buttonText="Leave a comment"
+                                slug={pathname}
+                            />
+                        </div>
+                    </div>
                 </div>
-            </PostLayout>
-        </Layout>
+                {!theoMode && (
+                    <aside
+                        className={`shrink-0 basis-72 @3xl:reasonable:sticky @3xl:reasonable:overflow-auto max-h-64 overflow-auto @3xl:max-h-[calc(100vh_-_108px)] @3xl:top-[108px] w-full border-x border-border dark:border-dark pt-4 xl:block hidden`}
+                    >
+                        {category === 'Tutorials' && posthogInstance && (
+                            <div className="border border-light dark:border-dark rounded bg-accent dark:bg-accent-dark p-4 mx-4 mb-4">
+                                <h3 className="text-[15px] mb-1 flex items-center gap-1">
+                                    <IconMap className="w-6 h-6 opacity-60" /> <span>Follow along in the app</span>
+                                </h3>
+                                <p className="mb-2 text-sm">
+                                    Open this guide in PostHog and follow along step-by-step.
+                                </p>
+                                <CallToAction
+                                    to={`https://app.posthog.com/#panel=docs:${fields.slug}`}
+                                    size="sm"
+                                    externalNoIcon
+                                >
+                                    Open in app
+                                    <IconOpenSidebar className="w-4 h-4 inline-block ml-2" />
+                                </CallToAction>
+                            </div>
+                        )}
+                        <Upvote id={postID} slug={fields.slug} className="px-4 mb-4" />
+                        <Contributors contributors={contributors} />
+                        <MobileSidebar tableOfContents={tableOfContents} />
+                    </aside>
+                )}
+            </div>
+        </article>
     )
 }
+
+export const SEOFragment = graphql`
+    fragment SEOFragment on FrontmatterSEO {
+        metaTitle
+        metaDescription
+    }
+`
 
 export const query = graphql`
     query BlogPostLayout($id: String!) {
@@ -158,6 +291,7 @@ export const query = graphql`
             excerpt(pruneLength: 150)
             fields {
                 slug
+                pageViews
             }
             frontmatter {
                 date(formatString: "MMM DD, YYYY")
@@ -165,9 +299,11 @@ export const query = graphql`
                 sidebar
                 showTitle
                 tags
+                category
                 hideAnchor
                 description
                 featuredImageType
+                featuredVideo
                 featuredImage {
                     publicURL
                     childImageSharp {
@@ -176,17 +312,26 @@ export const query = graphql`
                 }
                 contributors: authorData {
                     id
-                    image {
-                        childImageSharp {
-                            gatsbyImageData(width: 38, height: 38)
+                    name
+                    profile_id
+                    role
+                    profile {
+                        firstName
+                        lastName
+                        companyRole
+                        avatar {
+                            url
                         }
                     }
-                    name
+                }
+                seo {
+                    ...SEOFragment
                 }
             }
             parent {
                 ... on File {
                     relativePath
+                    category
                     fields {
                         gitLogLatestDate(formatString: "MMM DD, YYYY")
                     }

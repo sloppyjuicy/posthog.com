@@ -1,17 +1,19 @@
 ---
 date: 2022-12-08
-title: "HogMail #18: What can SaaS learn from the New York Times?"
+title: 'HogMail #18: What can SaaS learn from the New York Times?'
 rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-author: ["andy-vandervell"]
-featuredImage: ../images/blog/hogmail.png
+author:
+  - andy-vandervell
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/hogmail.png
 featuredImageType: full
-categories: ["HogMail"]
+category: General
 ---
 
-> Welcome to HogMail, our newsletter featuring the best of the PostHog blog, tutorials, product guides, and curated articles on building great products and companies. We send it every two weeks. [Signup here](/newsletter) so you don't miss it.
+> Welcome to HogMail, our newsletter featuring the best of the PostHog blog, tutorials, product guides, and curated articles on building great products and companies. We send it every two weeks. [Signup here](https://newsletter.posthog.com/subscribe) so you don't miss it.
 
 Sad news, newsletter friends, this is the last HogMail of 2022! Normal service will resume on Jan 4, 2023.
 
@@ -24,7 +26,7 @@ Yes, I know those two numbers are weirdly similar. Sue me.
 
 The most popular articles this year:
 
-- [How we found our Ideal Customer Profile](/blog/creating-ideal-customer-profile) – 56 clicks
+- [How we found our Ideal Customer Profile](/newsletter/ideal-customer-profile-framework) – 56 clicks
 - [How (and why) our marketing team uses PostHog](/blog/posthog-marketing) – 50 clicks
 - [How to run a transparent startup](/blog/how-to-run-a-transparent-company) – 48 clicks
 - [How we made something people want](/blog/making-something-people-want) – 45 clicks
@@ -74,4 +76,4 @@ Mental note: y'all love articles with 'how' in the title, eh? Thanks for your su
  
 - [How The New York Times Uses Machine Learning To Make Its Paywall Smarter](https://open.nytimes.com/how-the-new-york-times-uses-machine-learning-to-make-its-paywall-smarter-e5771d5f46f8) – one for the data science and ML fans out there.
 
-> We send HogMail every two weeks. [Signup here](/newsletter) so you don't miss it.
+<NewsletterForm />

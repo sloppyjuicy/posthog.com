@@ -5,9 +5,13 @@ rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-categories: ["Release notes", "Product updates"]
-featuredImage: ../images/blog/array/default.png
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/array/default.png
 featuredImageType: standard
+category: PostHog news
+tags:
+  - Product updates
+  - Release notes
 ---
 
 This week's update brings a React Native integration, time comparisons, easy access to user data from graphs, better user friendliness, and much stronger frontend testing.
@@ -34,7 +38,7 @@ Tell your friends, or apply yourself.
 
 ### [Comparison charts](https://github.com/PostHog/posthog/pull/824)
 
-![Comparison charts](../images/side-by-side-comparison.gif)
+![Comparison charts](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/side-by-side-comparison.gif)
 
 The trends page is now even more powerful. You can compare time periods side-by-side - for charts or tables.
 
@@ -44,7 +48,7 @@ Thanks to [Paolo](https://github.com/PaoloC68) for [suggesting this](https://git
 
 ### [View the users inside each datapoint](https://github.com/PostHog/posthog/pull/830/commits/64e1ef34b5d8565934b1980d33432cef4e7002f7)
 
-![Hover breakdown](../images/hover-breakdown.png)
+![Hover breakdown](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/hover-breakdown.png)
 
 Did you know you could do this? If you click the datapoints in your trends graphs, you can see a list of the relevant users.
 
@@ -99,6 +103,12 @@ We also have a few backlog bugs to tackle - we will work through these.
 * Make a new [open source best friend](https://github.com/olivia-ai/olivia), powered by a neural network.
 * Get reading [free programming books](https://github.com/EbookFoundation/free-programming-books).
 * Also - [don't miss the rocket launch](https://www.kennedyspacecenter.com/launches-and-events/events-calendar/see-a-rocket-launch) later today!
+
+## Share your feedback
+We'd love to hear anything you have to say about PostHog, good or bad. As a thank you, we'll share some awesome [PostHog merch](https://merch.posthog.com).
+
+Want to get involved? [Email us to schedule a 30 minute call](mailto:hey@posthog.com) with one of our teams to help us make PostHog even better!
+
 
 ## PostHog news
 

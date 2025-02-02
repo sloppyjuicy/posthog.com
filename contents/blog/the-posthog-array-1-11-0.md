@@ -5,9 +5,13 @@ rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-categories: ["Release notes", "Product updates"]
-featuredImage: ../images/blog/array/default.png
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/array/default.png
 featuredImageType: standard
+category: PostHog news
+tags:
+  - Product updates
+  - Release notes
 ---
 
 
@@ -21,20 +25,20 @@ Please also update your `posthog-js` version to at least `1.3.4` if you have it 
 
 ### Annotations
 
-![](../images/annotations.png)
+![](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/annotations.png)
 
 Digging through git commits to find out what changed to make the graphs go hay-wire? No more! You can now annotate when something happened (a big release, a bugfix or a launch) and make it super easy for your team-mates to figure out what's going on.
 
 ### Cohort filters
 
-![](../images/cohort-filter.png)
+![](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/cohort-filter.png)
 
 Anywhere you can filter, you can now filter on cohorts as well. The first contribution by our newest member of the team, Michael!
 
 ### Retention table filtering
 
 
-![](../images/retention-filter.png)
+![](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/retention-filter.png)
 
 We added retention the retention table last week but we're not done with it yet. This week [Kacppian](https://github.com/Kacppian), a fervent contributor, added filtering, which combined with the cohort filtering is very powerful.
 
@@ -42,7 +46,7 @@ We'll be adding more improvements in the next release!
 
 ### Many toolbar fixes.
 
-![heatmap](../images/casts/heatmap.gif)
+![heatmap](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/casts/heatmap.gif)
 
 As we talked about last week, we've opened the toolbar for beta access. The toolbar will give you things like heatmaps and stats, right on your own website.
 
@@ -67,7 +71,11 @@ Thanks for [the feedback on our feedback ticket](https://github.com/PostHog/post
 
 The inkt was barely dry on this issue before Kacppian picked it up. Look for this feature in the next release!
 
-## Weekly round up
+## Share your feedback
+We'd love to hear anything you have to say about PostHog, good or bad. As a thank you, we'll share some awesome [PostHog merch](https://merch.posthog.com).
+
+Want to get involved? [Email us to schedule a 30 minute call](mailto:hey@posthog.com) with one of our teams to help us make PostHog even better!
+
 
 
 ## PostHog news

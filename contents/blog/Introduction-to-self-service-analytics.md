@@ -5,15 +5,19 @@ rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-author: [joe-martin]
-featuredImage: ../images/blog/blog-generic-4.png
+author:
+  - joe-martin
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/blog-generic-4.png
 featuredImageType: full
-categories: ["Guides", "Product analytics"]
+category: Product growth
+tags:
+  - Explainers
 ---
 
-There are lots of ways to do analytics. You can do SQL. You can do it in the cloud. You can not do it at all and hire an analytics agency or consultancy instead. But by far one of the most popular (and, we think, best) ways is _self-service_ analytics. 
+There are lots of ways to do analytics. You can [do SQL](/blog/sql-for-analytics). You can do it in the cloud. You can not do it at all and hire an analytics agency or consultancy instead. But by far one of the most popular (and, we think, best) ways is _self-service_ analytics. 
 
-That’s a term which covers a lot of popular analytics platforms, including PostHog, Mixpanel and Amplitude. But what does it mean, exactly? 
+That’s a term which covers a lot of popular analytics platforms, including PostHog, Mixpanel and [Amplitude](/blog/best-amplitude-alternatives). But what does it mean, exactly? 
 
 To put it simply, a self-service analytics platform is one which empowers everyone within an organization to analyze product and user data themselves. Self-service analytics platforms therefore provide access to the data and the tools to interrogate it — all without resorting to dozens of unorganized spreadsheets, and specifically without requiring your team to have SQL skills.
 
@@ -27,8 +31,10 @@ This is usually because an organization has a specific data analysis function in
 
 There are a few reasons organizations may prefer this approach: 
 
-- *Security:* Limiting who has access to the raw data, which can include personally identifying information (PII), is generally wise and can be a matter of regulation in some industries. 
-- *Expertise:* A specialized team enables organizations to leverage expertise most effectively, not only for running queries but also in terms of data structure and management. The team can also interact with data directly, rather than requiring accessible tooling. 
+- *Security:* Limiting who has access to the raw data, which can include personally identifying information (PII), is generally wise and can be a matter of regulation in some industries.
+
+- *Expertise:* A specialized team enables organizations to leverage expertise most effectively, not only for running queries but also in terms of data structure and management. The team can also interact with data directly, rather than requiring accessible tooling.
+
 - *Efficiency:* In theory, routing requests through a centralized team should eliminate duplicate work.
 
 It’s important to emphasize that efficiency gains in particular can be a controversial point in some organizations. Centralized teams aren’t always as efficient as they may seem and a reality in many organizations is that data specialists may spend a lot of time building simple dashboards for business leadership or may lack the wider context to prioritize effectively.
@@ -36,14 +42,15 @@ It’s important to emphasize that efficiency gains in particular can be a contr
 Issues can also come from elsewhere in the organization, as teams may lack visibility into the data team and be unable to leverage them. As always, communication is key. 
 
 <BorderWrapper>
-    <Quote
-        imageSource="/images/customers/andy.jpeg"
-        size="md"
-        name="Andy Su"
-        title="Founder and CEO, Pry"
-        quote={`“We look into things such as how valuable customers who come to us via ads are compared to those who are organic. We then use that information to make decisions about our advertising strategy.”`}
-    />
+<Quote
+    imageSource="/images/customers/andy.jpeg"
+    size="md"
+    name="Andy Su"
+    title="Founder and CEO, Pry"
+    quote={`“We look into things such as how valuable customers who come to us via ads are compared to those who are organic. We then use that information to make decisions about our advertising strategy.”`}
+/>
 </BorderWrapper>
+
 
 ## What are the benefits of self-service analytics?
 
@@ -67,15 +74,14 @@ It’s complicated.
 Google Analytics is a self-service analytics platform but that doesn’t mean it is a good platform for understanding your user behaviour. This is because Google Analytics is a self-service _web_ analytics platform and so focuses on metrics such as pageviews, bounce rate and click-through rates. It lacks the ability to go deep into topics such as retention and user trends, or the ability to watch session recordings and create multivariate experiments. 
 
 <BorderWrapper>
-    <Quote
-        imageSource="/images/customers/anca.png"
-        size="md"
-        name="Anca Filip"
-        title="Head of Product, Mention Me"
-        quote={`“We used to use Google Analytics, but PostHog has helped us improve our product and get a much better understanding of our users than we've ever been able to before."`}
-    />
+<Quote
+    imageSource="/images/customers/anca.png"
+    size="md"
+    name="Anca Filip"
+    title="Head of Product, Mention Me"
+    quote={`“We used to use Google Analytics, but PostHog has helped us improve our product and get a much better understanding of our users than we've ever been able to before."`}
+/>
 </BorderWrapper>
-
 
 For that, you need a _product_ analytics platform. 
 
@@ -83,8 +89,6 @@ There are lots of self-service product analytics platforms, but naturally we thi
 
 PostHog is also unique in that it can be self-hosted on your organization’s existing infrastructure — which means user data stays on your system so that it is safer and more compliant with privacy regulations. This isn’t possible with other self-service analytics platforms, such as Mixpanel or Amplitude, which can be competitive but require you to share data with their systems. 
 
-> PostHog is an open source analytics platform you can host yourself. We help you build better products faster, without user data ever leaving your infrastructure.
-
-<ArrayCTA />
+<NewsletterForm />
 
 

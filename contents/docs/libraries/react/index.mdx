@@ -1,0 +1,206 @@
+---
+title: React
+sidebarTitle: React
+sidebar: Docs
+showTitle: true
+github: 'https://github.com/PostHog/posthog-js'
+icon: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/docs/integrate/react.svg
+features:
+  eventCapture: true
+  userIdentification: true
+  autoCapture: true
+  sessionRecording: true
+  featureFlags: true
+  groupAnalytics: true
+  surveys: true
+  llmObservability: false
+  errorTracking: true
+---
+
+PostHog makes it easy to get data about traffic and usage of your React app. Integrating PostHog into your site enables analytics about user behavior, custom events capture, session recordings, feature flags, and more.
+
+This guide will walk you through an example integration of PostHog using React and the [posthog-js library](/docs/integrate/client/js).
+
+## Installation
+
+import ReactInstall from '../../integrate/_snippets/install-react.mdx'
+
+<ReactInstall />
+
+## Usage
+
+### PostHog Provider
+
+The React context provider makes it easy to access the `posthog-js` library in your app.
+
+The provider can either take an initialized client instance OR an API key and an optional `options` object.
+
+With an initialized client instance:
+
+```react
+// src/index.js
+import posthog from 'posthog-js';
+import { PostHogProvider} from 'posthog-js/react'
+
+posthog.init(
+  process.env.REACT_APP_PUBLIC_POSTHOG_KEY,
+  {
+    api_host: process.env.REACT_APP_PUBLIC_POSTHOG_HOST,
+  }
+);
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <PostHogProvider client={posthog}>
+      <App />
+    </PostHogProvider>
+  </React.StrictMode>
+);
+```
+
+or with an API key and optional `options` object:
+
+```react
+// src/index.js
+import { PostHogProvider} from 'posthog-js/react'
+
+const options = {
+  api_host: process.env.REACT_APP_PUBLIC_POSTHOG_HOST,
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <PostHogProvider 
+      apiKey={process.env.REACT_APP_PUBLIC_POSTHOG_KEY}
+      options={options}
+    >
+      <App />
+    </PostHogProvider>
+  </React.StrictMode>
+);
+```
+
+### Using posthog-js functions
+
+By default, the `posthog-js` library automatically captures pageviews, element clicks, inputs, and more. Autocapture can be tuned in with [the configuration options](/docs/libraries/js#tuning-autocapture).
+
+If you want to use the library to identify users, capture events, use feature flags, or use other features, you can access the initialized `posthog-js` library using the `usePostHog` hook.
+
+**Do not directly import `posthog` apart from installation** as shown above. This will likely cause errors as the library might not be initialized yet. Initialization is handled automatically when you use the `PostHogProvider` and hook.
+
+All the methods of the library are available and can be used as described in the [posthog-js documentation](/docs/libraries/js).
+
+```react
+import { usePostHog } from 'posthog-js/react'
+import { useEffect } from 'react'
+import { useUser, useLogin } from '../lib/user'
+
+function App() {
+    const posthog = usePostHog()
+    const login = useLogin()
+    const user = useUser()
+
+    useEffect(() => {
+        if (user) {
+            // Identify sends an event, so you want may want to limit how often you call it
+            posthog?.identify(user.id, {
+                email: user.email,
+            })
+            posthog?.group('company', user.company_id)
+        }
+    }, [posthog, user.id, user.email, user.company_id])
+
+    const loginClicked = () => {
+        posthog?.capture('clicked_log_in')
+        login()
+    }
+
+    return (
+        <div className="App">
+            {/* Fire a custom event when the button is clicked */}
+            <button onClick={() => posthog?.capture('button_clicked')}>Click me</button>
+            {/* This button click event is autocaptured by default */}
+            <button data-attr="autocapture-button">Autocapture buttons</button>
+            {/* This button click event is not autocaptured */}
+            <button className="ph-no-capture">Ignore certain elements</button>
+            <button onClick={loginClicked}>Login</button>
+        </div>
+    )
+}
+
+export default App
+```
+
+#### TypeError: Cannot read properties of undefined
+
+If you see the error `TypeError: Cannot read properties of undefined (reading '...')` this is likely because you tried to call a posthog function when posthog was not initialized (such as during the initial render). On purpose, we still render the children even if PostHog is not initialized so that your app still loads even if PostHog can't load.
+
+To fix this error, add a check that posthog has been initialized such as:
+
+```react
+useEffect(() => {
+  posthog?.capture('test') // using optional chaining (recommended)
+
+  if (posthog) {
+    posthog.capture('test') // using an if statement
+  }
+}, [posthog])
+```
+
+Typescript helps protect against these errors.
+
+## Feature Flags
+
+import FeatureFlagsLibsIntro from "../_snippets/feature-flags-libs-intro.mdx"
+
+<FeatureFlagsLibsIntro />
+
+import ReactFeatureFlagsCode from '../../integrate/feature-flags-code/_snippets/feature-flags-code-react.mdx'
+
+<ReactFeatureFlagsCode />
+
+### Bootstrapping Flags
+
+import BootstrappingIntro from "../../feature-flags/snippets/bootstrapping-intro.mdx"
+
+<BootstrappingIntro />
+
+For details on how to implement bootstrapping, see our [bootstrapping guide](/docs/feature-flags/bootstrapping).
+
+### Experiments (A/B tests)
+
+Since [experiments](/docs/experiments/manual) use feature flags, the code for running an experiment is very similar to the feature flags code:
+
+```react
+// You can either use the `useFeatureFlagVariantKey` hook,
+// or you can use the feature flags component - https://posthog.com/docs/libraries/react#feature-flags-react-component
+
+// Method one: using the useFeatureFlagVariantKey hook
+import { useFeatureFlagVariantKey } from 'posthog-js/react'
+
+function App() {
+    const variant = useFeatureFlagVariantKey('experiment-feature-flag-key')
+    if (variant == 'variant-name') {
+        // do something
+    }
+}
+
+// Method two: using the feature flags component
+import { PostHogFeature } from 'posthog-js/react'
+
+function App() {
+    return (
+        <PostHogFeature flag='experiment-feature-flag-key' match={'variant-name'}>
+            <!-- the component to show -->
+        </PostHogFeature>
+    )
+}
+
+// You can also test your code by overriding the feature flag:
+// e.g., posthog.featureFlags.overrideFeatureFlags({ flags: {'experiment-feature-flag-key': 'test'}})
+```
+
+It's also possible to [run experiments without using feature flags](/docs/experiments/running-experiments-without-feature-flags).

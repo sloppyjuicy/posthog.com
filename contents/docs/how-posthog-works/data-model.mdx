@@ -2,13 +2,41 @@
 title: Data model
 ---
 
-This document provides a high-level overview of the various objects and primitives that make up the PostHog data model. For more information on exactly how data is stored in our database, check out the [ClickHouse overview](/docs/how-posthog-works/clickhouse).
+![PostHog data flow](https://res.cloudinary.com/dmukukwp6/image/upload/posthog_data_diagram_84bf3b121b.png)
 
-The two most-basic entities in PostHog are the [Event](#event) and [Person](#person) objects, and represent the core of our analytics functionalities.
+PostHog’s data model starts with **[events](/docs/data/events)**, single actions that a user triggered at a specific point in time. These are sent either from one of our [SDKs](/docs/libraries) or directly via our [API](/docs/api).
 
-## Event
+Events are flexible: they can be captured automatically, via [autocapture](/docs/product-analytics/autocapture), or you can emit your own [custom events](/docs/getting-started/send-events), attaching additional metadata via [properties](/docs/data/events#event-properties).
 
-An event is the most important object in PostHog, and represents a single action that a user performed at a specific point in time. These events are sent either from one of our [libraries](/docs/integrate) or directly via our [API](/docs/api).
+You might create an event to represent purchasing an upgrade, with custom properties like `price` or `renewal_period`.
+
+Meanwhile, users of your product are given a **[person profile](/docs/data/persons)**, which gather these events. Person profiles similarly contain properties. Some are set automatically:
+
+- browser details
+- geo IP data
+- referrers
+- UTM values
+
+You can also set your own properties on person profiles, which will appear in reports and data tables.
+
+If a user upgrades to a paid tier, for example, you could set a property called `paid_tier` with the details.
+
+Person profiles need [distinct identifiers](/docs/getting-started/identify-users), so PostHog can accurately track behavior. You might see a few identifiers on each profile: anonymous IDs created before a user has been identified, an ID you set after they log in, and IDs that are created on the client and backend, later merged together into a single profile.
+
+> **Further reading:**
+>
+> - [How data is stored in ClickHouse](/docs/how-posthog-works/clickhouse)
+> - [How person properties are added to events](/docs/how-posthog-works/ingestion-pipeline#2-person-processing)
+
+## Discovering activity
+
+You can create ongoing queries to surface person profiles either according to their properties, or the details of their events. We call these **[cohorts](/docs/data/cohorts)**. If you want to see a list of every user in your paid tier, you could query for all profiles where that `paid_tier` property has been set. Your cohort would then show you a periodically-updated listing of your paid customers.
+
+Alternatively, you might want to understand *group behavior*. By defining **[groups](/docs/product-analytics/group-analytics)**, you can see a cross-section of events across multiple person profiles. This can be helpful if you’re selling to multi-seat customers, and want to understand the overall behavior of their users.
+
+Groups require that you have the [Group analytics add-on](/addons#group-analytics) and that you enable person profiles.
+
+## Event fields
 
 Each event contains the following base fields within ClickHouse:
 
@@ -17,8 +45,8 @@ Each event contains the following base fields within ClickHouse:
 | **uuid**              | `UUID`                 | ID of the event                                                                                                                                                 |
 | **team_id**           | `Int64`                | Foreign key which links to the team                                                                                                                             |
 | **event**             | `VARCHAR`              | Name of the event                                                                                                                                               |
-| **distinct_id**       | `VARCHAR`              | The unique or anonymous id of the user that triggered the event.                                                                                                |
-| **properties**        | `VARCHAR`              | Any key: value pairs in a dict.<br />- `$current_url` - we use this in a couple of places (like /paths, /events) as the url the user was visiting at that time. |
+| **distinct_id**       | `VARCHAR`              | The unique or anonymous ID of the user that triggered the event.                                                                                                |
+| **properties**        | `VARCHAR`              | Any key: value pairs in a dict.<br />- `$current_url` - we use this in a couple of places (like `/paths`, `/events`) as the URL the user was visiting at that time. |
 | **elements\_\***      | Various                | Columns used for `$autocapture` to track which DOM element was clicked on                                                                                       |
 | **timestamp**         | `DateTime64(6, 'UTC')` | Defaults to timezone.now at ingestion time if not set                                                                                                           |
 | **created_at**        | `DateTime64(6, 'UTC')` | The timestamp for when the event was ingested                                                                                                                   |
@@ -27,12 +55,9 @@ Each event contains the following base fields within ClickHouse:
 | **person_properties** | `VARCHAR`              | A JSON object with all the properties for a user, which can be altered using the `$set`, `$set_once`, and `$unset` arguments                                    |
 | **group\***           | Various                | Columns used for [group analytics](/manual/group-analytics)                                                                                                     |
 
-Events are _only_ stored within ClickHouse, and once they have been written they can't be changed.
-This limitation comes from a trade-off in the design of ClickHouse: inserting data and running queries on large tables is extremely fast, but updating or deleting specific rows is generally not efficient.
+Events are _only_ stored within ClickHouse, and once they have been written they can't be changed. This limitation comes from a trade-off in the design of ClickHouse: inserting data and running queries on large tables is extremely fast, but updating or deleting specific rows is generally not efficient.
 
-## Person
-
-In PostHog, a `Person` is an entity which sends events, and typically represents a 'User' in most implementations.
+## Person fields
 
 Each person contains the following base fields within PostgreSQL:
 
@@ -45,10 +70,8 @@ Each person contains the following base fields within PostgreSQL:
 | **properties** | `jsonb`       | A JSON object with all the properties for a user, which can be altered using the `$set`, `$set_once`, and `$unset` arguments |
 | **version**    | `bigint`      | Incremented every time a person is updated. Helps to keep ClickHouse and PostgreSQL in sync.                                 |
 
-Persons are stored in PostgreSQL, but are additionally replicated into ClickHouse for certain queries. For example, when viewing the global list of Persons from the dashboard, this information is retrieved from ClickHouse.
+Persons are stored in PostgreSQL but are additionally replicated into ClickHouse for certain queries. For example, when viewing the global list of persons from the dashboard, this information is retrieved from ClickHouse.
 
-Additionally, person properties are also stored directly on each event. Their value is determined during ingestion by looking up the Person who sent the event in PostgreSQL, and combining these values with any updates from the event itself.
+Person properties are also stored directly on each event. Their value is determined during ingestion by looking up the person who sent the event in PostgreSQL and combining these values with any updates from the event itself.
 
-The `properties` field on each Person object can be updated at any time, and as a result the PostgreSQL table represents the one source of truth for the most up-to-date values for the properties of a Person.
-
-For more information on how person properties are added to events, take a look at [this step in the ingestion overview](/docs/architecture/ingestion-pipeline#3-person-processing).
+The `properties` field on each person object can be updated at any time. As a result, the PostgreSQL table represents the one source of truth for the most up-to-date values for the properties of a person.

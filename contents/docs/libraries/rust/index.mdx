@@ -1,0 +1,35 @@
+---
+title: Rust
+github: 'https://github.com/PostHog/posthog-rs'
+icon: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/docs/integrate/rust.svg
+features:
+  eventCapture: true
+  userIdentification: false
+  featureFlags: false
+  groupAnalytics: true
+  surveys: false
+  llmObservability: false
+  errorTracking: false
+---
+
+## Installation
+
+import RustInstall from '../../integrate/_snippets/install-rust.mdx'
+
+<RustInstall />
+
+## Capturing events
+
+import RustSendEvents from '../../integrate/send-events/_snippets/send-events-rust.mdx'
+
+<RustSendEvents />
+
+## Feature flags
+
+import FeatureFlagsLibsIntro from "../_snippets/feature-flags-libs-intro.mdx"
+
+<FeatureFlagsLibsIntro />
+
+Feature flags are not supported yet in our community-maintained Rust SDK. However, you can integrate them into your project by using the [PostHog API](/docs/feature-flags/adding-feature-flag-code?tab=api).
+

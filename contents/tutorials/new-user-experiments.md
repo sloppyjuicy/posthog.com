@@ -1,11 +1,13 @@
 ---
-title: Running experiments on new users 
+title: Running experiments on new users
 sidebar: Docs
 showTitle: true
-author: ['ian-vanagas']
+author:
+  - ian-vanagas
 date: 2022-10-10
-featuredImage: ../images/tutorials/banners/new-user-experiments.png
-topics: ['experimentation', 'feature flags']
+tags:
+  - experimentation
+  - feature flags
 ---
 
 - **Level:** Medium 🦔🦔
@@ -25,7 +27,7 @@ In our example project, we have a Dropbox-like product that allows users to uplo
 
 We’ve already set up PostHog ([on a paid plan](/pricing), to get access to experiments), and have custom events set up for both `signed_up` and `uploaded_file`. Both have a significant amount of events coming in. 
 
-We’ll also need a `joined_at` user property. Autocapture does not capture this detail so we’ll need to set it up somewhere in our code. We can use `$set_once` in the event capture for `signed_up` to make this happen (find more details on setting [user properties here](/docs/integrate/client/js#set_once))
+We’ll also need a `joined_at` person property. Autocapture does not capture this detail so we’ll need to set it up somewhere in our code. Make sure you are capturing identified events and then use `$set_once` in the event capture for `signed_up` to make this happen (find more details on setting [person properties here](/docs/integrate/client/js#set_once)).
 
 This is all we need to start setting up our experiment.
 
@@ -33,19 +35,19 @@ This is all we need to start setting up our experiment.
 
 To start setting up our experiment, go to the Experiments tab, and start entering basic info like a name, key, and description. We are going to test two design and copy changes so we’ll create variant keys for both. One is named `upload-prompt`, and the other is `upload-instructions`.
 
-![New experiment](../images/tutorials/new-user-experiments/new-experiment.png)
+![New experiment](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/tutorials/new-user-experiments/new-experiment.png)
 
 For our participants, we will choose users, and then use regex to filter for ones who joined recently. We’ll use the regex equation `2022-09.+` to filter all the users who joined in September (because that was last month).
 
 > **Note:** You can change `2022` or `09` to whatever years or months you want. You could also add a specific day (`2022-09-18.+`) or a range of days (`2022-09-1([1-8]).+`). There is a lot you can do with regex basically, we are only scratching the surface here.
 
-![Select participants](../images/tutorials/new-user-experiments/select-participant.png)
+![Select participants](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/tutorials/new-user-experiments/select-participant.png)
 
 We could also choose organizations or other groups here (if they are set up). This would allow us to provide a consistent experience to every member of an organization and see how their usage differed at an organizational level. To learn more about group analytics, see our [product manual](/manual/group-analytics).
 
 Next, for goal type, we’ll choose funnel. We want the number of new users uploading files (getting further in the funnel) to increase significantly. 
 
-![Goal funnel](../images/tutorials/new-user-experiments/goal-funnel.png)
+![Goal funnel](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/tutorials/new-user-experiments/goal-funnel.png)
 
 Finally, we’ll set the minimum acceptable improvement to 20%. This is a lot, but (hypothetically) we have a lot of room to improve here. This means that out of all the new users who sign up, we want to raise the percentage who upload a file to go from 23.9% to 43.9%. PostHog calculated (and recommends) a sample size of 219 and a recommended running time of 33 days. This is long, but it’s required because we have a small number of new users coming in.
 
@@ -53,7 +55,7 @@ Finally, we’ll set the minimum acceptable improvement to 20%. This is a lot, b
 
 We’ll add our new experiment feature flags to our codebase on a page with the file upload many new users see. We’ll need to create the two changes and add them behind feature flags. 
 
-It’s best practice to ensure we fall back on the standard component. The standard component is the "control" (default) for the experiment. We want to only make changes if the feature flags are active and working.
+It’s [best practice](/docs/feature-flags/best-practices) to ensure we fall back on the standard component. The standard component is the "control" (default) for the experiment. We want to only make changes if the feature flags are active and working.
 
 Here’s what a standard React component looks like before implementing feature flags:
 
@@ -191,6 +193,6 @@ Once results start to show up in PostHog, we can say we’ve successfully set up
 
 If you’re looking to learn more about feature flags, check out our [product manual](/manual/experimentation) to learn all about their features.
 
-You can also learn about how to run Experiments without feature flags in [this tutorial](/tutorials/experiments).
+You can also learn about how to run Experiments without feature flags in [this tutorial](/docs/experiments/running-experiments-without-feature-flags).
 
-<NewsletterTutorial compact/>
+<NewsletterForm />

@@ -1,16 +1,43 @@
 const fetch = require(`node-fetch`)
 const algoliaConfig = require('./gatsby/algoliaConfig')
+const qs = require('qs')
 
 require('dotenv').config({
     path: `.env.${process.env.NODE_ENV}`,
 })
+
+const getQuestionPages = async (base) => {
+    const fetchQuestions = async (page) => {
+        const questionQuery = qs.stringify({
+            populate: '*',
+            pagination: {
+                page,
+                pageSize: 100,
+            },
+        })
+
+        const response = await fetch(`${process.env.GATSBY_SQUEAK_API_HOST}/api/questions?${questionQuery}`)
+        return response.json()
+    }
+
+    const initialResponse = await fetchQuestions(1)
+    const totalPages = initialResponse.meta.pagination.pageCount
+
+    const allResponses = await Promise.all(Array.from({ length: totalPages }, (_, i) => fetchQuestions(i + 1)))
+
+    const questions = allResponses.flatMap((response) =>
+        response.data.map((question) => ({ path: `${base}/questions/${question.attributes.permalink}` }))
+    )
+
+    return questions
+}
 
 module.exports = {
     siteMetadata: {
         title: 'PostHog',
         titleTemplate: '%s',
         description:
-            'Open-source product analytics built for developers. Automate the collection of every event on your website or app, without sending data to third-parties. Quickly deploy on your own infrastructure, with full access to the underlying data.',
+            'The single platform for engineers to analyze, test, observe, and deploy new features. Product analytics, session replay, feature flags, experiments, CDP, and more.',
         url: 'https://posthog.com', // No trailing slash allowed!
         image: '/banner.png', // Path to your image you placed in the 'static' folder
         twitterUsername: '@PostHog',
@@ -27,8 +54,13 @@ module.exports = {
         {
             resolve: `gatsby-source-squeak`,
             options: {
-                apiHost: 'https://squeak.cloud',
-                organizationId: 'a898bcf2-c5b9-4039-82a0-a00220a8c626',
+                apiHost: process.env.GATSBY_SQUEAK_API_HOST,
+            },
+        },
+        {
+            resolve: `gatsby-mapbox-locations`,
+            options: {
+                mapboxToken: process.env.MAPBOX_TOKEN,
             },
         },
         {
@@ -53,20 +85,13 @@ module.exports = {
         },
         'gatsby-plugin-react-helmet',
         `gatsby-plugin-sass`,
-        `gatsby-plugin-typescript`,
         `gatsby-plugin-smoothscroll`,
-        {
-            resolve: `gatsby-source-filesystem`,
-            options: {
-                name: `images`,
-                path: `${__dirname}/src/images`,
-            },
-        },
         {
             resolve: `gatsby-source-filesystem`,
             options: {
                 name: `contents`,
                 path: `${__dirname}/contents`,
+                ignore: [`**/*.{png,jpg,jpeg,gif,svg,webp,mp4,avi,mov}`],
             },
         },
         {
@@ -78,13 +103,11 @@ module.exports = {
                     node.url.includes('https://raw.githubusercontent.com/'),
                 extensions: ['.mdx', '.md'],
                 gatsbyRemarkPlugins: [
-                    `gatsby-remark-static-images`,
                     { resolve: 'gatsby-remark-autolink-headers', options: { icon: false } },
                     {
-                        resolve: require.resolve(`./plugins/gatsby-remark-mermaid`),
+                        resolve: require.resolve('./plugins/gatsby-remark-video'),
                     },
                 ],
-                plugins: [`gatsby-remark-static-images`],
             },
         },
         `gatsby-transformer-json`,
@@ -93,13 +116,7 @@ module.exports = {
             options: {
                 name: `menuItems`,
                 path: `${__dirname}/src/menuItems`,
-            },
-        },
-        {
-            resolve: `gatsby-source-filesystem`,
-            options: {
-                name: `sidebars`,
-                path: `${__dirname}/src/sidebars`,
+                ignore: [`**/*.{png,jpg,jpeg,gif,svg,webp,mp4,avi,mov}`],
             },
         },
         {
@@ -107,6 +124,7 @@ module.exports = {
             options: {
                 name: `navs`,
                 path: `${__dirname}/src/navs`,
+                ignore: [`**/*.{png,jpg,jpeg,gif,svg,webp,mp4,avi,mov}`],
             },
         },
         {
@@ -114,6 +132,7 @@ module.exports = {
             options: {
                 name: `authors`,
                 path: `${__dirname}/src/data/authors.json`,
+                ignore: [`**/*.{png,jpg,jpeg,gif,svg,webp,mp4,avi,mov}`],
             },
         },
         {
@@ -121,13 +140,7 @@ module.exports = {
             options: {
                 name: `testimonials`,
                 path: `${__dirname}/src/data/testimonials.json`,
-            },
-        },
-        {
-            resolve: `gatsby-source-filesystem`,
-            options: {
-                name: `authorImages`,
-                path: `${__dirname}/static/images/authors`,
+                ignore: [`**/*.{png,jpg,jpeg,gif,svg,webp,mp4,avi,mov}`],
             },
         },
         {
@@ -138,96 +151,16 @@ module.exports = {
             },
         },
         `gatsby-plugin-image`,
-        'gatsby-transformer-sharp',
-        'gatsby-plugin-sharp',
         {
             resolve: `gatsby-plugin-manifest`,
             options: {
-                name: 'gatsby-starter-markdown',
+                name: 'PostHog | How developers build successful products',
                 short_name: 'starter',
                 start_url: '/',
-                background_color: '#f96132',
-                theme_color: '#f96132',
+                background_color: '#E5E7E0',
+                theme_color: '#E5E7E0',
                 display: 'minimal-ui',
                 icon: 'src/images/posthog-icon-white.svg', // This path is relative to the root of the site.
-            },
-        },
-        {
-            resolve: `gatsby-transformer-remark`,
-            options: {
-                plugins: [
-                    {
-                        resolve: `gatsby-remark-copy-linked-files`,
-                        options: {
-                            destinationDir: `images`,
-                        },
-                    },
-                    {
-                        resolve: `gatsby-remark-katex`,
-                        options: {
-                            throwOnError: false,
-                        },
-                    },
-                    {
-                        resolve: `gatsby-remark-autolink-headers`,
-                        options: {
-                            className: 'post-toc-anchor',
-                        },
-                    },
-                    'gatsby-remark-static-images',
-                    {
-                        resolve: './plugins/gasby-remark-lazy-imgix',
-                        options: {
-                            imgixHost: process.env.CONTEXT === 'production' ? 'posthog.imgix.net' : null,
-                            maxWidth: 700,
-                        },
-                    },
-                    {
-                        resolve: `gatsby-remark-prismjs`,
-                        options: {
-                            // Class prefix for <pre> tags containing syntax highlighting;
-                            // defaults to 'language-' (e.g. <pre class="language-js">).
-                            // If your site loads Prism into the browser at runtime,
-                            // (e.g. for use with libraries like react-live),
-                            // you may use this to prevent Prism from re-processing syntax.
-                            // This is an uncommon use-case though;
-                            // If you're unsure, it's best to use the default value.
-                            classPrefix: 'language-',
-                            // This is used to allow setting a language for inline code
-                            // (i.e. single backticks) by creating a separator.
-                            // This separator is a string and will do no white-space
-                            // stripping.
-                            // A suggested value for English speakers is the non-ascii
-                            // character '›'.
-                            inlineCodeMarker: null,
-                            // This lets you set up language aliases. For example,
-                            // setting this to '{ sh: "bash" }' will let you use
-                            // the language "sh" which will highlight using the
-                            // bash highlighter.
-                            aliases: {},
-                            // This toggles the display of line numbers globally alongside the code.
-                            // To use it, add the following line in gatsby-browser.js
-                            // right after importing the prism color scheme:
-                            //  require("prismjs/plugins/line-numbers/prism-line-numbers.css")
-                            // Defaults to false.
-                            // If you wish to only show line numbers on certain code blocks,
-                            // leave false and use the {numberLines: true} syntax below
-                            showLineNumbers: false,
-                            // If setting this to true, the parser won't handle and highlight inline
-                            // code used in markdown i.e. single backtick code like `this`.
-                            noInlineHighlight: true,
-                            // Customize the prompt used in shell output
-                            // Values below are default
-                            prompt: {
-                                user: 'root',
-                                host: 'localhost',
-                                global: false,
-                            },
-                            escapeEntities: {},
-                        },
-                    },
-                    `gatsby-remark-mermaid`,
-                ],
             },
         },
         `gatsby-plugin-postcss`,
@@ -273,7 +206,9 @@ module.exports = {
                         path: `${site.siteMetadata.siteUrl}/plugins/` + plugin.name.toLowerCase().replace(/ /g, '-'),
                     }))
 
-                    return [...transformedPages, ...plugins]
+                    const questionPages = await getQuestionPages(site.siteMetadata.siteUrl)
+
+                    return [...transformedPages, ...questionPages, ...plugins]
                 },
                 serialize: async ({ path }) => {
                     let changefreq = 'monthly'
@@ -346,7 +281,7 @@ module.exports = {
 
                             let allMdxs = allMdx.edges.map((edge) => {
                                 let { node } = edge
-                                let { frontmatter, excerpt, slug, id, body } = node
+                                let { frontmatter, excerpt, slug, id, html } = node
                                 let { date, title, authors, featuredImage } = frontmatter
                                 return {
                                     description: excerpt,
@@ -355,7 +290,13 @@ module.exports = {
                                     url: `${siteUrl}/${slug}`,
                                     guid: id,
                                     author: authors && authors[0].name,
-                                    custom_elements: [{ 'content:encoded': body }],
+                                    custom_elements: [
+                                        {
+                                            'content:encoded': {
+                                                _cdata: html,
+                                            },
+                                        },
+                                    ],
                                     enclosure: {
                                         url: featuredImage ? `${siteUrl}${featuredImage.publicURL}` : null,
                                     },
@@ -374,7 +315,7 @@ module.exports = {
                                 node {
                                   id
                                   slug
-                                  body
+                                  html
                                   excerpt(pruneLength: 150)
                                   frontmatter {
                                     date(formatString: "MMMM DD, YYYY")
@@ -401,12 +342,30 @@ module.exports = {
                         // if `string` is used, it will be used to create RegExp and then test if pathname of
                         // current page satisfied this regular expression;
                         // if not provided or `undefined`, all pages will have feed reference inserted
-                        match: '^/blog/',
-                        // optional configuration to specify external rss feed, such as feedburner
-                        link: 'https://posthog.com/blog',
                     },
                 ],
             },
+        },
+        {
+            resolve: require.resolve(`./plugins/gatsby-transformer-cloudinary`),
+            options: {
+                transformTypes: [
+                    `RoadmapMedia`,
+                    `SqueakTeamCrest`,
+                    `SqueakTeamMiniCrest`,
+                    `SqueakRoadmapMedia`,
+                    `SqueakTeamTeamImage`,
+                    `MdxFrontmatterFeaturedImageChildImageSharp`,
+                    `MdxFrontmatterThumbnailChildImageSharp`,
+                    `MdxFrontmatterImagesChildImageSharp`,
+                    `MdxFrontmatterLogoChildImageSharp`,
+                    `MdxFrontmatterLogoDarkChildImageSharp`,
+                    `MdxFrontmatterIconChildImageSharp`,
+                ],
+            },
+        },
+        {
+            resolve: 'gatsby-plugin-no-sourcemaps',
         },
         ...(!process.env.GATSBY_ALGOLIA_APP_ID || !process.env.ALGOLIA_API_KEY || !process.env.GATSBY_ALGOLIA_INDEX_NAME
             ? []

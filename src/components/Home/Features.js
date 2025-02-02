@@ -1,3 +1,4 @@
+import CloudinaryImage from 'components/CloudinaryImage'
 import { CallToAction } from 'components/CallToAction'
 import SliderNav from 'components/SliderNav'
 import { StaticImage } from 'gatsby-plugin-image'
@@ -21,9 +22,7 @@ const FeatureButton = ({ title, index, activeFeature, sliderRef }) => {
 const SliderItem = ({ image, description, icon, feature }) => {
     return (
         <div>
-            <div className="p-6 sm:p-10 border-r border-dashed max-w-lg md:max-w-2xl lg:max-w-4xl w-full border-gray-accent-light">
-                {image}
-            </div>
+            <div className="p-6 sm:p-10 max-w-lg md:max-w-2xl lg:max-w-4xl w-full">{image}</div>
         </div>
     )
 }
@@ -116,19 +115,19 @@ export default function Features({ title }) {
                 currentIndex={activeFeature}
                 length={6}
             />
-            <div className="max-w-screen-2xl mx-auto border-t border-b border-dashed border-gray-accent-light">
+            <div className="max-w-screen-2xl mx-auto">
                 <Slider beforeChange={handleChange} ref={sliderRef} {...sliderSettings}>
-                    <SliderItem image={<StaticImage {...sliderImageProps} src="./images/slide-trends.png" />} />
-                    <SliderItem image={<StaticImage {...sliderImageProps} src="./images/slide-funnels.png" />} />
+                    <SliderItem image={<CloudinaryImage {...sliderImageProps} src="https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/src/components/Home/images/slide-trends.png" />} />
+                    <SliderItem image={<CloudinaryImage {...sliderImageProps} src="https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/src/components/Home/images/slide-funnels.png" />} />
                     <SliderItem
-                        image={<StaticImage {...sliderImageProps} src="./images/slide-session-recordings.png" />}
+                        image={<CloudinaryImage {...sliderImageProps} src="https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/src/components/Home/images/slide-session-recordings.png" />}
                     />
-                    <SliderItem image={<StaticImage {...sliderImageProps} src="./images/slide-feature-flags.png" />} />
+                    <SliderItem image={<CloudinaryImage {...sliderImageProps} src="https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/src/components/Home/images/slide-feature-flags.png" />} />
                     <SliderItem
-                        image={<StaticImage {...sliderImageProps} src="./images/slide-experimentation-suite.png" />}
+                        image={<CloudinaryImage {...sliderImageProps} src="https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/src/components/Home/images/slide-experimentation-suite.png" />}
                     />
-                    <SliderItem image={<StaticImage {...sliderImageProps} src="./images/slide-collaboration.png" />} />
-                    <SliderItem image={<StaticImage {...sliderImageProps} src="./images/slide-plugins.png" />} />
+                    <SliderItem image={<CloudinaryImage {...sliderImageProps} src="https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/src/components/Home/images/slide-collaboration.png" />} />
+                    <SliderItem image={<CloudinaryImage {...sliderImageProps} src="https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/src/components/Home/images/slide-plugins.png" />} />
                 </Slider>
             </div>
             <div className="px-4 text-center my-16">

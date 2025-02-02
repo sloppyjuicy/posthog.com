@@ -1,5 +1,6 @@
-const slugify = require('slugify')
 const { createContentDigest } = require('gatsby-core-utils')
+const Slugger = require('github-slugger')
+const slugger = new Slugger()
 
 const retrievePages = (type, regex) => {
     return {
@@ -36,11 +37,12 @@ const retrievePages = (type, regex) => {
                         ...page,
                         headings: headings.map((heading) => ({
                             ...heading,
-                            fragment: slugify(heading.value, { lower: true }),
+                            fragment: slugger.slug(heading.value),
                         })),
                         id,
                         title: frontmatter.title,
                         type,
+                        path_ranking: 1,
                     }
                 }),
     }
@@ -59,11 +61,16 @@ module.exports = {
         indexName: process.env.GATSBY_ALGOLIA_INDEX_NAME,
         queries: [
             retrievePages('docs', '/^docs/'),
-            retrievePages('manual', '/^manual/'),
             retrievePages('handbook', '/^handbook/'),
             retrievePages('tutorial', '/^tutorials/'),
-            retrievePages('blog', '/^blog/'),
+            retrievePages('blog', '/^blog|^spotlight/'),
             retrievePages('customers', '/^customers/'),
+            retrievePages('apps', '/^apps/'),
+            retrievePages('cdp', '/^cdp/'),
+            retrievePages('founders', '/^founders/'),
+            retrievePages('newsletter', '/^newsletter/'),
+            retrievePages('product-engineers', '/^product-engineers/'),
+            retrievePages('templates', '/^templates/'),
             {
                 query: `
                             {
@@ -89,35 +96,7 @@ module.exports = {
                             ...endpoint,
                             slug: url.slice(1),
                             type: 'api',
-                        }
-                    })
-                },
-            },
-            {
-                query: `
-                            {
-                              questions: allQuestion {
-                                nodes {
-                                  id
-                                  title: subject
-                                  replies {
-                                    body
-                                  }
-                                  permalink
-                                  internal {
-                                    contentDigest
-                                  }
-                                }
-                              }
-                            }
-                        `,
-                transformer: ({ data }) => {
-                    return data.questions.nodes.map(({ replies, permalink, ...question }) => {
-                        return {
-                            ...question,
-                            excerpt: replies?.[0]?.body,
-                            slug: `questions/${permalink || ''}`,
-                            type: 'question',
+                            path_ranking: 1,
                         }
                     })
                 },
@@ -131,6 +110,7 @@ module.exports = {
                             title: 'Docs',
                             type: 'docs',
                             slug: 'docs',
+                            path_ranking: 1,
                             headings: [
                                 { value: 'Get started', depth: 2 },
                                 { value: 'Important links', depth: 2 },
@@ -144,6 +124,7 @@ module.exports = {
                             title: 'Handbook',
                             type: 'handbook',
                             slug: 'handbook',
+                            path_ranking: 1,
                             headings: [
                                 { value: 'Company', depth: 2 },
                                 { value: 'How we work', depth: 2 },
@@ -161,6 +142,7 @@ module.exports = {
                             title: 'Blog',
                             type: 'blog',
                             slug: 'blog',
+                            path_ranking: 1,
                             headings: [
                                 { value: 'Inside PostHog', depth: 2 },
                                 { value: 'Product updates', depth: 2 },
@@ -176,8 +158,9 @@ module.exports = {
                         {
                             id: createContentDigest('pricing'),
                             title: 'Pricing',
-                            type: 'manual',
+                            type: 'docs',
                             slug: 'pricing',
+                            path_ranking: 1,
                             headings: [
                                 { value: 'Products', depth: 2 },
                                 { value: 'Pricing calculator', depth: 2 },
@@ -191,26 +174,11 @@ module.exports = {
                             },
                         },
                         {
-                            id: createContentDigest('using-posthog'),
-                            title: 'Product manual',
-                            type: 'manual',
-                            slug: 'using-posthog',
-                            headings: [
-                                { value: '1. Product analytics', depth: 2 },
-                                { value: '2. Visualize', depth: 2 },
-                                { value: '3. Optimize', depth: 2 },
-                                { value: '4. Data', depth: 2 },
-                                { value: '5. Project settings', depth: 2 },
-                            ],
-                            internal: {
-                                contentDigest: createContentDigest('using-posthog'),
-                            },
-                        },
-                        {
                             id: createContentDigest('questions'),
                             title: 'Questions',
                             type: 'community',
                             slug: 'questions',
+                            path_ranking: 5,
                             headings: [
                                 { value: 'Features', depth: 2 },
                                 { value: 'Deployment', depth: 2 },
@@ -225,6 +193,7 @@ module.exports = {
                             title: 'Roadmap',
                             type: 'community',
                             slug: 'roadmap',
+                            path_ranking: 1,
                             headings: [
                                 { value: 'Under consideration', depth: 2 },
                                 { value: 'In progress', depth: 2 },
@@ -244,7 +213,7 @@ module.exports = {
             // Note: by supplying settings, you will overwrite all existing settings on the index
         },*/
         mergeSettings: false, // optional, defaults to false. See notes on mergeSettings below
-        concurrentQueries: true, // default: true
+        concurrentQueries: false, // default: true
         dryRun: false, // default: false, only calculate which objects would be indexed, but do not push to Algolia
         continueOnFailure: false, // default: false, don't fail the build if Algolia indexing fails
         algoliasearchOptions: undefined, // default: { timeouts: { connect: 1, read: 30, write: 30 } }, pass any different options to the algoliasearch constructor

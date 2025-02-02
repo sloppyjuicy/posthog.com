@@ -5,14 +5,21 @@ rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-categories: ['Release notes', 'Product updates']
-featuredImage: ../images/blog/posthog-array-blog.png
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/posthog-array-blog.png
 featuredImageType: full
-excerpt: PostHog 1.32.0 makes it easier to find what you want in the Persons & Groups page, introduces vertical funnels and sets the stage for the launch of Experimentation!
+excerpt: >-
+  PostHog 1.32.0 makes it easier to find what you want in the Persons & Groups
+  page, introduces vertical funnels and sets the stage for the launch of
+  Experimentation!
+category: PostHog news
+tags:
+  - Product updates
+  - Release notes
 ---
 
 <blockquote class='warning-note'>
-<b>IMPORTANT!</b> Do not upgrade to this version if you have deployed PostHog using Postgres. PostHog no longer supports a Postgres-based installation (last version supported is <code>1.30.0</code>) and now requires Clickhouse. To use this version, you must <a href="/docs/migrate/migrate-to-another-self-hosted-instance" target="_blank">upgrade to ClickHouse</a> first.
+<b>IMPORTANT!</b> Do not upgrade to this version if you have deployed PostHog using Postgres. PostHog no longer supports a Postgres-based installation (last version supported is <code>1.30.0</code>) and now requires Clickhouse. To use this version, you must <a href="/docs/migrate/migrate-between-posthog-instances" target="_blank">upgrade to ClickHouse</a> first.
 </blockquote>
 
 ## PostHog 1.32.0 release notes
@@ -79,18 +86,18 @@ Funnels with breakdowns just got a lot better. This new view enables you to quic
 
 ### Deprecation & removal notices
 
-1. Since the previous version (1.31.0), we no longer support a Postgres-only deployment of PostHog. Read [our migration guide](/docs/migrate/migrate-to-another-self-hosted-instance) for instructions on moving over to a ClickHouse version. ClickHouse provides faster queries and is optimized for very large volumes of data, and you will also get a new lot of features.
+1. Since the previous version (1.31.0), we no longer support a Postgres-only deployment of PostHog. Read [our migration guide](/docs/migrate/migrate-between-posthog-instances) for instructions on moving over to a ClickHouse version. ClickHouse provides faster queries and is optimized for very large volumes of data, and you will also get a new lot of features.
 2. We're removing support for insights with "Minute" intervals. From user feedback, these insights were hard to parse and could lead to significant performance issues in self-hosted instances. Please [reach out](/support) if you have any feedback on this. More details on the [PR](https://github.com/PostHog/posthog/pull/7847).
 
-### Talk to us about how we can improve
+## Share your feedback
+We'd love to hear anything you have to say about PostHog, good or bad. As a thank you, we'll share some awesome [PostHog merch](https://merch.posthog.com).
 
-We’re always working on improving the product experience and would love to talk to you! Please join one of our Product, Engineering, or Marketing team members on a quick 30-min call to help us understand how to improve. Schedule directly [on Calendly](https://calendly.com/posthog-feedback).
+Want to get involved? [Email us to schedule a 30 minute call](mailto:hey@posthog.com) with one of our teams to help us make PostHog even better!
 
-As a small thank you for your time, we're giving away awesome [PostHog merch](https://merch.posthog.com)!
 
 ### Experimentation launch 🚀
 
-We've been working hard on a brand new Experimentation feature which will let you quickly and confidently run experiments to test product improvements. This feature is currently available on Beta on PostHog Cloud, but if you'd like to be a beta tester or get a demo, please [reach out](https://posthog.com/slack) or schedule a [demo call](https://calendly.com/posthog-feedback) with the Engineering Team that created it.
+We've been working hard on a brand new Experimentation feature which will let you quickly and confidently run experiments to test product improvements. This feature is currently available on Beta on PostHog Cloud, but if you'd like to be a beta tester or get a demo, please [reach out](https://app.posthog.com/home#supportModal) or schedule a [demo call](https://calendly.com/posthog-feedback) with the Engineering Team that created it.
 
 <img src="https://posthog-static-files.s3.us-east-2.amazonaws.com/Website-Assets/Array/1_32_0-experiments-sneak-peek.png" alt="Example screenshot: Experiments sneak peek" />
 
@@ -98,17 +105,18 @@ We've been working hard on a brand new Experimentation feature which will let yo
 
 We want to welcome our new team members!
 
-[Andy](https://posthog.com/handbook/company/team#andy-vandervell-content-marketer) joined PostHog as our first Content Marketer. Andy is a definite 👎 on pineapple on pizza (🍍 on 🍕).
+[Andy](/community/profiles/62) joined PostHog as our first Content Marketer. Andy is a definite 👎 on pineapple on pizza (🍍 on 🍕).
 
 > I am the only person called Andrew Vandervell in the universe.
 
-[Simon](https://posthog.com/handbook/company/team#simon-fisher-customer-success) joined us in Customer Success to help our Enterprise customers get the most value out of PostHog. Simon's stance on pineapple on pizza (🍍 on 🍕) is: On the fence. I'd never actively order a pizza with pineapple on it, but as a pizza lover and pineapple was the only option - I’d still eat it. Same response for Marmite.
+[Simon](/community/profiles/49) joined us in Customer Success to help our Enterprise customers get the most value out of PostHog. Simon's stance on pineapple on pizza (🍍 on 🍕) is: On the fence. I'd never actively order a pizza with pineapple on it, but as a pizza lover and pineapple was the only option - I’d still eat it. Same response for Marmite.
 
 > I’m (loosely) related to an actor who’s starred in 6 Star Wars movies.
 
-## Community
+## Share your feedback
+We'd love to hear anything you have to say about PostHog, good or bad. As a thank you, we'll share some awesome [PostHog merch](https://merch.posthog.com).
 
-Want to help improve PostHog? We always welcome contributions from our community! Check out our [contributing resources](/docs/contribute) to get started.
+Want to get involved? [Email us to schedule a 30 minute call](mailto:hey@posthog.com) with one of our teams to help us make PostHog even better!
 
 ## Open roles
 
@@ -126,6 +134,6 @@ Don't see a role for you? We're always looking for exceptional people, so reach 
 
 <hr/>
 
-_Follow us on [Twitter](https://twitter.com/PostHog) or [LinkedIn](https://linkedin.com/company/posthog), and subscribe to our [newsletter](https://posthog.com/newsletter) for more posts on startups, growth, and analytics._
+_Enjoyed this? Subscribe to our [newsletter](https://newsletter.posthog.com/subscribe) to hear more from us twice a month!_
 
 <ArrayCTA />

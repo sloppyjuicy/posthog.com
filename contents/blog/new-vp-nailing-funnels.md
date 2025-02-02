@@ -5,9 +5,11 @@ rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-author: ["marcus-hyett"]
-featuredImage: ../images/blog/new-vp-nailing-funnels/new-vp-nailing-funnels.png
-categories: ["Inside PostHog", "Product analytics"]
+author:
+  - marcus-hyett
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/new-vp-nailing-funnels/new-vp-nailing-funnels.png
+category: Product growth
 ---
 
 Ramping up fast in any senior product role requires understanding as much context as possible across 3 axes (Market, Product and People). I’ll talk you through my process of going from zero understanding in these three areas, to landing a clear, ambitious long-term strategy across the company in just one week.
@@ -76,6 +78,7 @@ To get buy-in, it was crucial for me to share the draft with the entire company 
 
 But you can't just assume everyone will buy into the strategy because you posted it somewhere and they gave it a thumbs up. You have to talk people through it 1:1 and communicate the message via different channels. We discussed the new strategy in all our small team standups, company all-hands, and uploaded it to our website.
 
-Read more about our strategy [here](https://posthog.com/handbook/company/team/marcus-hyett).
+Read more about our strategy [here](/handbook/strategy/overview).
 
-_Enjoyed this? Subscribe to our [newsletter](/newsletter) to hear more from us twice a month!_
+<NewsletterForm />
+

@@ -3,7 +3,7 @@ title: A primer on using GitHub at PostHog
 showTitle: true
 ---
 
-<blockquote><p>If you’re new to GitHub, it can be a little confusing. (Heck, I’ve been using GitHub for years and it’s <em>still</em> confusing.) It doesn’t have the best search and notifications can get out of hand — and in general, it can be really intimidating to join a company that uses a tool you’ve never used before as its primary means of communication.</p><p>I wrote this guide to help explain how we work, and how to stay on top of the volume of information that flows through our team's organization on GitHub.</p><p><em>- <a href="/handbook/company/team#cory-watilo-lead-designer">Cory Watilo</a>, Lead Designer</em></p><p>P.S. Have questions? Feel free to file an issue on GitHub - I explain how to do this <a href="/handbook/company/new-to-github#filing-an-issue">later in the article</a>!</p></blockquote>
+<blockquote><p>If you’re new to GitHub, it can be a little confusing. (Heck, I’ve been using GitHub for years and it’s <em>still</em> confusing.) It doesn’t have the best search and notifications can get out of hand — and in general, it can be really intimidating to join a company that uses a tool you’ve never used before as its primary means of communication.</p><p>I wrote this guide to help explain how we work, and how to stay on top of the volume of information that flows through our team's organization on GitHub.</p><p><em>- <a href="/community/profiles/2">Cory Watilo</a>, Lead Designer</em></p><p>P.S. Have questions? Feel free to file an issue on GitHub - I explain how to do this <a href="/handbook/company/new-to-github#filing-an-issue">later in the article</a>!</p></blockquote>
 
 ## Key concepts
 
@@ -111,7 +111,7 @@ Near the bottom of a pull request page, you'll see a box like this:
 
 (Note: This box only appears if you're a member of the PostHog GitHub org - it's not available to the public.)
 
-You can click the _Details_ link on the line that says `netlify/posthog/deploy-preview` to see the preview.
+You can click the _Visit Preview_ link in the Vercel bot comment to see the preview.
 
 ### Merging changes
 
@@ -119,4 +119,4 @@ Once a team member approves your pull request, you (or they) can publish the cha
 
 ## Next steps
 
-This was a primer on using GitHub for communication at PostHog. If you’re interested in making more substantial changes to the website, you can follow our instructions on [how to develop the website.](https://posthog.com/handbook/engineering/posthog-com/developing-the-website) It can take a little work to get your computer set up to run the site from your computer, so don't hesitate to reach out for help if you get stuck – or don't even know where to begin. That's what we're here for!
+This was a primer on using GitHub for communication at PostHog. If you’re interested in making more substantial changes to the website, you can follow our instructions on [how to develop the website.](/handbook/engineering/posthog-com/developing-the-website) It can take a little work to get your computer set up to run the site from your computer, so don't hesitate to reach out for help if you get stuck – or don't even know where to begin. That's what we're here for!

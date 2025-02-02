@@ -1,14 +1,16 @@
 ---
 date: 2021-06-25
 title: A non-coder's thoughts on an 'Everybody Codes' culture
-author: ["joe-martin"]
-rootPage: /blog 
-sidebar: Blog 
-showTitle: true 
-hideAnchor: true 
-featuredImage: ../images/blog/non-coders-thoughts/non-coders-thoughts.jpg
+author:
+  - joe-martin
+rootPage: /blog
+sidebar: Blog
+showTitle: true
+hideAnchor: true
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/non-coders-thoughts/non-coders-thoughts.jpg
 featuredImageType: full
-categories: ["Inside PostHog", "Startups"]
+category: Inside PostHog
 ---
 
 One of PostHog’s core values is that everybody codes. That doesn’t mean everyone needs previous experience as a developer or engineer, but we encourage everyone to learn and practice the basics of shipping, no matter their role. 
@@ -40,5 +42,5 @@ I’ve made [many minor mistakes](https://github.com/PostHog/posthog.com/pull/14
 
 Ultimately, while I was initially nervous about the ‘everyone codes’ culture at PostHog, it hasn’t taken me long to start seeing benefits. As a team, we can move faster; and as individuals, we can have greater impact with less bureaucracy - as shown when I made [my first product update](https://github.com/PostHog/posthog/pull/4584) in only my second week.
 
-_Enjoyed this? Subscribe to our [newsletter](/newsletter) to hear more from us twice a month!_
+_Enjoyed this? Subscribe to our [newsletter](https://newsletter.posthog.com/subscribe/) to hear more from us twice a month!_
 

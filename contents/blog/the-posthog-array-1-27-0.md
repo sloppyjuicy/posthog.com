@@ -5,9 +5,16 @@ rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-categories: ["Release notes", "Product updates"]
-featuredImage: ../images/blog/array/1-27-0.png
-excerpt: PostHog 1.27.0 is here! Completely redesigned funnels experience will help you dive deeper to understand why your users aren't converting. Plus 400+ improvements & fixes.
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/array/1-27-0.png
+excerpt: >-
+  PostHog 1.27.0 is here! Completely redesigned funnels experience will help you
+  dive deeper to understand why your users aren't converting. Plus 400+
+  improvements & fixes.
+category: PostHog news
+tags:
+  - Product updates
+  - Release notes
 ---
 
 PostHog 1.27.0 is here! 
@@ -120,6 +127,11 @@ Welcome Chris Clark! Chris joined our Core Experience Team to help us level up o
 
 > I once impulse-purchased a baby goose.
 
+## Share your feedback
+We'd love to hear anything you have to say about PostHog, good or bad. As a thank you, we'll share some awesome [PostHog merch](https://merch.posthog.com).
+
+Want to get involved? [Email us to schedule a 30 minute call](mailto:hey@posthog.com) with one of our teams to help us make PostHog even better!
+
 ## Community Shoutouts
 
 We want to thank each and every community member that contributed to this release of PostHog!
@@ -151,6 +163,6 @@ Don't see a role for you? We're always looking for exceptional people, reach out
 
 <hr/>
 
-_Follow us on [Twitter](https://twitter.com/PostHog) or [LinkedIn](https://linkedin.com/company/posthog), and subscribe to our [newsletter](https://posthog.com/newsletter) for more posts on startups, growth, and analytics._
+_Enjoyed this? Subscribe to our [newsletter](https://newsletter.posthog.com/subscribe) to hear more from us twice a month!_
 
 <ArrayCTA />

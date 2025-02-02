@@ -1,30 +1,35 @@
 ---
 date: 2022-10-19
-title: "Building an open source data stack"
+title: Building an open source data stack
 rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-featuredImage: ../images/blog/posthog-company-culture-blog.png
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/posthog-company-culture-blog.png
 featuredImageType: full
-author: ["joe-martin"]
-categories: ["Open source", "Guides"]
+author:
+  - joe-martin
+category: General
+tags:
+  - Guides
+  - Open source
 ---
 
 At PostHog, we believe an open source approach doesn’t just lead to greater growth; it also leads to better products. That’s what inspired us to make our platform open source, to adopt [a transparent company culture](/careers), and also why we try to use open source software wherever we can in our stack. 
 
 We think the open source approach is best because it forces teams to be transparent, both in their decision making and also in their implementation. Then, because other teams have full visibility of the code, they can build on it and make it even better, faster and _stronger_. Often, they can do this for free.  
 
-Of course, PostHog isn’t the only open-source platform out there. In fact, there’s such variety that it’s possible to build an entirely open-source stack — and here are some of our favourite open source alternatives for engineers.
+Of course, PostHog isn’t the only [open-source analytics platform](/blog/best-open-source-analytics-tools) out there. In fact, there’s such variety that it’s possible to build an entirely open-source stack — and here are some of our favorite open source alternatives for engineers.
 
 > Not an engineer? Find other [open source alternatives on the PostHog blog](/blog/categories/open-source)!
 
 ## PostHog
 
-![PostHog - best open source analytics for engineers](../images/blog/gdpr-compliant-analytics/posthog-gdpr-compliant.png)
+![PostHog - best open source analytics for engineers](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/blog/gdpr-compliant-analytics/posthog-gdpr-compliant.png)
 
 - **Useful for:** Product analytics, session recording, feature flags<br/>
-- **Alternative to:** [Amplitude](/blog/posthog-vs-amplitude), [Mixpanel](/blog/why-i-ditched-google-analytics-for-posthog), [Matomo](/blog/posthog-vs-matomo)<br/>
+- **Alternative to:** [Amplitude](/blog/best-amplitude-alternatives), [Mixpanel](/blog/why-i-ditched-google-analytics-for-posthog), [Matomo](/blog/posthog-vs-matomo)<br/>
 - **License:** [MIT](https://en.wikipedia.org/wiki/MIT_License)<br/>
 
 Of course, [PostHog](https://posthog.com) may not be the _only_ open source software useful to engineers, but it’s our (completely biased) favorite. 
@@ -44,7 +49,7 @@ Unlike proprietary platforms such as Amplitude however, PostHog offers far more 
 
 ## Metabase
 
-![Metabase - open source data visualization for engineers](../images/blog/open-source-engineers/metabase-open-source.png)
+![Metabase - open source data visualization for engineers](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/blog/open-source-engineers/metabase-open-source.png)
 
 - **Useful for:** Data visualization, business intelligence<br/>
 - **Alternative to:** Looker, Tableau, PowerBI<br/>
@@ -62,7 +67,7 @@ What makes Metabase so essential is that, like PostHog, you can accomplish a hug
 
 ## RudderStack
 
-![Rudderstack - open source data pipeline for engineers](../images/blog/open-source-engineers/rudderstack-open-source.png)
+![Rudderstack - open source data pipeline for engineers](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/blog/open-source-engineers/rudderstack-open-source.png)
 
 - **Useful for:** CDP, Data pipeline<br/>
 - **Alternative to:** Segment, Tealium <br/>
@@ -82,7 +87,7 @@ RudderStack is perfect for teams which are concerned with regulatory compliance,
 
 ## NocoDB
 
-![NocoDB - open source database collaboration for engineers](../images/blog/open-source-engineers/nocodb-open-source.png)
+![NocoDB - open source database collaboration for engineers](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/blog/open-source-engineers/nocodb-open-source.png)
 
 - **Useful for:** Database collaboration<br/>
 - **Alternative to:** Airtable, Postgres <br/>
@@ -101,7 +106,7 @@ If you are comfortable with code however, NocoDB has a few advanced features up 
 
 ## n8n
 
-![n8n - open source automation for engineers](../images/blog/open-source-engineers/n8n-open-source.png)
+![n8n - open source automation for engineers](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/blog/open-source-engineers/n8n-open-source.png)
 
 - **Useful for:** Workflow automation, connecting services<br/>
 - **Alternative to:** Zapier, node-red <br/>
@@ -122,7 +127,7 @@ As with most open-source solutions, n8n can be self-hosted if you need to keep s
 
 ## Netdata
 
-![Netdata - open source monitoring service for engineers](../images/blog/open-source-engineers/netdata-open-source.png)
+![Netdata - open source monitoring service for engineers](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/blog/open-source-engineers/netdata-open-source.png)
 
 - **Useful for:** System monitoring <br/>
 - **Alternative to:** Datadog, Newrelic <br/>
@@ -140,7 +145,7 @@ Going beyond this, Netdata also offers more advanced anomaly detection issues fo
 
 ## ClickHouse
 
-![ClickHouse - open source database for engineers](../images/blog/open-source-engineers/clickhouse-open-source.png)
+![ClickHouse - open source database for engineers](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/blog/open-source-engineers/clickhouse-open-source.png)
 
 - **Useful for:** Database management, powering PostHog<br/>
 - **Alternative to:** Redshift, Bigquery, Snowflake<br/>
@@ -157,4 +162,4 @@ ClickHouse is a database system which is so quick that it’s an order of magnit
 - Columnar database structure; easily scales
 - Deployed with a single binary; no need for multiple layers
 
-<ArrayCTA />
+<NewsletterForm />

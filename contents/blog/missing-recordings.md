@@ -5,10 +5,12 @@ rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-featuredImage: ../images/blog/posthog-engineering-blog.png
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/posthog-engineering-blog.png
 featuredImageType: full
-author: ["rick-marron"]
-categories: ["Engineering", "Inside PostHog"]
+author:
+  - rick-marron
+category: Engineering
 ---
 
 [Session Recording](/product/session-recording) is one of PostHog's core features, and one of the few completely [open source ression replay tools](/blog/best-open-source-session-replay-tools) available. It allows you to see how real users use your website, mouse clicks and all. It's really cool and addictive (give it a try and you'll see what I mean).
@@ -24,7 +26,7 @@ But there was one fix that stood out in this quality push. Customers would often
 
 This is the story of how we decreased the number of missing recordings from 15% to <1%, and in doing so, moved the feature out of beta.
 
->[Rick Marron](/handbook/company/team#rick-marron-software-engineer) is a software engineer at PostHog. In previous lives Rick was a Program Manager at Microsoft, and he spent over a year in Nairobi, Kenya where he developed the first publicly available real-time source for traffic data in the city using computer vision and street cameras. He's a native of Rochester, New York but lives in Los Angeles now because... sunshine. Follow him [on Twitter](https://twitter.com/rick_marron) and [Github](https://github.com/rcmarron). 
+>Rick Marron is a software engineer at PostHog. In previous lives Rick was a Program Manager at Microsoft, and he spent over a year in Nairobi, Kenya where he developed the first publicly available real-time source for traffic data in the city using computer vision and street cameras. He's a native of Rochester, New York but lives in Los Angeles now because... sunshine. Follow him [on Twitter](https://twitter.com/rick_marron) and [Github](https://github.com/rcmarron). 
 
 ## Measuring the issue
 
@@ -79,7 +81,7 @@ With this knowledge in mind, we started looking into why we were receiving mutat
 
 Presumably, if the mutations were being sent up, the snapshot code must've already run. The mutations depend entirely on the snapshot existing in memory, so it didn't make sense that there was no full snapshot.
 
-After a day or so of pounding our heads on the keyboard, we realized that most of the missing recording cases were on single page applications. With this clue in mind, and knowing that RRWeb takes a full-snapshot on page load, it didn't take long to realize the cause. 
+After a day or so of pounding our heads on the keyboard, we realized that most of the missing recording cases were on single-page applications. With this clue in mind, and knowing that RRWeb takes a full-snapshot on page load, it didn't take long to realize the cause. 
 
 We were splitting recordings when a user was inactive for 30 minutes (so users don't see a 10-hour long recording). But when the split happened, we were not taking a new full snapshot.
 
@@ -99,5 +101,6 @@ As for the remaining <1% of recordings that are missing, we're still working on 
 
 Read our [Sessions Recordings documentation](/docs/user-guides/recordings) for more detailed information about the feature, or you can [make an account for free](https://posthog.com/pricing) to try it out yourself!
 
-_Enjoyed this? Subscribe to our [newsletter](/newsletter) to hear more from us twice a month!_
+<NewsletterForm />
+
 

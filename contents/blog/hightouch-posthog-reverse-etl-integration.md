@@ -5,10 +5,14 @@ rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-featuredImage: ../images/blog/posthog-array-blog.png
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/posthog-array-blog.png
 featuredImageType: full
-author: ["andy-vandervell"]
-categories: ["Product updates"]
+author:
+  - andy-vandervell
+category: PostHog news
+tags:
+  - Product updates
 ---
 
 We're delighted to announce that [Hightouch](https://hightouch.io/) has released an integration with PostHog so you can sync modeled data from your data warehouse into PostHog.
@@ -21,7 +25,7 @@ Hightouch is an alternative to Customer Data Platforms (CDP) like Segment, thoug
 
 Because it makes your data warehouse the single source of truth, ensuring all your tools are using the same up-to-date data. It effectively turns your data warehouse into a CDP, removing the need for a third-party platform that owns your data or introduces latency into your data pipeline.
 
-It's worth pointing out that you can send customer data directly to PostHog from CDPs to like [Rudderstack](/docs/integrate/third-party/rudderstack) and [Segment](/docs/integrate/third-party/segment) with [existing PostHog integrations](/integrations). However, CDPs will send raw data, whereas a reverse ETL from your data warehouse gives data scientists the opportunity to model data before it's synced. 
+It's worth pointing out that you can send customer data directly to PostHog from CDPs to like [Rudderstack](/docs/libraries/rudderstack) and [Segment](/docs/libraries/segment) with [existing PostHog integrations](/integrations). However, CDPs will send raw data, whereas a reverse ETL from your data warehouse gives data scientists the opportunity to model data before it's synced. 
 
 Ultimately, the pros and cons of CDPs vs data warehouses is an article in itself, but the most useful thing to know is that, in most organizations, a data warehouse will be owned by a data science team, whereas a marketing team will own a CDP.
 
@@ -49,7 +53,7 @@ You can read more about Hightouch's PostHog integration [in its documentation](h
 
 Let's say your marketing team uses a CRM. It's syncing customer data into your data warehouse, such as names, email addresses, how they found your product, job title, pricing information and organization data. This is all contextual data you can use in PostHog.
 
-Once this data is synced into 'Persons' in PostHog, you can [create Cohorts](/tutorials/cohorts) of users with this additional data. You could, for example, create Cohorts based on:
+Once this data is synced into 'Persons' in PostHog, you can create Cohorts of users with this additional data. You could, for example, create Cohorts based on:
 
 - Users who are on a particular payment plan or product tier
 - Users from the same company
@@ -75,8 +79,6 @@ PostHog is open source and we love it when people contribute to making the produ
 
 We also recently ran a [PostHog App Bounty](https://github.com/PostHog/posthog/issues/8437) for a few specific apps we'd like have on PostHog. All current bounties have been assigned, but we're always open to suggestions.
 
-Whether you have an idea for an app or just need some help, please [join our community Slack channel](/slack) to get involved.
+Whether you have an idea for an app or just need some help, please [let us know](https://app.posthog.com/home#supportModal) if you'd like to get involved.
 
-> PostHog is an open source analytics platform you can host yourself. We help you build better products faster, without user data ever leaving your infrastructure.
-
-<ArrayCTA />
+<NewsletterForm />

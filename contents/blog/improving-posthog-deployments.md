@@ -1,14 +1,20 @@
 ---
 date: 2022-03-22
-title: "How we’re making PostHog deployments easier"
+title: How we’re making PostHog deployments easier
 rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-featuredImage: ../images/blog/simpler-self-deployments.png
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/simpler-self-deployments.png
 featuredImageType: full
-categories: ["Engineering", "Product updates", "Launch week"]
-author: ["harry-waye", "guido-iaquinti"]
+author:
+  - harry-waye
+  - guido-iaquinti
+category: Engineering
+tags:
+  - Product updates
+  - Launch week
 ---
 
 When PostHog was born in 2020, it was a simple Python application (Django + Celery) backed by a PostgreSQL datastore. Troubleshooting was easy, while the low barrier of entry meant fast adoption and more feedback on where to take the product.
@@ -105,9 +111,9 @@ To simplify this task for our self-hosting users, we’ve improved the built-in 
 
 We create new templated dashboards when we identify better metrics to monitor, and techniques to debug an installation, and make them available to everyone in the next release.
 
-![PostHog - built-in PostgreSQL dashboard](../images/blog/improving-posthog-deployments/postgresql.png)
+![PostHog - built-in PostgreSQL dashboard](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/blog/improving-posthog-deployments/postgresql.png)
 
-![PostHog - built-in Redis dashboard](../images/blog/improving-posthog-deployments/redis.png)
+![PostHog - built-in Redis dashboard](https://res.cloudinary.com/dmukukwp6/image/upload/v1710055416/posthog.com/contents/images/blog/improving-posthog-deployments/redis.png)
 
 Thanks to this work, you can now get critical insights about the majority of PostHog services by simply enabling the monitoring features in the Helm chart. You can read more about these in our [chart configuration docs](https://posthog.com/docs/self-host/deploy/configuration).
 
@@ -123,7 +129,7 @@ Improving deployments for PostHog Cloud and our self-hosting customers is an eff
 
 If you enjoyed reading this look at improving PostHog deployments, we recommend reading Karl's deep dive into the [secrets of PostHog query performance](/blog/secrets-of-posthog-query-performance).
 
-> Interested on chatting about those topics? Send us an email: [harry@posthog.com](mailto:harry@posthog), [guido@posthog.com](mailto:guido@posthog), or [join our community Slack](/slack).
+> Interested on chatting about those topics? [Get in touch with our teams!](https://app.posthog.com/home#supportModal)
 
-_Enjoyed this? Subscribe to our [newsletter](/newsletter) to hear more from us twice a month!_
+<NewsletterForm />
 

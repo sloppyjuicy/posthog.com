@@ -1,14 +1,16 @@
 ---
 date: 2022-02-15
-title: HostHogs - free drinks, free pizza and frequently asked questions
+title: 'HostHogs - free drinks, free pizza and frequently asked questions'
 rootPage: /blog
 sidebar: Blog
 showTitle: true
 hideAnchor: true
-author: ["joe-martin"]
-featuredImage: ../images/blog/hosthog-banner.png
+author:
+  - joe-martin
+featuredImage: >-
+  https://res.cloudinary.com/dmukukwp6/image/upload/posthog.com/contents/images/blog/hosthog-banner.png
 featuredImageType: standard
-categories: ["Inside PostHog"]
+category: PostHog news
 ---
 
 As you may have heard, we’ll soon host our first ever meet-up for anyone who uses or is interested in finding out more about PostHog. It’ll take place in London, on February 24th — [we’d love for you to join us](https://www.eventbrite.com/e/hosthog-london-2022-tickets-259372428917). 
@@ -35,7 +37,7 @@ There’s no dress code, but we will expect everyone to adhere to [our standard 
 
 ## I don’t live in London. Where will the next HostHog be?
 
-We definitely plan to host more events in the future, but we don’t yet know when or where they will be. If you’d like to suggest a location, or have any other feedback then just let us know in [the PostHog Slack group](/slack). 
+We definitely plan to host more events in the future, but we don’t yet know when or where they will be. If you’d like to suggest a location, or have any other feedback then just let us know in [our community page](/posts). 
 
 ## Do I need to RSVP?
 
@@ -43,7 +45,7 @@ This is a free event with limited capacity, so we very strongly encourage that y
 
 ## Did you say free drinks and pizza?
 
-Yes! The offers a great selection of beers, wines and cocktails, as well as non-alcoholic options and tasty food. We can’t guarantee we can accommodate for any allergies or intolerances, but let us know in [the community Slack](/slack) and we’ll try our best.
+Yes! The offers a great selection of beers, wines and cocktails, as well as non-alcoholic options and tasty food. We can’t guarantee we can accommodate for any allergies or intolerances, but let us know in [our community page](/posts) and we’ll try our best.
 
 ## I have another question...
 

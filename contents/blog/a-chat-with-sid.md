@@ -4,9 +4,10 @@ title: The Early Days of GitLab - A Chat with Sid Sijbrandij
 rootPage: /blog
 sidebar: Blog
 showTitle: true
-author: ["james-hawkins"]
+author:
+  - james-hawkins
 hideAnchor: true
-categories: ["Open source"]
+category: Startups
 ---
 
 It gets pretty easy to idolize the superstars of tech. One of the coolest things we've learned is that many of the most successful founders will find time to talk with you. To put this in context, GitLab is one of the world's leading open core companies, worth $2.75B. Kind of a big deal. We wanted to learn even more than we could discern from their handbook.
@@ -92,6 +93,6 @@ Sid summed up the call perfectly - "don't ask so much about what I did, but ask 
 
 We shouldn't follow blindly how GitLab worked, but getting a good sense of what they learned is powerful. The real takeaway from GitLab overall is that the product isn't the software… it's the company.
 
-_Enjoyed this? Subscribe to our [newsletter](/newsletter) to hear more from us twice a month!_
+_Enjoyed this? Subscribe to our [newsletter](https://newsletter.posthog.com/subscribe) to hear more from us twice a month!_
 
 

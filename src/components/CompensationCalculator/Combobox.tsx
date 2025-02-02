@@ -5,6 +5,7 @@ import { classNames } from 'lib/utils'
 
 type ComboboxProps = {
     label?: string
+    hideLabel?: boolean
     placeholder?: string
     options: any[]
     value: any | undefined
@@ -21,8 +22,8 @@ export const Combobox = (props: ComboboxProps) => {
         query === ''
             ? props.options
             : props.options.filter((option) =>
-                  option.toLowerCase().replace(/\s+/g, '').includes(query.replace(/\s+/g, '').toLowerCase())
-              )
+                option.toLowerCase().replace(/\s+/g, '').includes(query.replace(/\s+/g, '').toLowerCase())
+            )
 
     const currentValue = props.display ? props.display(props.value) : props.value
 
@@ -39,7 +40,7 @@ export const Combobox = (props: ComboboxProps) => {
         >
             {({ open }) => (
                 <>
-                    {props.label && <HeadlessCombobox.Label className="text-sm">{props.label}</HeadlessCombobox.Label>}
+                    {props.label && <HeadlessCombobox.Label className={`text-sm ${props.hideLabel ? 'sr-only' : ''}`}>{props.label}</HeadlessCombobox.Label>}
                     <HeadlessCombobox.Button
                         as="div"
                         className="flex items-center relative w-full focus:outline-none shadow-sm mt-1.5"
@@ -57,9 +58,8 @@ export const Combobox = (props: ComboboxProps) => {
                             onChange={(event) => setQuery(event.target.value)}
                             displayValue={props.display}
                             placeholder={currentValue || props.placeholder || 'Select a value'}
-                            className={`relative block w-full text-left bg-white dark:bg-gray-accent-dark px-2.5 py-1.5 rounded border border-black/10 text-sm select-none focus-visible:outline-none focus:ring-1 focus:ring-orange focus:border-orange placeholder:text-gray-600 ${
-                                focused ? '' : 'cursor-pointer'
-                            }`}
+                            className={`relative block w-full text-left bg-white dark:bg-accent-dark px-2.5 py-1.5 rounded border border-black/10 dark:border-dark text-sm select-none focus-visible:outline-none focus:ring-1 focus:ring-orange focus:border-orange placeholder:text-primary/50 dark:placeholder:text-primary-dark/50 ${focused ? '' : 'cursor-pointer'
+                                }`}
                         />
 
                         <span className="ml-3 absolute right-0 pr-2 pointer-events-none">
@@ -79,7 +79,7 @@ export const Combobox = (props: ComboboxProps) => {
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <HeadlessCombobox.Options className="absolute top-full mt-1 w-full bg-white dark:bg-gray-accent-dark rounded p-0 z-50 text-sm max-h-[12rem] overflow-y-scroll py-1 focus:outline-none space-y-1 shadow-xl border border-black/10">
+                        <HeadlessCombobox.Options className="absolute top-full mt-1 w-full bg-white dark:bg-gray-accent-dark rounded p-0 z-[50] text-sm max-h-[12rem] overflow-y-scroll py-1 focus:outline-none space-y-1 shadow-xl border border-black/10">
                             {filteredOptions.length === 0 && query !== '' ? (
                                 <div className="px-2.5 py-1 text-sm text-gray">No results</div>
                             ) : (

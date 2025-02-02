@@ -1,3 +1,4 @@
+import usePostHog from '../../hooks/usePostHog'
 import { useEffect, useState } from 'react'
 
 /**
@@ -10,7 +11,8 @@ import { useEffect, useState } from 'react'
 
 export const RenderInClient = ({
     placeholder = null,
-    children,
+    waitForFlags = true,
+    render,
 }: {
     /**
      * A component to show initially, which will later be replaced by the
@@ -18,17 +20,38 @@ export const RenderInClient = ({
      * you can approximately match the final component shape with some placeholder
      */
     placeholder?: JSX.Element | null
-    children: JSX.Element
+    render: () => JSX.Element
+    waitForFlags?: boolean
 }): JSX.Element | null => {
+    if (process.env.WAIT_FOR_FLAGS === '0') {
+        waitForFlags = false
+    }
+    const posthog = usePostHog()
     const [hasMounted, setHasMounted] = useState(false)
+    const [hasFlags, setHasFlags] = useState(false)
+    const [flagsUnavailable, setFlagsUnavailable] = useState(false)
 
     useEffect(() => {
         setHasMounted(true)
+        posthog?.onFeatureFlags(() => {
+            setHasFlags(true)
+        })
+    }, [posthog])
+
+    // check after 5 seconds to see if we have flags yet. if not, likely blocked by
+    // adblocker or some other issue. Render the component, which should show the
+    // default variant.
+    useEffect(() => {
+        setTimeout(() => {
+            if (!hasFlags) {
+                setFlagsUnavailable(true)
+            }
+        }, 5000)
     }, [])
 
-    if (!hasMounted) {
+    if (!hasMounted || (waitForFlags && !hasFlags && !flagsUnavailable)) {
         return placeholder
     }
 
-    return children
+    return render()
 }

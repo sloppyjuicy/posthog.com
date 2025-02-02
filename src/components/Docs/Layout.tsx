@@ -12,11 +12,12 @@ import SectionLinks, { SectionLinksProps } from 'components/SectionLinks'
 import StickySidebar from './StickySidebar'
 import { Blockquote } from 'components/BlockQuote'
 import { MdxCodeBlock } from 'components/CodeBlock'
+import { OverflowXSection } from 'components/OverflowXSection'
 import CommunityQuestions from 'components/CommunityQuestions'
 import { Heading } from 'components/Heading'
 import { push as Menu } from 'react-burger-menu'
 import { InlineCode } from 'components/InlineCode'
-import Team from 'components/Team'
+import Team from 'components/People'
 import TestimonialsTable from 'components/TestimonialsTable'
 import { ZoomImage } from 'components/ZoomImage'
 import Layout from 'components/Layout'
@@ -38,7 +39,7 @@ const Iframe = (props: React.IframeHTMLAttributes<HTMLIFrameElement>) => {
 const SectionLinksBottom = ({ previous, next }: SectionLinksProps) => {
     return (
         <>
-            <hr className="w-[calc(100vw-2rem)] m-0 bg-transparent border-t border-r-0 border-l-0 border-b-0 border-dashed border-gray-accent-light dark:border-gray-accent-dark" />
+            <hr className="w-[calc(100vw-2rem)] m-0 bg-transparent" />
             <SectionLinks
                 className="mb-16 2xl:max-w-[800px] xl:max-w-[650px] max-w-full mx-auto mt-9"
                 previous={previous}
@@ -111,14 +112,6 @@ export default function DocsLayout({
         TestimonialsTable,
         ...shortcodes,
     }
-
-    const { hash } = useLocation()
-
-    React.useEffect(() => {
-        if (hash) {
-            scroll.scrollMore(-50)
-        }
-    }, [])
 
     const showToc = !hideAnchor && tableOfContents?.length > 0
     const mainEl = React.useRef(null)

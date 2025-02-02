@@ -1,6 +1,6 @@
 import { GatsbyNode } from 'gatsby'
 
-export const createResolvers: GatsbyNode['createResolvers'] = ({ createResolvers }) => {
+export const createResolvers: GatsbyNode['createResolvers'] = ({ createResolvers, getNodeAndSavePathDependency }) => {
     const resolvers = {
         Contributors: {
             teamData: {
@@ -23,22 +23,42 @@ export const createResolvers: GatsbyNode['createResolvers'] = ({ createResolvers
                 },
             },
         },
-        Reply: {
-            teamMember: {
-                type: `Mdx`,
-                resolve: async (source, args, context, info) => {
-                    const team = context.nodeModel.runQuery({
-                        type: `Mdx`,
-                        query: {
-                            filter: {
-                                frontmatter: { name: { eq: source?.fullName } },
-                                fields: { slug: { regex: '/^/team/' } },
+        File: {
+            category: {
+                type: 'String',
+                resolve: async (source) => {
+                    const folder = source.relativePath.split('/')[0]
+                    const category = (folder.charAt(0).toUpperCase() + folder.slice(1)).replaceAll('-', ' ')
+                    return category
+                },
+            },
+        },
+        ShopifyProduct: {
+            imageProducts: {
+                type: ['ShopifyProduct'],
+                resolve(source, args, context, info) {
+                    const metafields = source.metafields
+                    let productIds = []
+
+                    for (const metafield of metafields) {
+                        if (metafield.key === 'image_products') {
+                            productIds = productIds.concat(JSON.parse(metafield.value))
+                        }
+                    }
+
+                    return productIds.map((shopifyId) => {
+                        return context.nodeModel.runQuery({
+                            query: {
+                                filter: {
+                                    shopifyId: {
+                                        eq: shopifyId,
+                                    },
+                                },
                             },
-                        },
-                        firstOnly: true,
+                            type: 'ShopifyProduct',
+                            firstOnly: true,
+                        })
                     })
-                    const teamMember = await team
-                    return teamMember
                 },
             },
         },
